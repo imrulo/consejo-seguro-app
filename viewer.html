@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsejoSeguro - Paquete de Confianza</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#007BFF">
+    <!-- Librería externa para QR, usaremos una versión ligera desde un CDN para el prototipo -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => console.log('SW registrado satisfactoriamente:', reg.scope))
+                    .catch(err => console.log('SW falló registro:', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <header class="doc-header">
+        <div class="logo">
+            <h1>ConsejoSeguro<span class="highlight">.com</span></h1>
+            <p class="subtitle">Asistente de Inmigración Verificado</p>
+        </div>
+        <div class="validity-badge">
+            <span class="label">VÁLIDO PARA HOY:</span>
+            <span id="current-date" class="date">Cargando...</span>
+        </div>
+    </header>
+
+    <main class="document-container">
+
+        <div class="procedure-title">
+            <h2 id="proc-title-es">Cargando Título...</h2>
+            <h3 id="proc-title-sr" class="sr-text">Učitavanje...</h3>
+        </div>
+
+        <div id="content-area" class="split-view">
+            <!-- El contenido dinámico se insertará aquí -->
+        </div>
+
+        <section class="verification-footer">
+            <div class="qr-area">
+                <div id="qrcode"></div>
+                <p>Escanear para verificar en <strong id="source-domain">mup.gov.rs</strong></p>
+            </div>
+            <div class="audit-trail">
+                <p><strong>Fuente Oficial:</strong> <span id="source-url">...</span></p>
+                <p><strong>Última Verificación del Sistema:</strong> <span id="last-verified">...</span></p>
+                <p class="disclaimer-sr">Ovaj dokument je informativnog karaktera i služi kao jezička pomoć. Nije zamena
+                    za zvanični pravni savet.</p>
+                <p class="disclaimer-es">Este documento es de carácter informativo y sirve como ayuda lingüística. No
+                    sustituye el asesoramiento legal oficial.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="fab-container">
+        <button onclick="window.print()" class="fab" title="Imprimir / Guardar PDF">
+            🖨️ / 💾
+        </button>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            <span>Inicio</span>
+        </a>
+        <a href="#" class="nav-item" onclick="alert('Próximamente: Favoritos')">
+            <span class="nav-icon">⭐</span>
+            <span>Marcadores</span>
+        </a>
+        <a href="#" class="nav-item" onclick="alert('Próximamente: Números de Emergencia')">
+            <span class="nav-icon">📞</span>
+            <span>S.O.S</span>
+        </a>
+    </nav>
+
+    <script src="assets/scripts.js"></script>
+</body>
+
+</html>

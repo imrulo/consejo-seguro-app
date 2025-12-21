@@ -1,0 +1,57 @@
+{
+    "meta": {
+        "id": "currency-exchange-banks",
+        "updated": "2024-12-20",
+        "source": "https://www.nbs.rs"
+    },
+    "title": {
+        "es": "Cambio de Moneda y Bancos",
+        "sr": "Menjačnica i Banke"
+    },
+    "who": "Inmigrantes que llegan con moneda extranjera (Euros, Dólares) o necesitan una cuenta bancaria local para cobrar sueldo o pagar servicios.",
+    "what": "Cambiar divisa a Dinares Serbios (RSD) y abrir una cuenta de pago básica para extranjeros.",
+    "where": {
+        "name": "Menjačnica (Casas de Cambio) y Bancos oficiales",
+        "note": "Las 'Menjačnica' son muy comunes en las calles. Los bancos principales son Alta Banka, Mobi Banka, NLB Komercijalna.",
+        "map_link": "https://www.google.com/maps/search/Menjacnica+Belgrade"
+    },
+    "how": [
+        "Para cambiar dinero, busca una 'Menjačnica'. Revisa el tipo de cambio en el cartel (NBS official es la referencia).",
+        "No necesitas pasaporte para cambios pequeños, pero sí para montos grandes.",
+        "Para abrir una cuenta: Ve a un banco que acepte no-residentes (ej. Alta Banka o Mobi Banka).",
+        "Solicita una 'Basic Payment Account' (Platni račun sa osnovnim uslugama)."
+    ],
+    "documents": [
+        {
+            "name": "Pasaporte",
+            "note": "Original y vigente"
+        },
+        {
+            "name": "Beli Karton",
+            "note": "Indispensable para trámites bancarios"
+        },
+        {
+            "name": "Número de teléfono serbio",
+            "note": "Para la banca móvil"
+        }
+    ],
+    "phrases": [
+        {
+            "es": "¿A cuánto está el Euro hoy?",
+            "sr": "Koliki je kurs evra danas?"
+        },
+        {
+            "es": "Quiero cambiar cien euros.",
+            "sr": "Želim da promenim sto evra."
+        },
+        {
+            "es": "Quiero abrir una cuenta bancaria.",
+            "sr": "Želim da otvorim račun u banci."
+        }
+    ],
+    "tips": [
+        "Evita cambiar dinero en el aeropuerto o estaciones de tren (peor cambio).",
+        "El tipo de cambio oficial está siempre cerca de 117 RSD por 1 EUR.",
+        "Mobi Banka es muy popular entre extranjeros por su app totalmente digital y soporte en inglés."
+    ]
+}

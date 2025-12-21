@@ -1,0 +1,53 @@
+{
+    "meta": {
+        "id": "sim-card-tourist",
+        "updated": "2024-06-01",
+        "source": "https://www.yettel.rs"
+    },
+    "title": {
+        "es": "Tarjeta SIM Turística",
+        "sr": "Turistička SIM Kartica"
+    },
+    "who": "Turistas o recién llegados que necesitan internet móvil inmediato y no tienen contrato post-pago.",
+    "what": "Comprar un chip prepago con un paquete de datos para turistas (normalmente 10-20GB por 7-15 días).",
+    "where": {
+        "name": "Kioskos (Moj Kiosk) o Tiendas de Operadoras",
+        "note": "Yettel, MTS, A1 tienen tiendas en el centro y centros comerciales.",
+        "map_link": "https://www.google.com/maps/search/Yettel+MTS+A1+Store"
+    },
+    "how": [
+        "Ubica un kiosco 'Moj Kiosk' o una tienda oficial de operadora.",
+        "Pide una 'Tourist SIM' o 'Prepaid Internet SIM'.",
+        "Entrega tu pasaporte para el registro obligatorio.",
+        "Pide que te la activen ahí mismo antes de irte."
+    ],
+    "documents": [
+        {
+            "name": "Pasaporte",
+            "note": "Obligatorio para el registro legal"
+        },
+        {
+            "name": "Dinero en efectivo",
+            "note": "~1000 RSD (Recomendado tener cambio)"
+        }
+    ],
+    "phrases": [
+        {
+            "es": "Quiero una tarjeta SIM para internet.",
+            "sr": "Želim SIM karticu za internet."
+        },
+        {
+            "es": "¿Cuánto cuesta el paquete de turista?",
+            "sr": "Koliko košta turistički paket?"
+        },
+        {
+            "es": "¿Pueden activarla por mí?",
+            "sr": "Možete li da je aktivirate za mene?"
+        }
+    ],
+    "tips": [
+        "El WiFi público en Serbia es común, pero una SIM propia es vital para Mapas y Taxi.",
+        "Yettel suele tener la mejor cobertura en zonas rurales, MTS es la estatal.",
+        "Guarda el marco de la tarjeta donde viene el PIN/PUK."
+    ]
+}

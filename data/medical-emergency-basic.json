@@ -1,0 +1,57 @@
+{
+    "meta": {
+        "id": "medical-emergency-basic",
+        "updated": "2024-12-20",
+        "source": "https://www.zdravlje.gov.rs"
+    },
+    "title": {
+        "es": "Emergencia Médica y Salud Básica",
+        "sr": "Hitna Pomoć i Dom Zdravlja"
+    },
+    "who": "Inmigrantes que necesitan atención médica urgente o quieran registrarse en un centro de salud local.",
+    "what": "Acceder a servicios de urgencias (Hitna Pomoć) o registrarse en el 'Dom Zdravlja' de su municipio.",
+    "where": {
+        "name": "Dom Zdravlja (Centro de Salud Municipal)",
+        "note": "Cada municipio (Stari Grad, New Belgrade, etc.) tiene el suyo propio.",
+        "map_link": "https://www.google.com/maps/search/Dom+Zdravlja"
+    },
+    "how": [
+        "En caso de riesgo vital, llama al 194 (Urgencias).",
+        "Para consultas no urgentes, ve al Dom Zdravlja donde estás registrado con tu Beli Karton.",
+        "Presenta tu seguro médico (privado o estatal) y pasaporte en recepción.",
+        "Si no tienes seguro, tendrás que pagar la consulta en la caja (pide recibo)."
+    ],
+    "documents": [
+        {
+            "name": "Pasaporte",
+            "note": "Siempre necesario"
+        },
+        {
+            "name": "Beli Karton",
+            "note": "Prueba de residencia municipal"
+        },
+        {
+            "name": "Seguro Médico",
+            "note": "Póliza física o digital"
+        }
+    ],
+    "phrases": [
+        {
+            "es": "Necesito un médico urgentemente.",
+            "sr": "Hitno mi treba doktor."
+        },
+        {
+            "es": "Me duele aquí.",
+            "sr": "Boli me ovde."
+        },
+        {
+            "es": "¿Dónde está la farmacia de guardia?",
+            "sr": "Gde je dežurna apoteka?"
+        }
+    ],
+    "tips": [
+        "El número de emergencias médicas en Serbia es 194.",
+        "Las farmacias de guardia (24h) suelen tener una luz roja encendida.",
+        "Si usas seguro privado, llama primero a su número de asistencia para que te dirijan a una clínica específica."
+    ]
+}

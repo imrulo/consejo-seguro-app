@@ -1,0 +1,53 @@
+{
+    "meta": {
+        "id": "public-transport-belgrade",
+        "updated": "2024-12-20",
+        "source": "https://beogradplus.rs"
+    },
+    "title": {
+        "es": "Transporte Público (Beograd Plus)",
+        "sr": "Javni Prevoz (Beograd Plus)"
+    },
+    "who": "Cualquier persona que necesite usar bus, tranvía o trolebús en Belgrado.",
+    "what": "Pagar el ticket de transporte mediante SMS o la App oficial. El sistema es 'Beograd Plus'. No se paga en efectivo al conductor.",
+    "where": {
+        "name": "Toda la red de GSP Belgrado",
+        "note": "Zonas A, B y C cubren toda la ciudad.",
+        "map_link": "https://www.google.com/maps/search/Beograd+Plus+Ticket+Point"
+    },
+    "how": [
+        "Identifica tu zona (Zona A es el centro expandido).",
+        "Envía un SMS al número 9011 con el texto de tu ticket (ej. 'A90' para 90 min en Zona A).",
+        "Recibirás un SMS de confirmación. Debes guardarlo hasta bajar del transporte.",
+        "También puedes descargar la App 'Beograd Plus' y pagar con tarjeta."
+    ],
+    "documents": [
+        {
+            "name": "Teléfono Móvil",
+            "note": "Con crédito o tarjeta vinculada en App"
+        },
+        {
+            "name": "SMS de confirmación",
+            "note": "Es tu único comprobante legal"
+        }
+    ],
+    "phrases": [
+        {
+            "es": "¿Este bus va hacia el centro?",
+            "sr": "Da li ovaj autobus ide do centra?"
+        },
+        {
+            "es": "Aquí tiene mi ticket (SMS).",
+            "sr": "Evo moje karte (SMS)."
+        },
+        {
+            "es": "¿Dónde puedo comprar una tarjeta física?",
+            "sr": "Gde mogu da kupim papirnu kartu?"
+        }
+    ],
+    "tips": [
+        "El ticket de 90 min cuesta 50 RSD. El de todo el día cuesta 120 RSD.",
+        "Los inspectores visten de civil a veces, pero llevan una máquina para leer el SMS.",
+        "Si envías el SMS mal, te cobrarán pero el ticket no será válido. Revisa el texto."
+    ]
+}

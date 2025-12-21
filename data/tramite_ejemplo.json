@@ -1,0 +1,61 @@
+{
+    "meta": {
+        "id": "beli-karton-registration",
+        "updated": "2024-05-20",
+        "source": "http://www.mup.gov.rs"
+    },
+    "title": {
+        "es": "Registro de Residencia (Beli Karton)",
+        "sr": "Prijava Boravišta Stranca"
+    },
+    "who": "Para todo extranjero que llega a Serbia y NO se aloja en un hotel (ej. Airbnb, casa de amigos). Si estás en hotel, ellos lo hacen por ti.",
+    "what": "Registrar tu dirección actual ante la policía local para obtener el certificado 'Bela Karta'. Es obligatorio hacerlo dentro de las primeras 24 horas de tu llegada.",
+    "where": {
+        "name": "Oficina de Policía para Extranjeros (MUP)",
+        "note": "Busca la comisaría de tu municipio (ej. Stari Grad, Vračar).",
+        "map_link": "https://www.google.com/maps/search/Police+Station+Serbia"
+    },
+    "how": [
+        "Compra el formulario 'Prijava boravišta stranca' en un kiosco o librería 'Službeni Glasnik'.",
+        "Ve a la policía con el dueño de la propiedad donde te alojas.",
+        "Presenten sus documentos (Tu pasaporte y el ID del dueño + Título de propiedad).",
+        "El oficial sellará el cartón blanco. ¡Guárdalo bien! Lo pedirán al salir del país."
+    ],
+    "documents": [
+        {
+            "name": "Pasaporte",
+            "note": "Vigente"
+        },
+        {
+            "name": "Dueño del lugar",
+            "note": "Debe estar presente físicamente"
+        },
+        {
+            "name": "ID del Dueño",
+            "note": "Lična karta"
+        },
+        {
+            "name": "Título de Propiedad",
+            "note": "Dokaz o vlasništvu (del dueño)"
+        }
+    ],
+    "phrases": [
+        {
+            "es": "Hola, necesito registrar mi residencia.",
+            "sr": "Dobar dan, treba mi prijava boravišta."
+        },
+        {
+            "es": "¿Dónde puedo comprar el formulario?",
+            "sr": "Gde mogu da kupim obrazac?"
+        },
+        {
+            "es": "Aquí está mi pasaporte y el dueño.",
+            "sr": "Ovo je moj pasoš i vlasnik stana."
+        }
+    ],
+    "tips": [
+        "Ve temprano (8:00 AM) para evitar filas largas.",
+        "Si el dueño no puede ir, necesitarás un poder notarial certificado, es más complicado.",
+        "El trámite es gratuito en la policía."
+    ]
+}

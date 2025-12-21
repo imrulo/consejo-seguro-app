@@ -1,0 +1,72 @@
+[
+    {
+        "id": "beli-karton-registration",
+        "title_es": "Registro de Residencia (Beli Karton)",
+        "category": "legal",
+        "icon": "📄",
+        "keywords": [
+            "residencia",
+            "policía",
+            "mup",
+            "blanco",
+            "registro"
+        ]
+    },
+    {
+        "id": "sim-card-tourist",
+        "title_es": "Tarjeta SIM Turística",
+        "category": "servicios",
+        "icon": "📱",
+        "keywords": [
+            "internet",
+            "chip",
+            "yettel",
+            "mts",
+            "a1",
+            "teléfono"
+        ]
+    },
+    {
+        "id": "public-transport-belgrade",
+        "title_es": "Transporte Público (Beograd Plus)",
+        "category": "servicios",
+        "icon": "🚌",
+        "description_es": "Cómo pagar bus y tranvía vía SMS o App.",
+        "keywords": [
+            "bus",
+            "tranvía",
+            "transporte",
+            "sms",
+            "beograd plus"
+        ]
+    },
+    {
+        "id": "medical-emergency-basic",
+        "title_es": "Emergencia Médica y Salud",
+        "category": "salud",
+        "icon": "🏥",
+        "description_es": "Números de emergencia y centros de salud.",
+        "keywords": [
+            "médico",
+            "hospital",
+            "urgencias",
+            "salud",
+            "farmacia"
+        ]
+    },
+    {
+        "id": "currency-exchange-banks",
+        "title_es": "Cambio de Moneda y Bancos",
+        "category": "finanzas",
+        "icon": "💰",
+        "description_es": "Dónde cambiar dinero y cómo abrir cuenta bancaria.",
+        "keywords": [
+            "dinero",
+            "banco",
+            "euros",
+            "cambio",
+            "menjacnica",
+            "tarjeta"
+        ]
+    }
+]
