@@ -149,6 +149,18 @@ const PREVENTIVE_ALERTS = {
             "text": "⚠️ Reserva con riesgo: No envíes dinero por Western Union o transferencia antes de ver el piso. Las estafas de alquiler son la pérdida de dinero #1 para inmigrantes.",
             "icon": "💸"
         }
+    ],
+    "admin_block": [
+        {
+            "id": "pa_rejection_panic",
+            "text": "🛑 No vuelvas hoy mismo: Si te rechazaron un trámite, no intentes 'suerte' en otra oficina el mismo día. Los sistemas están conectados y empeorarás el registro.",
+            "icon": "🤚"
+        },
+        {
+            "id": "pa_scam_lawyers",
+            "text": "⚖️ Cuidado con los 'gestores rápidos': Ante un bloqueo, aparecerán personas prometiendo soluciones mágicas en grupos. Un sello falso es deportación directa.",
+            "icon": "🚫"
+        }
     ]
 };
 
@@ -188,7 +200,7 @@ function handleStateConfirmation(stateId) {
     showPreventiveAlerts(stateId);
 
     // Show Safe Minimum Actions if configured
-    if (['just_arrived', 'legal_clock', 'work_survival', 'health_panic', 'housing_stability'].includes(stateId)) {
+    if (['just_arrived', 'legal_clock', 'work_survival', 'health_panic', 'housing_stability', 'admin_block'].includes(stateId)) {
         showSafeMinimumActions();
     }
 }
@@ -204,6 +216,7 @@ async function showSafeMinimumActions() {
     else if (stateId === 'work_survival') checklistFile = 'work-survival-checklist.json';
     else if (stateId === 'health_panic') checklistFile = 'health-panic-checklist.json';
     else if (stateId === 'housing_stability') checklistFile = 'housing-stability-checklist.json';
+    else if (stateId === 'admin_block') checklistFile = 'admin-block-checklist.json';
 
     try {
         const response = await fetch(`data/${checklistFile}`);

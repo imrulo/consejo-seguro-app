@@ -1,0 +1,32 @@
+{
+    "id": "admin_block_checklist",
+    "title": "Bloqueo Administrativo: Respira y Reagrupa",
+    "description": "Que un oficial te haya dicho que NO o que te falte un sello no es el fin del camino. Lo peligroso ahora es intentar 'arreglarlo' con prisas y empeorar tu situación legal.",
+    "steps": [
+        {
+            "id": "step_stop_panic",
+            "title": "Detén el impulso de volver hoy",
+            "action": "Si te rechazaron un documento, no entres en modo súplica ni busques otra oficina para intentar 'suerte' el mismo día. Los sistemas están conectados y podrías generar una alerta de fraude o desesperación que te marcará negativamente.",
+            "importance": "CRÍTICO",
+            "time_limit": "Inmediato"
+        },
+        {
+            "id": "step_official_reason",
+            "title": "Consigue el '¿Por qué?' escrito",
+            "action": "Intenta que el oficial te anote en un papel o te señale en el formulario exactamente qué falta. No te fíes de tu memoria bajo estrés. Si no te dan nada escrito, anótalo tú mismo apenas salgas de la oficina: nombre del oficial, hora y motivo exacto.",
+            "importance": "ALTA",
+            "time_limit": "Antes de salir"
+        },
+        {
+            "id": "step_no_bribes",
+            "title": "Cero 'atajos' peligrosos",
+            "action": "Bajo bloqueo, aparecerán 'gestores' en grupos de redes sociales prometiendo sellos rápidos por dinero. En Serbia, un sello falso es una deportación garantizada y prohibición de entrada de por vida. No rompas la cadena de legalidad por un momento de pánico.",
+            "importance": "MÁXIMA",
+            "time_limit": "Permanente"
+        }
+    ],
+    "closing_phrase": {
+        "title": "El tiempo legal se puede comprar.",
+        "text": "Casi todos los rechazos administrativos tienen un plazo de subsanación o una vía de apelación. No has perdido tu derecho a estar aquí por un trámite mal hecho. Ahora toca asesorarse con profesionales y volver con el doble de seguridad."
+    }
+}
