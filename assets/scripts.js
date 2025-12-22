@@ -48,13 +48,13 @@ const STATE_DEFINITIONS = {
         "proposal_text": "Parece que tienes dudas sobre cómo moverte por la ciudad. ¿Necesitas ayuda con el transporte?",
         "initial_procedures": ["public-transport-belgrade"]
     },
-    "housing_conflict": {
-        "id": "housing_conflict",
-        "label": "Conflicto de vivienda",
+    "housing_stability": {
+        "id": "housing_stability",
+        "label": "Vivienda / Estabilidad",
         "icon": "🏠",
-        "description": "Presión del casero, desalojo o problemas con depósito.",
-        "proposal_text": "Parece que tienes algún inconveniente con tu alojamiento o casero. ¿Es correcto?",
-        "initial_procedures": []
+        "description": "Buscando casa o estableciéndote en una nueva.",
+        "proposal_text": "¿Estás buscando piso o acabas de mudarte a uno nuevo?",
+        "initial_procedures": ["beli-karton-registration"]
     },
     "admin_block": {
         "id": "admin_block",
@@ -137,6 +137,18 @@ const PREVENTIVE_ALERTS = {
             "text": "💰 El salario 'en mano': Sin contrato, no hay garantía de cobro. Muchos inmigrantes pierden su primer mes de sueldo porque no tienen dónde reclamar.",
             "icon": "⚠️"
         }
+    ],
+    "housing_stability": [
+        {
+            "id": "pa_illegal_address",
+            "text": "🚫 El piso 'fantasma': Nunca aceptes un alquiler donde el dueño diga que no puede hacerte el Beli Karton. Es una señal de que el piso no es legal para vivir.",
+            "icon": "🏠"
+        },
+        {
+            "id": "pa_deposit_warning",
+            "text": "⚠️ Reserva con riesgo: No envíes dinero por Western Union o transferencia antes de ver el piso. Las estafas de alquiler son la pérdida de dinero #1 para inmigrantes.",
+            "icon": "💸"
+        }
     ]
 };
 
@@ -176,7 +188,7 @@ function handleStateConfirmation(stateId) {
     showPreventiveAlerts(stateId);
 
     // Show Safe Minimum Actions if configured
-    if (['just_arrived', 'legal_clock', 'work_survival', 'health_panic'].includes(stateId)) {
+    if (['just_arrived', 'legal_clock', 'work_survival', 'health_panic', 'housing_stability'].includes(stateId)) {
         showSafeMinimumActions();
     }
 }
@@ -191,6 +203,7 @@ async function showSafeMinimumActions() {
     if (stateId === 'legal_clock') checklistFile = 'legal-clock-checklist.json';
     else if (stateId === 'work_survival') checklistFile = 'work-survival-checklist.json';
     else if (stateId === 'health_panic') checklistFile = 'health-panic-checklist.json';
+    else if (stateId === 'housing_stability') checklistFile = 'housing-stability-checklist.json';
 
     try {
         const response = await fetch(`data/${checklistFile}`);

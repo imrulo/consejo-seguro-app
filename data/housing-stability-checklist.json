@@ -1,0 +1,32 @@
+{
+    "id": "housing_stability_checklist",
+    "title": "Vivienda y Estabilidad: Tu refugio seguro",
+    "description": "Tu casa en Serbia es más que un techo; es tu base legal. Un error aquí puede paralizar tu residencia por meses.",
+    "steps": [
+        {
+            "id": "step_beli_karton_litmus",
+            "title": "La prueba del Beli Karton",
+            "action": "Antes de pagar el depósito, pregunta: '¿Me puedes hacer el Beli Karton?'. Si el dueño duda o dice que no, NO ALQUILES. Sin ese registro no existes para el estado y no podrás pedir ninguna residencia legal.",
+            "importance": "CRÍTICO",
+            "time_limit": "Antes de pagar"
+        },
+        {
+            "id": "step_deposit_scam",
+            "title": "Protege tu depósito",
+            "action": "Es común en grupos de Facebook pedir depósitos por adelantado para 'reservar'. Nunca pagues sin ver el piso y tener las llaves. En Serbia, el depósito se entrega físicamente al firmar el contrato o recibir las llaves.",
+            "importance": "ALTA",
+            "time_limit": "Inmediato"
+        },
+        {
+            "id": "step_inventory_photos",
+            "title": "Fotos de inventario",
+            "action": "Al entrar, haz fotos de cada rincón, especialmente de daños previos (humedades, muebles rotos). Envíalas al dueño por WhatsApp el primer día para que quede constancia y no te lo descuenten del depósito al salir.",
+            "importance": "MEDIA",
+            "time_limit": "Primeras 24h"
+        }
+    ],
+    "closing_phrase": {
+        "title": "Un contrato es tu mejor aliado.",
+        "text": "Aunque en Serbia se use mucho el acuerdo verbal, tener un papel firmado (aunque sea simple) te protege ante subidas repentinas de precio o desalojos sin aviso. Tu estabilidad empieza por un contrato que respete tu derecho a vivir tranquilo."
+    }
+}
