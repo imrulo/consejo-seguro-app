@@ -660,6 +660,33 @@ function renderDocument(data) {
 
     let html = '';
 
+    // NEW: Guardian Critical Section (MANDATORY Standard)
+    if (data.guardian_critical) {
+        html += `
+        <div class="section-card guardian-critical-section">
+            <h4 class="guardian-header">🛡️ CAPA DE PROTECCIÓN CONSEJOSEGURO</h4>
+            <div class="warning-banner">
+                <p><strong>⚠️ ${data.guardian_critical.warning}</strong></p>
+            </div>
+            
+            <div class="risks-grid">
+                ${data.guardian_critical.invisible_risks.map(r => `
+                    <div class="risk-item">
+                        <h5>🔴 Riesgo Invisible: ${r.risk}</h5>
+                        <p>${r.prevention}</p>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="myths-section">
+                <h5>🚫 Mitos vs Realidad</h5>
+                <ul>
+                    ${data.guardian_critical.false_solutions.map(m => `<li>${m}</li>`).join('')}
+                </ul>
+            </div>
+        </div>`;
+    }
+
     // A. WHO & WHAT (Context Card)
     html += `
     <div class="section-card context-section">

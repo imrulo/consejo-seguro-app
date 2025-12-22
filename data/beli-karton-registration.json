@@ -1,0 +1,60 @@
+{
+    "meta": {
+        "id": "beli-karton-registration",
+        "updated": "2025-12-22",
+        "source": "http://www.mup.gov.rs"
+    },
+    "title": {
+        "es": "Registro de Residencia (Beli Karton)",
+        "sr": "Prijava Boravišta Stranca"
+    },
+    "guardian_critical": {
+        "warning": "Este no es solo un trámite de entrada, es tu seguro de salida.",
+        "invisible_risks": [
+            {
+                "risk": "Multa o prohibición de entrada al salir",
+                "prevention": "Sin este papel sellado, la policía de fronteras puede asumir que estuviste ilegal. Guárdalo como si fuera tu pasaporte."
+            },
+            {
+                "risk": "Ruptura de la cadena de residencia",
+                "prevention": "Si planeas pedir residencia (Boravak) más adelante, el primer documento que te pedirán es este. Un vacío de días aquí puede invalidar tu futura solicitud."
+            }
+        ],
+        "false_solutions": [
+            "El dueño dice que no hace falta (Mentira: lo dice para no registrar el alquiler ante el estado).",
+            "Con una foto en el móvil basta (Mentira: Serbia es un país de papel y sello físico)."
+        ]
+    },
+    "who": "Para todo extranjero que llega a Serbia y NO se aloja en un hotel (ej. Airbnb, casa de amigos, alquiler). Si estás en hotel, ellos tienen la obligación legal de hacerlo por ti.",
+    "what": "Obtener el certificado físico 'Bela Karta' que demuestra que la policía sabe dónde duermes.",
+    "where": {
+        "name": "Comisaría de Policía (MUP) del municipio donde vives",
+        "note": "Importante: Debe ser la comisaría de tu municipio exacto (ej. si vives en Vračar, no puedes ir a la de Stari Grad).",
+        "map_link": "https://www.google.com/maps/search/Police+Station+Belgrade"
+    },
+    "how": [
+        "Confirma con tu dueño/host que tiene el título de propiedad (Ugovor o kupoprodaji) o el ID chip leído.",
+        "Acuerden una hora para ir juntos a la comisaría (MUP) de su municipio.",
+        "Lleven el formulario 'Prijava boravišta stranca' (se compra en cualquier kiosko por pocos dinares).",
+        "El oficial sella el papel. Verifica que las fechas coincidan con tu entrada al país."
+    ],
+    "documents": [
+        {
+            "name": "Pasaporte",
+            "note": "Original con el sello de entrada legible"
+        },
+        {
+            "name": "Dueño de la propiedad",
+            "note": "Debe estar presente físicamente con su ID (Lična karta)"
+        },
+        {
+            "name": "Título de propiedad",
+            "note": "O prueba de que es el dueño legal"
+        }
+    ],
+    "tips": [
+        "Si usas Airbnb, envía un mensaje al host ANTES de reservar: 'I will need a Beli Karton registration'. Si duda, busca otro sitio.",
+        "Hazle una foto al papel apenas te lo den, pero conserva el original en un lugar seguro.",
+        "Es un trámite gratuito. Si alguien te pide dinero por el 'servicio', desconfía."
+    ]
+}

@@ -866,3 +866,97 @@ h3 {
         grid-template-columns: 1fr 1fr;
     }
 }
+
+/* --- GUARDIAN STANDARD PROCEDURE STYLES --- */
+.guardian-critical-section {
+    border: 2px solid var(--warning-red);
+    background-color: #fff5f5;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 8px 24px rgba(220, 53, 69, 0.1);
+}
+
+.guardian-header {
+    background: var(--warning-red);
+    color: white !important;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem !important;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem !important;
+    border-bottom: none !important;
+}
+
+.warning-banner {
+    background: #fff;
+    border-left: 4px solid var(--warning-red);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0 8px 8px 0;
+}
+
+.warning-banner p {
+    color: var(--warning-red);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.risks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.risk-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #fee2e2;
+}
+
+.risk-item h5 {
+    color: var(--warning-red);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.risk-item p {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.myths-section {
+    background: #FFF9C4;
+    /* Soft Yellow for awareness */
+    padding: 1.25rem;
+    border-radius: 12px;
+    border: 1px solid #FFF176;
+}
+
+.myths-section h5 {
+    color: #F57F17;
+    /* Dark Yellow/Orange */
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.myths-section ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.myths-section li {
+    font-size: 0.95rem;
+    color: #5D4037;
+    margin-bottom: 0.4rem;
+}
+
+@media (max-width: 600px) {
+    .risks-grid {
+        grid-template-columns: 1fr;
+    }
+}
