@@ -1,25 +1,25 @@
 {
     "id": "just_arrived_checklist",
-    "title": "Tus primeros 7 días: Acciones Mínimas Seguras",
+    "title": "Tus primeros pasos: Acciones Mínimas Seguras",
     "steps": [
         {
             "id": "step_beli",
             "title": "Beli Karton (Certificado de Residencia)",
-            "action": "Localiza al dueño de tu alojamiento y dile: 'Treba mi beli karton'. Deben ir a la policía juntos.",
+            "action": "Habla con el dueño de tu alojamiento con calma. Dile que necesitas el 'Beli Karton'. No te preocupes, ellos están acostumbrados; solo tienen que acompañarte un momento a la comisaría local para sellar tu estancia.",
             "importance": "CRÍTICO",
             "time_limit": "24 horas"
         },
         {
             "id": "step_sim",
             "title": "Conectividad (SIM Local)",
-            "action": "Busca un kiosko con logos de Yettel, MTS o A1. Pide 'Tourist SIM'. Necesitas tu pasaporte.",
+            "action": "No camines a ciegas. Busca cualquier kiosko ('Moj Kiosk') y pide una 'Tourist SIM'. Por unos 1000-1500 dinares tendrás internet para mapas y traductor, algo vital estos primeros días.",
             "importance": "ALTA",
             "time_limit": "Inmediato"
         },
         {
             "id": "step_money",
             "title": "Efectivo (Dinares)",
-            "action": "Cambia solo 10-20 EUR en el aeropuerto. El resto cámbialo en una 'Menjačnica' de la ciudad para no perder dinero.",
+            "action": "El aeropuerto suele tener tasas muy malas. Cambia solo unos 10 o 20 euros para el transporte inicial. En el centro verás 'Menjačnica' por todos lados con mejores precios para tu presupuesto.",
             "importance": "MEDIA",
             "time_limit": "Primer día"
         }

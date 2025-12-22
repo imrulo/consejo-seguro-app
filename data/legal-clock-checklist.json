@@ -1,0 +1,32 @@
+{
+    "id": "legal_clock_checklist",
+    "title": "Hacia tu estabilidad: Acciones Mínimas Seguras",
+    "description": "Ya pasaste la primera semana. Ahora el objetivo es que el tiempo no juegue en tu contra.",
+    "steps": [
+        {
+            "id": "step_deadline",
+            "title": "Tu fecha límite real",
+            "action": "No cuentes 90 días exactos. Mira tu sello de entrada y marca en tu calendario el día 80 como tu 'fecha de decisión'. Nunca esperes al último momento para decidir si te quedas o sales.",
+            "importance": "CRÍTICO",
+            "time_limit": "Día 80"
+        },
+        {
+            "id": "step_documents",
+            "title": "Documentos de origen",
+            "action": "Muchos trámites de residencia piden antecedentes penales apostillados de tu país. Pedirlos y que lleguen aquí puede tardar un mes. Empieza a gestionarlos hoy mismo, aunque no estés seguro de qué vía usarás.",
+            "importance": "ALTA",
+            "time_limit": "Esta semana"
+        },
+        {
+            "id": "step_pathway",
+            "title": "Elegir tu camino",
+            "action": "¿Vas por trabajo, estudios o emprendimiento? Cada vía tiene requisitos distintos. Elige una hoy para no perder tiempo reuniendo papeles que no te servirán.",
+            "importance": "MEDIA",
+            "time_limit": "Próximos 15 días"
+        }
+    ],
+    "closing_phrase": {
+        "title": "La tranquilidad se construye con tiempo.",
+        "text": "El sistema migratorio premia a quien se anticipa. No dejes que la comodidad del día a día te haga olvidar el reloj legal. Estamos aquí para que el día 90 sea solo un número más, no una emergencia."
+    }
+}

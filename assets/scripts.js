@@ -26,10 +26,10 @@ const STATE_DEFINITIONS = {
     },
     "legal_clock": {
         "id": "legal_clock",
-        "label": "Ansiedad por reloj legal",
+        "label": "Reloj Legal / Residencia",
         "icon": "⚖️",
-        "description": "Miedo a plazos vencidos o falta de papeles.",
-        "proposal_text": "Parece que te preocupa algún plazo legal o trámite de residencia. ¿Te ayudamos con eso?",
+        "description": "Tu estancia de turista tiene fecha de vencimiento.",
+        "proposal_text": "Ya llevas más de una semana aquí. ¿Ya pensaste qué vía de residencia vas a tomar?",
         "initial_procedures": ["beli-karton-registration"]
     },
     "health_panic": {
@@ -87,6 +87,23 @@ const PREVENTIVE_ALERTS = {
             "id": "pa_transport_stress",
             "text": "🚌 Evita multas de entrada: En el bus no se paga al chofer. Envía el SMS al 9011 apenas subas; los inspectores suelen vestir de civil y son estrictos.",
             "icon": "🚍"
+        },
+        {
+            "id": "pa_overconfidence",
+            "text": "⚠️ Cuidado con el 'no pasa nada': Muchos conocidos te dirán que ellos no hicieron tal trámite y les fue bien. No te confíes; los problemas de residencia suelen aparecer meses después, cuando ya es difícil corregirlos.",
+            "icon": "🛡️"
+        }
+    ],
+    "legal_clock": [
+        {
+            "id": "pa_90_day_trap",
+            "text": "📅 El visor de los 90 días: No esperes al día 85 para actuar. Muchos documentos de tu país tardan semanas en llegar y ser apostillados.",
+            "icon": "⏳"
+        },
+        {
+            "id": "pa_visa_run_mito",
+            "text": "🏃 El mito del 'Visa Run': Salir y entrar puede servir un tiempo, pero no es una solución de vida. Busca el sello de 'Boravak' (residencia) para vivir sin miedo.",
+            "icon": "🛡️"
         }
     ],
     "health_panic": [
@@ -140,14 +157,17 @@ async function showSafeMinimumActions() {
     const area = document.getElementById('state-proposal-area');
     if (!area) return;
 
+    const stateId = localStorage.getItem('last_confirmed_state') || 'just_arrived';
+    const checklistFile = stateId === 'legal_clock' ? 'legal-clock-checklist.json' : 'just-arrived-checklist.json';
+
     try {
-        const response = await fetch('data/just-arrived-checklist.json');
+        const response = await fetch(`data/${checklistFile}`);
         const data = await response.json();
 
         let html = `
             <div class="section-card safe-actions-section" style="background: #f1f8e9; border-left: 6px solid var(--success-green);">
-                <h4 style="color: #1b5e20;">🛡️ Acciones Mínimas Seguras (Primeros pasos)</h4>
-                <p style="font-size: 0.9rem; color: #33691e; margin-bottom: 1rem;">Haz esto antes de cualquier otra cosa:</p>
+                <h4 style="color: #1b5e20;">🛡️ ${data.title}</h4>
+                <p style="font-size: 0.9rem; color: #33691e; margin-bottom: 1rem;">${data.description || 'Haz esto antes de cualquier otra cosa:'}</p>
                 <ul class="checklist" style="list-style: none; padding: 0;">
         `;
 
@@ -161,16 +181,24 @@ async function showSafeMinimumActions() {
             `;
         });
 
+        const closingTitle = data.closing_phrase?.title || "Lo más difícil ya lo hiciste, que fue llegar.";
+        const closingText = data.closing_phrase?.text || "No te abrumes intentando entender todo hoy. Solo vamos a ordenar estos puntos uno por uno para que duermas tranquilo.";
+
         html += `
                 </ul>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; border-top: 1px solid #c8e6c9; padding-top: 1rem;">
-                    💡 Cumplir esto evita el 90% de los problemas legales iniciales.
-                </p>
+                <div style="margin-top: 1.5rem; border-top: 1px solid #c8e6c9; padding-top: 1rem;">
+                    <p style="font-size: 1rem; color: #1b5e20; font-weight: 600; font-family: 'Outfit', sans-serif; margin-bottom: 0.5rem;">
+                        ${closingTitle}
+                    </p>
+                    <p style="font-size: 0.9rem; color: #33691e; line-height: 1.4;">
+                        ${closingText}
+                    </p>
+                </div>
             </div>
         `;
         area.innerHTML = html;
     } catch (e) {
-        console.warn("Fallo al cargar checklist de acciones mínimas.");
+        console.warn("Fallo al cargar checklist de acciones mínimas.", e);
     }
 }
 
