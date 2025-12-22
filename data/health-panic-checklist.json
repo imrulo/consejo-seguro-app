@@ -1,0 +1,32 @@
+{
+    "id": "health_panic_checklist",
+    "title": "Emergencia de Salud: Mantén la calma",
+    "description": "Bajo estrés, el cerebro se bloquea. Aquí tienes los pasos exactos para una urgencia médica en Serbia sin cometer errores costosos.",
+    "steps": [
+        {
+            "id": "step_threshold",
+            "title": "¿Es realmente una emergencia?",
+            "action": "Si hay fiebre alta pero el pulso es normal, o es una herida leve, intenta esperar a la mañana. Los hospitales de urgencias (Urgentni Centar) están saturados y si vas sin una urgencia real, te cobrarán una tasa de 'extranjero sin seguro' muy alta solo por entrar.",
+            "importance": "CRÍTICO",
+            "time_limit": "Inmediato"
+        },
+        {
+            "id": "step_pharmacy_red",
+            "title": "Busca la luz roja",
+            "action": "Si es medianoche y necesitas medicación básica, busca farmacias con el letrero de la cruz roja encendido. Significa que están de guardia ('Dežurna apoteka'). No hace falta ir al hospital para comprar un antibiótico o antifebril.",
+            "importance": "ALTA",
+            "time_limit": "Esta noche"
+        },
+        {
+            "id": "step_hitna_194",
+            "title": "Llamar al 194",
+            "action": "Si alguien no respira o no responde, llama al 194. Di: 'Hitna pomoć, treba nam hitna u [tu dirección]'. Mantén la puerta abierta para que los paramédicos no pierdan tiempo buscando el timbre.",
+            "importance": "MÁXIMA",
+            "time_limit": "Ya"
+        }
+    ],
+    "closing_phrase": {
+        "title": "No estás solo en esto.",
+        "text": "Sentirse enfermo lejos de casa da miedo. Respira hondo. Serbia tiene buenos médicos; el desafío es navegar el sistema. Si sigues estos pasos, estarás bien atendido sin romper tu economía."
+    }
+}

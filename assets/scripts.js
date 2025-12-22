@@ -36,8 +36,8 @@ const STATE_DEFINITIONS = {
         "id": "health_panic",
         "label": "Emergencia de salud",
         "icon": "🏥",
-        "description": "Alguien está enfermo o herido y no sabes qué hacer.",
-        "proposal_text": "Parece que necesitas orientación médica urgente. ¿Es así?",
+        "description": "Situaciones de pánico medical (fiebre, dolor agudo, accidentes).",
+        "proposal_text": "¿Tienes una emergencia médica o alguien se siente mal ahora mismo?",
         "initial_procedures": ["medical-emergency-basic"]
     },
     "mobility_breakdown": {
@@ -115,8 +115,16 @@ const PREVENTIVE_ALERTS = {
         }
     ],
     "health_panic": [
-        { "id": "pa_hitna_194", "text": "Mantén la calma: el número de emergencias médicas es 194. Atienden 24h.", "icon": "📞" },
-        { "id": "pa_pharmacy_red", "text": "Dato útil: las farmacias con luz roja encendida están de guardia por la noche.", "icon": "🏥" }
+        {
+            "id": "pa_urgentni_debt",
+            "text": "💸 Evita deudas sorpresa: No vayas al 'Urgentni Centar' por una gripe o dolor leve. Como extranjero, te cobrarán una tasa de entrada muy alta si no es una emergencia real.",
+            "icon": "💰"
+        },
+        {
+            "id": "pa_pharmacy_guard",
+            "text": "🏥 Farmacias de guardia: Si es de noche, busca las farmacias con la cruz roja encendida. Ellas te pueden dar antifebriles sin pasar por el hospital.",
+            "icon": "💊"
+        }
     ],
     "work_survival": [
         {
@@ -168,7 +176,7 @@ function handleStateConfirmation(stateId) {
     showPreventiveAlerts(stateId);
 
     // Show Safe Minimum Actions if configured
-    if (['just_arrived', 'legal_clock', 'work_survival'].includes(stateId)) {
+    if (['just_arrived', 'legal_clock', 'work_survival', 'health_panic'].includes(stateId)) {
         showSafeMinimumActions();
     }
 }
@@ -182,6 +190,7 @@ async function showSafeMinimumActions() {
 
     if (stateId === 'legal_clock') checklistFile = 'legal-clock-checklist.json';
     else if (stateId === 'work_survival') checklistFile = 'work-survival-checklist.json';
+    else if (stateId === 'health_panic') checklistFile = 'health-panic-checklist.json';
 
     try {
         const response = await fetch(`data/${checklistFile}`);
