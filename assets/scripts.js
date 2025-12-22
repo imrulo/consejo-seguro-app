@@ -22,7 +22,7 @@ const STATE_DEFINITIONS = {
         "icon": "🛫",
         "description": "Estás aterrizando en Serbia y todo es nuevo.",
         "proposal_text": "Parece que acabas de llegar a Serbia hace poco. ¿Es correcto?",
-        "initial_procedures": ["beli-karton-registration", "sim-card-tourist", "currency-exchange-banks"]
+        "initial_procedures": ["beli-karton-registration", "sim-card-tourist", "currency-exchange-banks", "public-transport-belgrade"]
     },
     "legal_clock": {
         "id": "legal_clock",
@@ -68,8 +68,26 @@ const STATE_DEFINITIONS = {
 
 const PREVENTIVE_ALERTS = {
     "just_arrived": [
-        { "id": "pa_beli_24h", "text": "Por si te sirve: muchas personas olvidan el 'Beli Karton'. Tienes 24h para registrarte tras llegar.", "icon": "ℹ️" },
-        { "id": "pa_roaming", "text": "Evita cargos extra: el roaming aquí fuera de la UE es muy caro. Busca un chip local pronto.", "icon": "📱" }
+        {
+            "id": "pa_beli_24h",
+            "text": "🚨 El 'Beli Karton' no es opcional: Si no estás en hotel, el dueño de tu alojamiento debe ir contigo a la policía en menos de 24h. Es tu única prueba de legalidad.",
+            "icon": "📄"
+        },
+        {
+            "id": "pa_roaming_warn",
+            "text": "💰 Apaga tus datos YA: Serbia no es UE. El roaming aquí puede costar miles de pesos en minutos. Busca un chip local en cualquier kiosko 'Moj Kiosk'.",
+            "icon": "📱"
+        },
+        {
+            "id": "pa_currency_menjacnica",
+            "text": "⚖️ No pierdas dinero en el cambio: El aeropuerto tiene tasas abusivas. Cambia lo justo y busca una 'Menjačnica' en la ciudad con comisión del 0%.",
+            "icon": "💰"
+        },
+        {
+            "id": "pa_transport_stress",
+            "text": "🚌 Evita multas de entrada: En el bus no se paga al chofer. Envía el SMS al 9011 apenas subas; los inspectores suelen vestir de civil y son estrictos.",
+            "icon": "🚍"
+        }
     ],
     "health_panic": [
         { "id": "pa_hitna_194", "text": "Mantén la calma: el número de emergencias médicas es 194. Atienden 24h.", "icon": "📞" },
@@ -102,6 +120,7 @@ function handleStateConfirmation(stateId) {
     if (area) area.innerHTML = ''; // Clear proposal
 
     localStorage.setItem('last_confirmed_state', stateId);
+    localStorage.setItem('state_confirmed_at', Date.now());
 
     // Show specific guidance (Filtered cards)
     const state = STATE_DEFINITIONS[stateId];
@@ -110,6 +129,49 @@ function handleStateConfirmation(stateId) {
 
     // Show Preventive Alerts
     showPreventiveAlerts(stateId);
+
+    // Special logic for 'Just Arrived': Show Safe Minimum Actions
+    if (stateId === 'just_arrived') {
+        showSafeMinimumActions();
+    }
+}
+
+async function showSafeMinimumActions() {
+    const area = document.getElementById('state-proposal-area');
+    if (!area) return;
+
+    try {
+        const response = await fetch('data/just-arrived-checklist.json');
+        const data = await response.json();
+
+        let html = `
+            <div class="section-card safe-actions-section" style="background: #f1f8e9; border-left: 6px solid var(--success-green);">
+                <h4 style="color: #1b5e20;">🛡️ Acciones Mínimas Seguras (Primeros pasos)</h4>
+                <p style="font-size: 0.9rem; color: #33691e; margin-bottom: 1rem;">Haz esto antes de cualquier otra cosa:</p>
+                <ul class="checklist" style="list-style: none; padding: 0;">
+        `;
+
+        data.steps.forEach(step => {
+            html += `
+                <li style="margin-bottom: 1rem; padding-left: 0;">
+                    <strong style="display:block; color: #1b5e20;">${step.title} [${step.importance}]</strong>
+                    <span style="font-size: 0.95rem; color: var(--text-main);">${step.action}</span>
+                    <span style="display:block; font-size: 0.8rem; color: #558b2f; margin-top: 4px;">📅 Plazo: ${step.time_limit}</span>
+                </li>
+            `;
+        });
+
+        html += `
+                </ul>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; border-top: 1px solid #c8e6c9; padding-top: 1rem;">
+                    💡 Cumplir esto evita el 90% de los problemas legales iniciales.
+                </p>
+            </div>
+        `;
+        area.innerHTML = html;
+    } catch (e) {
+        console.warn("Fallo al cargar checklist de acciones mínimas.");
+    }
 }
 
 function showStateSelection() {
@@ -170,12 +232,14 @@ window.showStateSelection = showStateSelection;
 const StateScanner = {
     scan: function () {
         const lastConfirmed = localStorage.getItem('last_confirmed_state');
-        if (lastConfirmed) {
-            // If already confirmed recently, we might just show relevant stuff, 
-            // but for this POC we re-propose or show selection if triggered.
-        }
+        const confirmedAt = parseInt(localStorage.getItem('state_confirmed_at') || '0');
+        const daysInState = (Date.now() - confirmedAt) / (1000 * 60 * 60 * 24);
 
-        const isNight = new Date().getHours() > 21 || new Date().getHours() < 6;
+        // Rule 0: Transition Logic
+        // If they confirmed 'just_arrived' more than 7 days ago, offer transition
+        if (lastConfirmed === 'just_arrived' && daysInState > 7) {
+            return 'legal_clock'; // Propose next logical state
+        }
 
         // Rule 1: First time user (no history) -> Just Arrived
         if (!localStorage.getItem('app_opened_before')) {

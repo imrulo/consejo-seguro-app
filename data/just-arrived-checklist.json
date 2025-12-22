@@ -1,0 +1,27 @@
+{
+    "id": "just_arrived_checklist",
+    "title": "Tus primeros 7 días: Acciones Mínimas Seguras",
+    "steps": [
+        {
+            "id": "step_beli",
+            "title": "Beli Karton (Certificado de Residencia)",
+            "action": "Localiza al dueño de tu alojamiento y dile: 'Treba mi beli karton'. Deben ir a la policía juntos.",
+            "importance": "CRÍTICO",
+            "time_limit": "24 horas"
+        },
+        {
+            "id": "step_sim",
+            "title": "Conectividad (SIM Local)",
+            "action": "Busca un kiosko con logos de Yettel, MTS o A1. Pide 'Tourist SIM'. Necesitas tu pasaporte.",
+            "importance": "ALTA",
+            "time_limit": "Inmediato"
+        },
+        {
+            "id": "step_money",
+            "title": "Efectivo (Dinares)",
+            "action": "Cambia solo 10-20 EUR en el aeropuerto. El resto cámbialo en una 'Menjačnica' de la ciudad para no perder dinero.",
+            "importance": "MEDIA",
+            "time_limit": "Primer día"
+        }
+    ]
+}
