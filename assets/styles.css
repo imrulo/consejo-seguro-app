@@ -751,16 +751,55 @@ h3 {
 
 .alert-item {
     background: #e3f2fd;
-    /* Soft Blue */
     border-left: 5px solid var(--primary-blue);
     padding: 1rem 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 0.75rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    animation: fadeIn 0.4s ease-in;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.4s ease-in, protectivePulse 4s infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert-item.risk-high {
+    background: #fff5f5;
+    border-left-color: var(--warning-red);
+}
+
+.alert-item.risk-high .alert-text {
+    color: #c53030;
+    font-weight: 500;
+}
+
+@keyframes protectivePulse {
+    0% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    50% {
+        box-shadow: 0 4px 20px rgba(0, 123, 255, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+}
+
+@keyframes riskPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
 }
 
 .alert-icon {

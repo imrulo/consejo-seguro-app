@@ -5,9 +5,9 @@
     "steps": [
         {
             "id": "step_stop_panic",
-            "title": "Detén el impulso de volver hoy",
-            "action": "Si te rechazaron un documento, no entres en modo súplica ni busques otra oficina para intentar 'suerte' el mismo día. Los sistemas están conectados y podrías generar una alerta de fraude o desesperación que te marcará negativamente.",
-            "importance": "CRÍTICO",
+            "title": "Pausa necesaria: Respira profundo",
+            "action": "Sal de la oficina y camina un poco. Por muy urgente que parezca, volver a entrar o buscar otra oficina hoy mismo solo aumentará tu estrés y el riesgo de un error administrativo mayor.",
+            "importance": "VITAL",
             "time_limit": "Inmediato"
         },
         {
@@ -19,10 +19,10 @@
         },
         {
             "id": "step_no_bribes",
-            "title": "Cero 'atajos' peligrosos",
-            "action": "Bajo bloqueo, aparecerán 'gestores' en grupos de redes sociales prometiendo sellos rápidos por dinero. En Serbia, un sello falso es una deportación garantizada y prohibición de entrada de por vida. No rompas la cadena de legalidad por un momento de pánico.",
-            "importance": "MÁXIMA",
-            "time_limit": "Permanente"
+            "title": "Ignora los cantos de sirena",
+            "action": "Bajo pánico, los 'gestores rápidos' de redes sociales parecen una solución, pero suelen ser una trampa. En Serbia, un papel ilegal es una deportación garantizada. Mantente del lado de la seguridad.",
+            "importance": "PROTECCIÓN",
+            "time_limit": "Siempre"
         }
     ],
     "closing_phrase": {

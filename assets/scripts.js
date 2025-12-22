@@ -83,7 +83,7 @@ const PREVENTIVE_ALERTS = {
         },
         {
             "id": "pa_roaming_warn",
-            "text": "💰 Apaga tus datos YA: Serbia no es UE. El roaming aquí puede costar miles de pesos en minutos. Busca un chip local en cualquier kiosko 'Moj Kiosk'.",
+            "text": "📱 Ahorro Crítico: Serbia no es UE. Apaga el roaming de tu línea extranjera inmediatamente para evitar cargos de miles de pesos. Busca un chip local en un kiosko 'Moj Kiosk'.",
             "icon": "📱"
         },
         {
@@ -98,7 +98,7 @@ const PREVENTIVE_ALERTS = {
         },
         {
             "id": "pa_overconfidence",
-            "text": "⚠️ Cuidado con el 'no pasa nada': Muchos conocidos te dirán que ellos no hicieron tal trámite y les fue bien. No te confíes; los problemas de residencia suelen aparecer meses después, cuando ya es difícil corregirlos.",
+            "text": "🛡️ Protege tu tranquilidad futura: Ignora el 'no pasa nada' de conocidos. Los errores migratorios suelen aparecer meses después; hacer las cosas bien hoy te ahorrará estrés mañana.",
             "icon": "🛡️"
         }
     ],
@@ -153,7 +153,7 @@ const PREVENTIVE_ALERTS = {
     "admin_block": [
         {
             "id": "pa_rejection_panic",
-            "text": "🛑 No vuelvas hoy mismo: Si te rechazaron un trámite, no intentes 'suerte' en otra oficina el mismo día. Los sistemas están conectados y empeorarás el registro.",
+            "text": "🤚 Pausa necesaria: Mañana será un mejor día. No intentes 'probar suerte' en otra oficina hoy mismo; los sistemas están conectados y podrías complicar tu registro innecesariamente.",
             "icon": "🤚"
         },
         {
@@ -178,6 +178,12 @@ function showStateProposal(stateId) {
                 <div class="state-proposal-actions">
                     <button class="btn-state-confirm" onclick="handleStateConfirmation('${stateId}')">✅ Sí, eso es</button>
                     <button class="btn-state-reject" onclick="showStateSelection()">🔁 No exactamente / Otra cosa</button>
+                </div>
+                <!-- SOS Shortcut for high-stress users -->
+                <div style="margin-top: 1rem; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 0.5rem;">
+                    <button onclick="triggerAdminBlock()" style="background:none; border:none; color:var(--warning-red); font-size:0.8rem; cursor:pointer; text-decoration:underline;">
+                        🆘 Auxilio: Me acaban de rechazar un trámite ahora mismo
+                    </button>
                 </div>
             </div>
         </div>
@@ -293,7 +299,13 @@ function toggleSMATask(stateId, taskId) {
 function triggerAdminBlock(procId = '') {
     localStorage.setItem('rejected_procedure', procId);
     handleStateConfirmation('admin_block');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Hardening: Redirect to home so the user sees the 'Respira y Reagrupa' checklist immediately
+    if (window.location.pathname.includes('viewer.html')) {
+        window.location.href = 'index.html';
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 }
 
 function showStateSelection() {
@@ -543,7 +555,14 @@ async function initViewer() {
     // 2. Load Specific JSON
     loadProcedureData(procId);
 
-    // 3. Date Header
+    // 3. Init Guardian Standard in Viewer
+    const currentState = localStorage.getItem('last_confirmed_state');
+    if (currentState) {
+        showPreventiveAlerts(currentState);
+        showSafeMinimumActions();
+    }
+
+    // 4. Date Header
     const now = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateEl = document.getElementById('current-date');

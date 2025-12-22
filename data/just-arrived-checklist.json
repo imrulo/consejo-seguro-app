@@ -5,7 +5,7 @@
         {
             "id": "step_beli",
             "title": "Beli Karton (Certificado de Residencia)",
-            "action": "Habla con el dueño de tu alojamiento con calma. Dile que necesitas el 'Beli Karton'. No te preocupes, ellos están acostumbrados; solo tienen que acompañarte un momento a la comisaría local para sellar tu estancia.",
+            "action": "Pídele al dueño que te acompañe a la policía. Recibirás un cartón blanco (tamaño media hoja de papel) con sello de tinta azul. Si te dan un ticket térmico de impresora, ese no es el papel que necesitas.",
             "importance": "CRÍTICO",
             "time_limit": "24 horas"
         },
