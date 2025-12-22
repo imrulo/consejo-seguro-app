@@ -230,11 +230,16 @@ async function showSafeMinimumActions() {
         `;
 
         data.steps.forEach(step => {
+            const isCompleted = isTaskCompleted(stateId, step.id);
             html += `
-                <li style="margin-bottom: 1rem; padding-left: 0;">
-                    <strong style="display:block; color: #1b5e20;">${step.title} [${step.importance}]</strong>
-                    <span style="font-size: 0.95rem; color: var(--text-main);">${step.action}</span>
-                    <span style="display:block; font-size: 0.8rem; color: #558b2f; margin-top: 4px;">📅 Plazo: ${step.time_limit}</span>
+                <li class="sma-item ${isCompleted ? 'completed' : ''}" style="margin-bottom: 1rem; padding-left: 0;">
+                    <input type="checkbox" class="sma-checkbox" ${isCompleted ? 'checked' : ''} 
+                        onclick="toggleSMATask('${stateId}', '${step.id}')">
+                    <div class="sma-text-content">
+                        <strong style="display:block; color: #1b5e20;">${step.title} [${step.importance}]</strong>
+                        <span style="font-size: 0.95rem; color: var(--text-main);">${step.action}</span>
+                        <span style="display:block; font-size: 0.8rem; color: #558b2f; margin-top: 4px;">📅 Plazo: ${step.time_limit}</span>
+                    </div>
                 </li>
             `;
         });
@@ -258,6 +263,37 @@ async function showSafeMinimumActions() {
     } catch (e) {
         console.warn("Fallo al cargar checklist de acciones mínimas.", e);
     }
+}
+
+function isTaskCompleted(stateId, taskId) {
+    const completed = JSON.parse(localStorage.getItem('completed_sma_tasks') || '{}');
+    return completed[stateId] && completed[stateId].includes(taskId);
+}
+
+function toggleSMATask(stateId, taskId) {
+    const completed = JSON.parse(localStorage.getItem('completed_sma_tasks') || '{}');
+    if (!completed[stateId]) completed[stateId] = [];
+
+    const index = completed[stateId].indexOf(taskId);
+    if (index > -1) {
+        completed[stateId].splice(index, 1);
+    } else {
+        completed[stateId].push(taskId);
+    }
+
+    localStorage.setItem('completed_sma_tasks', JSON.stringify(completed));
+    showSafeMinimumActions(); // Re-render to show visual feedback
+
+    // Check if critical items for 'just_arrived' are done
+    if (stateId === 'just_arrived' && taskId === 'step_beli') {
+        console.log("Guardian: Beli Karton detectado. El camino a la estabilidad está abierto.");
+    }
+}
+
+function triggerAdminBlock(procId = '') {
+    localStorage.setItem('rejected_procedure', procId);
+    handleStateConfirmation('admin_block');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function showStateSelection() {
@@ -321,10 +357,18 @@ const StateScanner = {
         const confirmedAt = parseInt(localStorage.getItem('state_confirmed_at') || '0');
         const daysInState = (Date.now() - confirmedAt) / (1000 * 60 * 60 * 24);
 
+        // Interlock 1: Beli Karton Gating
+        const isBeliDone = isTaskCompleted('just_arrived', 'step_beli');
+
         // Rule 0: Transition Logic
-        // If they confirmed 'just_arrived' more than 7 days ago, offer transition
         if (lastConfirmed === 'just_arrived' && daysInState > 7) {
-            return 'legal_clock'; // Propose next logical state
+            // Only propose Stability if Beli Karton is done
+            if (isBeliDone) {
+                return 'legal_clock';
+            } else {
+                console.warn("Guardian: Bloqueando transición. Beli Karton pendiente.");
+                return null; // Don't propose transition yet
+            }
         }
 
         // Rule 1: First time user (no history) -> Just Arrived
@@ -815,6 +859,18 @@ function renderDocument(data) {
             </ul>
         </div>`;
     }
+
+    // E. EMERGENCY EJECT (Guardian Interlock)
+    html += `
+    <div class="guardian-eject-area">
+        <button class="btn-emergency-reject" onclick="triggerAdminBlock('${data.meta.id}')">
+            <span>🛑 ¿Te han rechazado este trámite?</span>
+        </button>
+        <p style="text-align:center; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+            Pulsa aquí si el oficial dijo que no. Activaremos el modo de protección.
+        </p>
+    </div>
+    `;
 
     contentArea.innerHTML = html;
 
