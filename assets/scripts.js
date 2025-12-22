@@ -386,6 +386,38 @@ const StateScanner = {
     }
 };
 
+// --- PERSISTENT RISK DETECTION ---
+// Detects critical prerequisites left incomplete after state transition thresholds
+function checkPersistentRisks() {
+    const lastConfirmed = localStorage.getItem('last_confirmed_state');
+    const confirmedAt = parseInt(localStorage.getItem('state_confirmed_at') || '0');
+    const daysInState = (Date.now() - confirmedAt) / (1000 * 60 * 60 * 24);
+
+    // Persistent Risk 1: Beli Karton overdue
+    if (lastConfirmed === 'just_arrived' && daysInState > 7) {
+        const isBeliDone = isTaskCompleted('just_arrived', 'step_beli');
+        if (!isBeliDone) {
+            return {
+                id: 'pr_beli_overdue',
+                text: '📄 Documento pendiente: Beli Karton. Sin este registro, tu situación legal sigue vulnerable.'
+            };
+        }
+    }
+
+    return null;
+}
+
+function showPersistentRiskAlert(risk) {
+    const area = document.getElementById('alerts-area');
+    if (!area || !risk) return;
+
+    area.innerHTML = `
+        <div class="alert-item persistent-risk">
+            <span class="alert-text">${risk.text}</span>
+        </div>
+    `;
+}
+
 // --- HOME LOGIC (index.html) ---
 let allProcedures = [];
 
@@ -459,6 +491,12 @@ async function initHome() {
     const proposedStateId = StateScanner.scan();
     if (proposedStateId) {
         showStateProposal(proposedStateId);
+    } else {
+        // Check for persistent risks even if no state is proposed
+        const persistentRisk = checkPersistentRisks();
+        if (persistentRisk) {
+            showPersistentRiskAlert(persistentRisk);
+        }
     }
 
 

@@ -1046,3 +1046,15 @@ h3 {
 .btn-emergency-reject:active {
     transform: scale(0.98);
 }
+
+/* Persistent Risk Alert - Static, no animation */
+.alert-item.persistent-risk {
+    background: #fef5e7;
+    border-left-color: #f39c12;
+    animation: fadeIn 0.4s ease-in;
+}
+
+.alert-item.persistent-risk .alert-text {
+    color: #7d6608;
+    font-weight: 400;
+}
