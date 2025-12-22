@@ -6,14 +6,14 @@
         {
             "id": "step_contract_trap",
             "title": "El pacto de palabra no existe",
-            "action": "Si trabajas 'en negro' (sin contrato), técnicamente no estás trabajando ante la ley, estás cometiendo una infracción migratoria. Si el jefe no te pide el Beli Karton, no es un favor; es que no piensa registrarte.",
+            "action": "Si trabajas 'en negro' (sin contrato), técnicamente no estás trabajando ante la ley y estás poniendo en riesgo tu estancia. Si el jefe no te pide el Beli Karton, no es un favor; es que no piensa registrarte.",
             "importance": "CRÍTICO",
             "time_limit": "Día 1"
         },
         {
             "id": "step_false_promises",
             "title": "La mentira del 'mañana'",
-            "action": "Si te dicen 'empieza hoy y en una semana te hago los papeles', es casi siempre una mentira para usarte mientras seas nuevo. En Serbia, el permiso de trabajo se gestiona DESDE el contrato, no al revés.",
+            "action": "Si te dicen 'empieza hoy y en una semana te hago los papeles', es casi siempre una promesa vacía para usarte mientras seas nuevo. En Serbia, el permiso de trabajo se gestiona DESDE el contrato, no al revés.",
             "importance": "ALTA",
             "time_limit": "Inmediato"
         },

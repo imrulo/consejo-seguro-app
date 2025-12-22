@@ -90,16 +90,6 @@ const PREVENTIVE_ALERTS = {
             "id": "pa_currency_menjacnica",
             "text": "⚖️ No pierdas dinero en el cambio: El aeropuerto tiene tasas abusivas. Cambia lo justo y busca una 'Menjačnica' en la ciudad con comisión del 0%.",
             "icon": "💰"
-        },
-        {
-            "id": "pa_transport_stress",
-            "text": "🚌 Evita multas de entrada: En el bus no se paga al chofer. Envía el SMS al 9011 apenas subas; los inspectores suelen vestir de civil y son estrictos.",
-            "icon": "🚍"
-        },
-        {
-            "id": "pa_overconfidence",
-            "text": "🛡️ Protege tu tranquilidad futura: Ignora el 'no pasa nada' de conocidos. Los errores migratorios suelen aparecer meses después; hacer las cosas bien hoy te ahorrará estrés mañana.",
-            "icon": "🛡️"
         }
     ],
     "legal_clock": [
@@ -153,7 +143,7 @@ const PREVENTIVE_ALERTS = {
     "admin_block": [
         {
             "id": "pa_rejection_panic",
-            "text": "🤚 Pausa necesaria: Mañana será un mejor día. No intentes 'probar suerte' en otra oficina hoy mismo; los sistemas están conectados y podrías complicar tu registro innecesariamente.",
+            "text": "🤚 No regreses hoy: Los sistemas están conectados y probar suerte en otra oficina hoy mismo podría complicar tu registro técnico de forma permanente.",
             "icon": "🤚"
         },
         {

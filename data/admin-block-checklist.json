@@ -6,7 +6,7 @@
         {
             "id": "step_stop_panic",
             "title": "Pausa necesaria: Respira profundo",
-            "action": "Sal de la oficina y camina un poco. Por muy urgente que parezca, volver a entrar o buscar otra oficina hoy mismo solo aumentará tu estrés y el riesgo de un error administrativo mayor.",
+            "action": "Sal de la oficina y camina un poco. Por muy urgente que parezca, volver a entrar o buscar otra oficina hoy mismo hará más compleja la solución técnica de tu trámite.",
             "importance": "VITAL",
             "time_limit": "Inmediato"
         },
