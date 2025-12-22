@@ -14,8 +14,186 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// --- STATE-BASED ORIENTATION SYSTEM ---
+const STATE_DEFINITIONS = {
+    "just_arrived": {
+        "id": "just_arrived",
+        "label": "Recién llegado / Primera semana",
+        "icon": "🛫",
+        "description": "Estás aterrizando en Serbia y todo es nuevo.",
+        "proposal_text": "Parece que acabas de llegar a Serbia hace poco. ¿Es correcto?",
+        "initial_procedures": ["beli-karton-registration", "sim-card-tourist", "currency-exchange-banks"]
+    },
+    "legal_clock": {
+        "id": "legal_clock",
+        "label": "Ansiedad por reloj legal",
+        "icon": "⚖️",
+        "description": "Miedo a plazos vencidos o falta de papeles.",
+        "proposal_text": "Parece que te preocupa algún plazo legal o trámite de residencia. ¿Te ayudamos con eso?",
+        "initial_procedures": ["beli-karton-registration"]
+    },
+    "health_panic": {
+        "id": "health_panic",
+        "label": "Emergencia de salud",
+        "icon": "🏥",
+        "description": "Alguien está enfermo o herido y no sabes qué hacer.",
+        "proposal_text": "Parece que necesitas orientación médica urgente. ¿Es así?",
+        "initial_procedures": ["medical-emergency-basic"]
+    },
+    "mobility_breakdown": {
+        "id": "mobility_breakdown",
+        "label": "Problemas de transporte",
+        "icon": "🚌",
+        "description": "Confusión con el transporte público o multas.",
+        "proposal_text": "Parece que tienes dudas sobre cómo moverte por la ciudad. ¿Necesitas ayuda con el transporte?",
+        "initial_procedures": ["public-transport-belgrade"]
+    },
+    "housing_conflict": {
+        "id": "housing_conflict",
+        "label": "Conflicto de vivienda",
+        "icon": "🏠",
+        "description": "Presión del casero, desalojo o problemas con depósito.",
+        "proposal_text": "Parece que tienes algún inconveniente con tu alojamiento o casero. ¿Es correcto?",
+        "initial_procedures": []
+    },
+    "admin_block": {
+        "id": "admin_block",
+        "label": "Bloqueo administrativo",
+        "icon": "🚫",
+        "description": "Un oficial dijo algo incomprensible o rechazó un formulario.",
+        "proposal_text": "Parece que te has trabado en algún trámite oficial. ¿Te orientamos?",
+        "initial_procedures": []
+    }
+};
+
+const PREVENTIVE_ALERTS = {
+    "just_arrived": [
+        { "id": "pa_beli_24h", "text": "Por si te sirve: muchas personas olvidan el 'Beli Karton'. Tienes 24h para registrarte tras llegar.", "icon": "ℹ️" },
+        { "id": "pa_roaming", "text": "Evita cargos extra: el roaming aquí fuera de la UE es muy caro. Busca un chip local pronto.", "icon": "📱" }
+    ],
+    "health_panic": [
+        { "id": "pa_hitna_194", "text": "Mantén la calma: el número de emergencias médicas es 194. Atienden 24h.", "icon": "📞" },
+        { "id": "pa_pharmacy_red", "text": "Dato útil: las farmacias con luz roja encendida están de guardia por la noche.", "icon": "🏥" }
+    ]
+};
+
+// --- STATE MANAGEMENT FUNCTIONS ---
+
+function showStateProposal(stateId) {
+    const area = document.getElementById('state-proposal-area');
+    const state = STATE_DEFINITIONS[stateId];
+    if (!area || !state) return;
+
+    area.innerHTML = `
+        <div class="state-proposal-banner">
+            <div class="state-proposal-content">
+                <p>${state.proposal_text}</p>
+                <div class="state-proposal-actions">
+                    <button class="btn-state-confirm" onclick="handleStateConfirmation('${stateId}')">✅ Sí, eso es</button>
+                    <button class="btn-state-reject" onclick="showStateSelection()">🔁 No exactamente / Otra cosa</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function handleStateConfirmation(stateId) {
+    const area = document.getElementById('state-proposal-area');
+    if (area) area.innerHTML = ''; // Clear proposal
+
+    localStorage.setItem('last_confirmed_state', stateId);
+
+    // Show specific guidance (Filtered cards)
+    const state = STATE_DEFINITIONS[stateId];
+    const filtered = allProcedures.filter(p => state.initial_procedures.includes(p.id));
+    renderCards(filtered);
+
+    // Show Preventive Alerts
+    showPreventiveAlerts(stateId);
+}
+
+function showStateSelection() {
+    const area = document.getElementById('state-proposal-area');
+    if (!area) return;
+
+    let html = `
+        <section class="state-selection-section">
+            <h3 style="text-align:center; margin-bottom: 1rem; color: var(--text-muted);">¿En qué situación te encuentras hoy?</h3>
+            <div class="state-grid">
+    `;
+
+    Object.values(STATE_DEFINITIONS).forEach(state => {
+        html += `
+            <div class="state-tile" onclick="handleStateConfirmation('${state.id}')">
+                <span class="state-tile-icon">${state.icon}</span>
+                <span class="state-tile-label">${state.label}</span>
+            </div>
+        `;
+    });
+
+    html += `</div></section>`;
+    area.innerHTML = html;
+}
+
+function showPreventiveAlerts(stateId) {
+    const area = document.getElementById('alerts-area');
+    if (!area) return;
+
+    const alerts = PREVENTIVE_ALERTS[stateId] || [];
+    const dismissed = JSON.parse(localStorage.getItem('dismissed_alerts') || '[]');
+
+    const activeAlerts = alerts.filter(a => !dismissed.includes(a.id)).slice(0, 3);
+
+    area.innerHTML = activeAlerts.map(alert => `
+        <div class="alert-item" id="alert-${alert.id}">
+            <span class="alert-icon">${alert.icon}</span>
+            <p class="alert-text">${alert.text}</p>
+            <button class="alert-dismiss" onclick="dismissAlert('${alert.id}')">✕</button>
+        </div>
+    `).join('');
+}
+
+window.dismissAlert = function (alertId) {
+    const alertEl = document.getElementById(`alert-${alertId}`);
+    if (alertEl) alertEl.remove();
+
+    const dismissed = JSON.parse(localStorage.getItem('dismissed_alerts') || '[]');
+    if (!dismissed.includes(alertId)) {
+        dismissed.push(alertId);
+        localStorage.setItem('dismissed_alerts', JSON.stringify(dismissed));
+    }
+};
+
+window.handleStateConfirmation = handleStateConfirmation;
+window.showStateSelection = showStateSelection;
+
+const StateScanner = {
+    scan: function () {
+        const lastConfirmed = localStorage.getItem('last_confirmed_state');
+        if (lastConfirmed) {
+            // If already confirmed recently, we might just show relevant stuff, 
+            // but for this POC we re-propose or show selection if triggered.
+        }
+
+        const isNight = new Date().getHours() > 21 || new Date().getHours() < 6;
+
+        // Rule 1: First time user (no history) -> Just Arrived
+        if (!localStorage.getItem('app_opened_before')) {
+            localStorage.setItem('app_opened_before', 'true');
+            return 'just_arrived';
+        }
+
+        // Rule 2: Night time + Health signals (Mental mock for now)
+        // In a real app we'd trigger this on search or specific interactions.
+
+        return null;
+    }
+};
+
 // --- HOME LOGIC (index.html) ---
 let allProcedures = [];
+
+
 
 const FALLBACK_INDEX = [
     {
@@ -80,6 +258,13 @@ async function initHome() {
     }
 
     renderCards(allProcedures); // Renderizado inicial
+
+    // Brain Transplant: State Logic
+    const proposedStateId = StateScanner.scan();
+    if (proposedStateId) {
+        showStateProposal(proposedStateId);
+    }
+
 
     // Configurar Filtros de Categoría
     const chips = document.querySelectorAll('.category-chip');

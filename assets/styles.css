@@ -680,3 +680,189 @@ h3 {
 .viewer-container {
     padding-bottom: 5rem;
 }
+
+/* --- STATE-BASED ORIENTATION SYSTEM --- */
+
+/* State Proposal Banner */
+.state-proposal-banner {
+    background: linear-gradient(to right, #f1f8e9, #e8f5e9);
+    /* Soft Green-ish */
+    border: 1px solid var(--soft-green);
+    border-radius: var(--radius-soft);
+    padding: var(--pd-lg);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-soft);
+    animation: fadeInSlide 0.5s ease-out;
+}
+
+.state-proposal-content {
+    text-align: center;
+}
+
+.state-proposal-content p {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.state-proposal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-state-confirm,
+.btn-state-reject {
+    padding: 0.8rem 1.5rem;
+    border-radius: 100px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    font-size: 0.95rem;
+}
+
+.btn-state-confirm {
+    background: var(--success-green);
+    color: white;
+}
+
+.btn-state-confirm:hover {
+    background: #218838;
+    transform: scale(1.02);
+}
+
+.btn-state-reject {
+    background: white;
+    color: var(--text-muted);
+    border-color: var(--border-color);
+}
+
+.btn-state-reject:hover {
+    background: var(--bg-light);
+    color: var(--text-main);
+}
+
+/* Preventive Alerts Area */
+.alerts-container {
+    margin-bottom: 1.5rem;
+}
+
+.alert-item {
+    background: #e3f2fd;
+    /* Soft Blue */
+    border-left: 5px solid var(--primary-blue);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.4s ease-in;
+}
+
+.alert-icon {
+    font-size: 1.25rem;
+}
+
+.alert-text {
+    font-size: 0.95rem;
+    color: #0d47a1;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.alert-dismiss {
+    background: transparent;
+    border: none;
+    color: #90caf9;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px;
+    line-height: 1;
+}
+
+.alert-dismiss:hover {
+    color: var(--primary-blue);
+}
+
+/* State Selection Grid (Fallback) */
+.state-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.state-tile {
+    background: white;
+    border: 1px solid var(--border-color);
+    padding: 1.5rem 1rem;
+    border-radius: var(--radius-soft);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.state-tile:hover {
+    border-color: var(--primary-blue);
+    background: var(--bg-light);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+}
+
+.state-tile-icon {
+    font-size: 2rem;
+}
+
+.state-tile-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* Animations */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .state-proposal-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-state-confirm,
+    .btn-state-reject {
+        width: 100%;
+        text-align: center;
+    }
+
+    .state-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
