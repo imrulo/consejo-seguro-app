@@ -1,0 +1,32 @@
+{
+    "id": "work_survival_checklist",
+    "title": "Trabajo y Supervivencia: Protegiendo tu Futuro",
+    "description": "El dinero es urgente, pero tu legalidad es lo que te permite quedarte. No permitas que la necesidad se convierta en una trampa.",
+    "steps": [
+        {
+            "id": "step_contract_trap",
+            "title": "El pacto de palabra no existe",
+            "action": "Si trabajas 'en negro' (sin contrato), técnicamente no estás trabajando ante la ley, estás cometiendo una infracción migratoria. Si el jefe no te pide el Beli Karton, no es un favor; es que no piensa registrarte.",
+            "importance": "CRÍTICO",
+            "time_limit": "Día 1"
+        },
+        {
+            "id": "step_false_promises",
+            "title": "La mentira del 'mañana'",
+            "action": "Si te dicen 'empieza hoy y en una semana te hago los papeles', es casi siempre una mentira para usarte mientras seas nuevo. En Serbia, el permiso de trabajo se gestiona DESDE el contrato, no al revés.",
+            "importance": "ALTA",
+            "time_limit": "Inmediato"
+        },
+        {
+            "id": "step_realistic_exit",
+            "title": "Salidas realistas",
+            "action": "Si no tienes capital, busca empleos en sectores con alta demanda de extranjeros (ej. construcción, mensajería, IT) que ya tengan procesos de visado de trabajo (D Visa/Boravak) estandarizados. No improvises en negocios pequeños sin estructura.",
+            "importance": "MEDIA",
+            "time_limit": "Búsqueda"
+        }
+    ],
+    "closing_phrase": {
+        "title": "La ilegalidad se vuelve una jaula.",
+        "text": "Trabajar sin papeles parece una solución hoy, pero te quita el derecho a quejarte si no te pagan o si te accidentas. Tu prioridad es encontrar un empleador que respete tu derecho a estar legal en este país."
+    }
+}

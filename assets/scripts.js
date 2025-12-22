@@ -63,6 +63,14 @@ const STATE_DEFINITIONS = {
         "description": "Un oficial dijo algo incomprensible o rechazó un formulario.",
         "proposal_text": "Parece que te has trabado en algún trámite oficial. ¿Te orientamos?",
         "initial_procedures": []
+    },
+    "work_survival": {
+        "id": "work_survival",
+        "label": "Trabajo / Dinero / Supervivencia",
+        "icon": "💸",
+        "description": "Necesitas ingresos pero no quieres arriesgar tu estancia.",
+        "proposal_text": "¿Estás buscando trabajo o te han hecho una oferta que te genera dudas?",
+        "initial_procedures": ["currency-exchange-banks"]
     }
 };
 
@@ -109,6 +117,18 @@ const PREVENTIVE_ALERTS = {
     "health_panic": [
         { "id": "pa_hitna_194", "text": "Mantén la calma: el número de emergencias médicas es 194. Atienden 24h.", "icon": "📞" },
         { "id": "pa_pharmacy_red", "text": "Dato útil: las farmacias con luz roja encendida están de guardia por la noche.", "icon": "🏥" }
+    ],
+    "work_survival": [
+        {
+            "id": "pa_work_no_papers",
+            "text": "🚫 'Trabajar mientras salen los papeles' es un riesgo real. Si hay una inspección, la multa y la orden de salida son para TI, no solo para el jefe.",
+            "icon": "⚖️"
+        },
+        {
+            "id": "pa_salary_scam",
+            "text": "💰 El salario 'en mano': Sin contrato, no hay garantía de cobro. Muchos inmigrantes pierden su primer mes de sueldo porque no tienen dónde reclamar.",
+            "icon": "⚠️"
+        }
     ]
 };
 
@@ -147,8 +167,8 @@ function handleStateConfirmation(stateId) {
     // Show Preventive Alerts
     showPreventiveAlerts(stateId);
 
-    // Special logic for 'Just Arrived': Show Safe Minimum Actions
-    if (stateId === 'just_arrived') {
+    // Show Safe Minimum Actions if configured
+    if (['just_arrived', 'legal_clock', 'work_survival'].includes(stateId)) {
         showSafeMinimumActions();
     }
 }
@@ -158,7 +178,10 @@ async function showSafeMinimumActions() {
     if (!area) return;
 
     const stateId = localStorage.getItem('last_confirmed_state') || 'just_arrived';
-    const checklistFile = stateId === 'legal_clock' ? 'legal-clock-checklist.json' : 'just-arrived-checklist.json';
+    let checklistFile = 'just-arrived-checklist.json';
+
+    if (stateId === 'legal_clock') checklistFile = 'legal-clock-checklist.json';
+    else if (stateId === 'work_survival') checklistFile = 'work-survival-checklist.json';
 
     try {
         const response = await fetch(`data/${checklistFile}`);
