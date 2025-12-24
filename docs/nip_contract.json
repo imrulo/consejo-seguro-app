@@ -1,0 +1,215 @@
+{
+    "contract_metadata": {
+        "module": "NIP (Núcleo de Inteligencia Práctica)",
+        "version": "1.0.0",
+        "status": "FROZEN",
+        "last_updated": "2024-12-24",
+        "architect": "Antigravity",
+        "security_level": "CRITICAL"
+    },
+    "constraints": {
+        "no_legal_advice": true,
+        "no_guardian_override": true,
+        "deterministic_output": true,
+        "stateless": true,
+        "fail_safe_mode": "DEFAULT_TO_GUARDIAN"
+    },
+    "input_schema": {
+        "type": "object",
+        "required": [
+            "user_text",
+            "guardian_active_states",
+            "context"
+        ],
+        "properties": {
+            "user_text": {
+                "type": "string",
+                "description": "Normalized user input (lowercase, trimmed)",
+                "maxLength": 500
+            },
+            "guardian_active_states": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "enum": [
+                        "just_arrived",
+                        "legal_clock",
+                        "housing_stability",
+                        "admin_block",
+                        "mobility"
+                    ]
+                },
+                "description": "List of currently active critical states detected by Guardian"
+            },
+            "context": {
+                "type": "object",
+                "properties": {
+                    "country": {
+                        "type": "string",
+                        "const": "RS"
+                    },
+                    "city": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "days_remaining_legal": {
+                        "type": "integer",
+                        "nullable": true
+                    }
+                },
+                "required": [
+                    "country"
+                ]
+            }
+        }
+    },
+    "output_schema": {
+        "type": "object",
+        "required": [
+            "intent_id",
+            "intent_confidence",
+            "urgency_level",
+            "urgency_zone",
+            "selected_flow_id",
+            "guardian_check_required",
+            "presentation_mode"
+        ],
+        "properties": {
+            "intent_id": {
+                "type": "string",
+                "enum": [
+                    "unknown",
+                    "residency_renewal",
+                    "residency_family",
+                    "residency_first_time",
+                    "birth_registration",
+                    "finance_bank_account",
+                    "finance_transfer",
+                    "health_emergency",
+                    "health_insurance"
+                ]
+            },
+            "intent_confidence": {
+                "type": "string",
+                "enum": [
+                    "low",
+                    "medium",
+                    "high"
+                ]
+            },
+            "urgency_level": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10,
+                "description": "0=Info, 10=Life/Legal Threat"
+            },
+            "urgency_zone": {
+                "type": "string",
+                "enum": [
+                    "verde",
+                    "amarillo",
+                    "rojo",
+                    "crisis"
+                ]
+            },
+            "selected_flow_id": {
+                "type": "string",
+                "nullable": true,
+                "description": "ID of functional flow JSON to load"
+            },
+            "guardian_check_required": {
+                "type": "boolean",
+                "description": "If true, frontend MUST re-verify Guardian state before showing content"
+            },
+            "presentation_mode": {
+                "type": "string",
+                "enum": [
+                    "normal",
+                    "alert",
+                    "blocked"
+                ]
+            }
+        }
+    },
+    "logic_rules": {
+        "urgency_calculation": {
+            "crisis_triggers": [
+                "days_remaining_legal < 7",
+                "intent == health_emergency"
+            ],
+            "rojo_triggers": [
+                "days_remaining_legal < 15",
+                "intent == residency_renewal"
+            ]
+        },
+        "guardian_interaction": {
+            "rule_1": "If guardian_active_states includes 'admin_block', presentation_mode MUST be 'blocked'",
+            "rule_2": "If guardian_active_states includes 'legal_clock' AND urgency_level > 7, presentation_mode MUST be 'alert'",
+            "rule_3": "NIP cannot clear or modify guardian_active_states"
+        }
+    },
+    "examples": [
+        {
+            "description": "Caso 1: Renovación urgente",
+            "input": {
+                "user_text": "mi residencia vence en 10 días",
+                "guardian_active_states": [
+                    "legal_clock"
+                ],
+                "context": {
+                    "country": "RS",
+                    "days_remaining_legal": 10
+                }
+            },
+            "output": {
+                "intent_id": "residency_renewal",
+                "intent_confidence": "high",
+                "urgency_level": 8,
+                "urgency_zone": "rojo",
+                "selected_flow_id": "renewal_residency",
+                "guardian_check_required": true,
+                "presentation_mode": "alert"
+            }
+        },
+        {
+            "description": "Caso 2: Nacimiento reciente",
+            "input": {
+                "user_text": "nació mi hijo ayer",
+                "guardian_active_states": [],
+                "context": {
+                    "country": "RS"
+                }
+            },
+            "output": {
+                "intent_id": "birth_registration",
+                "intent_confidence": "high",
+                "urgency_level": 7,
+                "urgency_zone": "amarillo",
+                "selected_flow_id": "birth_flow",
+                "guardian_check_required": false,
+                "presentation_mode": "normal"
+            }
+        },
+        {
+            "description": "Caso 3: Trámite financiero estándar",
+            "input": {
+                "user_text": "quiero abrir una cuenta bancaria",
+                "guardian_active_states": [
+                    "just_arrived"
+                ],
+                "context": {
+                    "country": "RS"
+                }
+            },
+            "output": {
+                "intent_id": "finance_bank_account",
+                "intent_confidence": "high",
+                "urgency_level": 2,
+                "urgency_zone": "verde",
+                "selected_flow_id": "money_flow",
+                "guardian_check_required": true,
+                "presentation_mode": "normal"
+            }
+        }
+    ]
+}
