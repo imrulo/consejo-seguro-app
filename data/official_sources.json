@@ -1,0 +1,304 @@
+{
+    "metadata": {
+        "last_updated": "2024-12-24",
+        "version": "1.0",
+        "maintained_by": "ConsejoSeguro Team",
+        "update_frequency": "Monthly review required"
+    },
+    "government_portals": {
+        "welcome_to_serbia": {
+            "name": "Welcome to Serbia",
+            "url": "https://welcometoserbia.gov.rs/home",
+            "authority": "Government of Republic of Serbia",
+            "legal_basis": "Law on Foreigners (Official Gazette RS no. 24/18, 31/19, 62/23)",
+            "languages": [
+                "sr",
+                "en"
+            ],
+            "topics": [
+                "immigration",
+                "residence_permits",
+                "visas",
+                "work_permits",
+                "family_reunification"
+            ],
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        },
+        "euprava": {
+            "name": "eUprava (eGovernment Portal)",
+            "url": "https://euprava.gov.rs",
+            "authority": "Office for IT and eGovernment",
+            "languages": [
+                "sr",
+                "en"
+            ],
+            "topics": [
+                "online_services",
+                "certificates",
+                "appointments",
+                "status_tracking"
+            ],
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        }
+    },
+    "ministries": {
+        "mup": {
+            "name": "Ministry of Interior (MUP)",
+            "url": "https://www.mup.gov.rs",
+            "sections": {
+                "foreigners": {
+                    "url": "https://www.mup.gov.rs/wps/portal/sr/dokumenti/stranci",
+                    "topics": [
+                        "residence_permits",
+                        "visa_extensions",
+                        "background_checks",
+                        "registration"
+                    ]
+                },
+                "travel_documents": {
+                    "url": "https://www.mup.gov.rs/wps/portal/sr/gradjani/putne-isprave",
+                    "topics": [
+                        "passports",
+                        "id_cards"
+                    ]
+                }
+            },
+            "physical_locations": {
+                "belgrade_foreigners": {
+                    "address": "Savska 35, Beograd",
+                    "department": "Odeljenje za strance (Foreigners Section)",
+                    "services": [
+                        "residence_permits",
+                        "background_checks",
+                        "all_foreigner_procedures"
+                    ],
+                    "note": "ONLY location for foreigner procedures in Belgrade, NOT local police stations"
+                },
+                "novi_sad": {
+                    "address": "Bulevar Mihajla Pupina 25, Novi Sad",
+                    "services": [
+                        "residence_permits",
+                        "foreigner_procedures"
+                    ]
+                }
+            },
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        },
+        "justice": {
+            "name": "Ministry of Justice",
+            "url": "https://www.mpravde.gov.rs",
+            "topics": [
+                "civil_registry",
+                "marriage",
+                "birth_certificates",
+                "apostille_info"
+            ],
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        },
+        "foreign_affairs": {
+            "name": "Ministry of Foreign Affairs",
+            "url": "https://www.mfa.gov.rs",
+            "topics": [
+                "consular_services",
+                "visa_requirements",
+                "embassies"
+            ],
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        },
+        "labor": {
+            "name": "Ministry of Labor, Employment, Veteran and Social Policy",
+            "url": "https://www.minrzs.gov.rs",
+            "topics": [
+                "work_permits",
+                "employment",
+                "social_security"
+            ],
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        }
+    },
+    "regulatory_bodies": {
+        "national_bank": {
+            "name": "National Bank of Serbia (NBS)",
+            "url": "https://www.nbs.rs",
+            "topics": [
+                "exchange_rates",
+                "banking_regulations",
+                "currency_info"
+            ],
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        },
+        "banking_association": {
+            "name": "Association of Serbian Banks",
+            "url": "https://www.ubs-asb.com",
+            "topics": [
+                "banking_info",
+                "consumer_protection"
+            ],
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        }
+    },
+    "legal_resources": {
+        "apostille_convention": {
+            "name": "Hague Apostille Convention",
+            "url": "https://www.hcch.net/es/states/hcch-members",
+            "authority": "Hague Conference on Private International Law",
+            "topics": [
+                "apostille",
+                "document_legalization"
+            ],
+            "reliability": "international_treaty",
+            "last_verified": "2024-12-24"
+        },
+        "legal_gazette": {
+            "name": "Official Gazette of Republic of Serbia",
+            "url": "https://www.slglasnik.com",
+            "topics": [
+                "laws",
+                "regulations",
+                "official_publications"
+            ],
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        }
+    },
+    "banks": {
+        "raiffeisen": {
+            "name": "Raiffeisen Bank Serbia",
+            "url": "https://www.raiffeisenbank.rs",
+            "foreigner_friendly": true,
+            "languages": [
+                "sr",
+                "en"
+            ],
+            "services": [
+                "accounts",
+                "cards",
+                "online_banking"
+            ],
+            "reliability": "commercial_verified",
+            "last_verified": "2024-12-24"
+        },
+        "unicredit": {
+            "name": "UniCredit Bank Serbia",
+            "url": "https://www.unicreditbank.rs",
+            "foreigner_friendly": true,
+            "languages": [
+                "sr",
+                "en"
+            ],
+            "services": [
+                "accounts",
+                "cards",
+                "online_banking"
+            ],
+            "reliability": "commercial_verified",
+            "last_verified": "2024-12-24"
+        },
+        "intesa": {
+            "name": "Banca Intesa Serbia",
+            "url": "https://www.bancaintesa.rs",
+            "foreigner_friendly": true,
+            "languages": [
+                "sr",
+                "en"
+            ],
+            "services": [
+                "accounts",
+                "cards",
+                "online_banking"
+            ],
+            "reliability": "commercial_verified",
+            "last_verified": "2024-12-24"
+        }
+    },
+    "healthcare": {
+        "urgency_center_belgrade": {
+            "name": "Urgentni Centar Beograd",
+            "address": "Pasterova 2, Beograd",
+            "phone": "011/3618-444",
+            "services": [
+                "emergency_medicine",
+                "pediatrics",
+                "surgery"
+            ],
+            "availability": "24/7",
+            "departments": {
+                "pediatrics": "For children emergencies",
+                "internal": "For adult emergencies",
+                "surgery": "For surgical emergencies"
+            },
+            "cost_info": "Public service, fees apply for foreigners (~3000-8000 RSD)",
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        },
+        "emergency_number": {
+            "number": "194",
+            "name": "Hitna Pomoć (Emergency Medical Services)",
+            "availability": "24/7",
+            "coverage": "All Serbia",
+            "when_to_call": [
+                "loss_of_consciousness",
+                "severe_breathing_difficulty",
+                "chest_pain",
+                "severe_bleeding",
+                "convulsions"
+            ],
+            "reliability": "official",
+            "last_verified": "2024-12-24"
+        }
+    },
+    "update_protocol": {
+        "monthly_check": {
+            "required": true,
+            "responsibilities": [
+                "Verify all URLs are still active",
+                "Check for updated regulations on government portals",
+                "Update addresses/phone numbers if changed",
+                "Review Welcome to Serbia for new procedures"
+            ]
+        },
+        "sources_to_monitor": [
+            "https://welcometoserbia.gov.rs/home",
+            "https://www.mup.gov.rs",
+            "https://euprava.gov.rs"
+        ],
+        "when_info_conflicts": {
+            "priority_order": [
+                "1. Official government portal (welcometoserbia.gov.rs)",
+                "2. Ministry website (mup.gov.rs, mpravde.gov.rs)",
+                "3. eUprava portal",
+                "4. Physical verification at office"
+            ],
+            "action": "If conflict found, mark as 'needs_verification' and use higher priority source"
+        }
+    },
+    "deprecated_sources": {
+        "note": "These sources should NOT be used",
+        "list": [
+            {
+                "type": "blogs",
+                "reason": "Not official, may be outdated"
+            },
+            {
+                "type": "facebook_groups",
+                "reason": "Unverified, anecdotal information"
+            },
+            {
+                "type": "reddit",
+                "reason": "Opinions, not official procedures"
+            },
+            {
+                "type": "old_forums",
+                "reason": "Outdated, pre-2018 law changes"
+            }
+        ]
+    }
+}
