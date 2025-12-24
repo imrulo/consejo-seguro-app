@@ -1,5 +1,9 @@
 # Flujo Funcional: Familia – Trámites Comunes en Serbia
 
+> **⚠️ FUENTES OFICIALES:** Este documento se basa en fuentes verificadas registradas en [`data/official_sources.json`](../../data/official_sources.json).
+> Última verificación: Ver archivo JSON.
+
+
 ## Para quién es este flujo
 Inmigrantes que necesitan formalizar o reconocer situaciones familiares en Serbia (matrimonio, documentos del país de origen, cambios de nombre, etc.).
 

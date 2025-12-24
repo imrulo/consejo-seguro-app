@@ -1,5 +1,9 @@
 # Flujo Funcional: Renovación / Vencimiento de Residencia en Serbia
 
+> **⚠️ FUENTES OFICIALES:** Este documento se basa en fuentes verificadas registradas en [`data/official_sources.json`](../../data/official_sources.json).
+> Última verificación: Ver archivo JSON.
+
+
 ## Para quién es este flujo
 Un inmigrante cuya residencia temporal (Boravak) está por vencer y necesita renovarla, o ya venció y necesita saber qué hacer.
 

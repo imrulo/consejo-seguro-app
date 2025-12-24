@@ -1,5 +1,9 @@
 # Flujo Funcional: Nacimiento de Hijo en Serbia
 
+> **⚠️ FUENTES OFICIALES:** Este documento se basa en fuentes verificadas registradas en [`data/official_sources.json`](../../data/official_sources.json).
+> Última verificación: Ver archivo JSON.
+
+
 ## Para quién es este flujo
 Un inmigrante cuyo bebé acaba de nacer en Serbia y necesita saber qué hacer, en qué orden, y por qué.
 

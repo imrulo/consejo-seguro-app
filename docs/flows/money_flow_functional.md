@@ -1,5 +1,9 @@
 # Flujo Funcional: Dinero – Gestión Financiera Básica en Serbia
 
+> **⚠️ FUENTES OFICIALES:** Este documento se basa en fuentes verificadas registradas en [`data/official_sources.json`](../../data/official_sources.json).
+> Última verificación: Ver archivo JSON.
+
+
 ## Para quién es este flujo
 Inmigrantes que necesitan manejar dinero en Serbia de forma legal, segura y sin perder en comisiones abusivas.
 

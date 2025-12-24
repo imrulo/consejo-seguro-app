@@ -1,5 +1,9 @@
 # Módulo RESIDENCIA - Flujo Funcional Completo
 
+> **⚠️ FUENTES OFICIALES:** Este documento se basa en fuentes verificadas registradas en [`data/official_sources.json`](../../data/official_sources.json).
+> Última verificación: Ver archivo JSON.
+
+
 ## Arquitectura del Flujo
 
 ### 1. Motor de Prioridad Contextual (MPC)
