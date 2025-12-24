@@ -362,17 +362,29 @@ Serbia es firmante del Convenio de La Haya, entonces ACEPTA apostillas de otros 
 
 **¿Dónde ir?**
 
-**Policía local** (Policijska Stanica) de tu municipio.
+**MUP - Policía de Extranjeros** (Odeljenje za strance)
 
-**Qué es:** Oficina de policía del barrio.
+**Qué es:** Departamento centralizado del Ministerio del Interior que maneja TODOS los trámites de extranjeros, incluyendo certificados de antecedentes penales.
+
+**IMPORTANTE:** NO vayas a la policía local de tu barrio (Policijska stanica). Los trámites de extranjeros se hacen SOLO en la Policía de Extranjeros centralizada.
 
 **Ubicación:**
-- Busca "Policijska stanica + [tu municipio]"
-- Ejemplos: Policijska stanica Zvezdara, Novi Beograd, etc.
+
+*Belgrado:*
+- Dirección: Savska 35
+- Departamento: "Odeljenje za strance" (Sección de Extranjeros)
+- Pregunta específicamente por certificado de antecedentes: "Uverenje o nekažnjavanju"
+
+*Novi Sad:*
+- Dirección: Bulevar Mihajla Pupina 25
+
+*Otras ciudades:*
+- Cada ciudad grande tiene oficina de MUP para extranjeros
+- Busca "MUP + [tu ciudad]" online
 
 **¿Qué llevar?**
 - Pasaporte original
-- Residencia (Boravak) si tienes
+- Residencia (Boravak)
 - Formulario (se llena allí)
 - Tasa: ~700 RSD
 
