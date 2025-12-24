@@ -1,0 +1,225 @@
+{
+    "flow_metadata": {
+        "flow_id": "renewal_residency",
+        "country": "RS",
+        "domain": "residency",
+        "critical": true,
+        "last_updated": "2024-12-24",
+        "depends_on_guardian_state": [
+            "legal_clock"
+        ],
+        "source": "official_sources.json"
+    },
+    "urgency_logic": {
+        "zones": [
+            {
+                "id": "zone_safe",
+                "range_days": [
+                    60,
+                    999
+                ],
+                "label": "VERDE",
+                "description_human": "Tiempo ideal. Estás en la zona segura para preparar todo sin estrés.",
+                "recommended_action": "Revisa fecha de vencimiento y lista de documentos.",
+                "guardian_override": false
+            },
+            {
+                "id": "zone_pre_alert",
+                "range_days": [
+                    30,
+                    59
+                ],
+                "label": "AMARILLO",
+                "description_human": "Momento de iniciar. Ya deberías estar pidiendo citas o reuniendo papeles.",
+                "recommended_action": "Empieza a reunir documentos. Verifica si necesitas cita en MUP.",
+                "guardian_override": false
+            },
+            {
+                "id": "zone_alert",
+                "range_days": [
+                    15,
+                    29
+                ],
+                "label": "NARANJA",
+                "description_human": "Ventana oficial. Es el momento exacto para entregar la solicitud.",
+                "recommended_action": "Ve al MUP esta semana. No lo dejes pasar más.",
+                "guardian_override": false
+            },
+            {
+                "id": "zone_danger",
+                "range_days": [
+                    7,
+                    14
+                ],
+                "label": "ROJO",
+                "description_human": "Zona de riesgo. Estás muy cerca del límite administrativo.",
+                "recommended_action": "Prioridad absoluta. Ve al MUP mañana mismo.",
+                "guardian_override": true
+            },
+            {
+                "id": "zone_crisis",
+                "range_days": [
+                    1,
+                    6
+                ],
+                "label": "CRISIS",
+                "description_human": "Emergencia burocrática. Tu estatus legal está en peligro inminente.",
+                "recommended_action": "Ve HOY al MUP. Pide hablar con el jefe de turno si es necesario. Lleva lo que tengas.",
+                "guardian_override": true
+            },
+            {
+                "id": "zone_expired",
+                "range_days": [
+                    -999,
+                    0
+                ],
+                "label": "POST-EXPIRY",
+                "description_human": "Residencia vencida. Situación irregular técnica.",
+                "recommended_action": "No entres en pánico. Ve al MUP inmediatamente. Se amable, explica y paga la multa si te la piden.",
+                "guardian_override": true
+            }
+        ]
+    },
+    "critical_steps": [
+        {
+            "step_id": "step_1_gather_docs",
+            "title": "Paso 1: Reunir Documentos",
+            "description": "El MUP es estricto: sin papeles completos, no te reciben.",
+            "items": [
+                {
+                    "id": "doc_passport",
+                    "label": "Pasaporte original válido",
+                    "warning": "Debe tener validez mínima de 6 meses más allá de la fecha de renovación."
+                },
+                {
+                    "id": "doc_current_residency",
+                    "label": "Residencia actual (etiquetada en pasaporte o tarjeta)",
+                    "warning": "Llévala contigo."
+                },
+                {
+                    "id": "doc_white_card",
+                    "label": "Beli Karton (Registro policial)",
+                    "description": "Si cambiaste de dirección, necesitas el nuevo Beli Karton actualizado.",
+                    "critical": true
+                },
+                {
+                    "id": "doc_form",
+                    "label": "Formulario de solicitud",
+                    "description": "Se compra en librerías oficiales o te lo dan allí. Llenar en cirílico si es posible."
+                },
+                {
+                    "id": "doc_taxes",
+                    "label": "Comprobantes de pago de tasas",
+                    "description": "Generalmente dos pagos (tasa de solicitud + tasa de tarjeta). Aprox 6000-8000 RSD total.",
+                    "action": "Pagar en banco/correo y guardar el recibo físico."
+                },
+                {
+                    "id": "doc_insurance",
+                    "label": "Seguro médico válido",
+                    "description": "Privado o estatal, que cubra el periodo de la renovación."
+                }
+            ],
+            "documents_by_type": {
+                "work": [
+                    "Permiso de trabajo vigente",
+                    "Contrato de trabajo",
+                    "Informe de registro (M4)"
+                ],
+                "education": [
+                    "Certificado de inscripción de la facultad/escuela"
+                ],
+                "family": [
+                    "Certificado de matrimonio (no mayor a 6 meses)",
+                    "Copia de ID de la pareja serbia"
+                ],
+                "property": [
+                    "List nepokretnosti (título de propiedad) actualizado"
+                ]
+            }
+        },
+        {
+            "step_id": "step_2_submit_mup",
+            "title": "Paso 2: Solicitar en MUP (Policía de Extranjeros)",
+            "description": "La entrega es presencial y personal.",
+            "location_guide": {
+                "generic_name": "MUP - Odeljenje za strance (Departamento de Extranjeros)",
+                "belgrade": "Savska 35 (generalmente)",
+                "novi_sad": "Bulevar Mihajla Pupina 25",
+                "others": "Pregunta por 'Odeljenje za strance' en la estación central."
+            },
+            "process_tips": [
+                "Ve temprano (antes de las 8:00 AM) si no tienes cita.",
+                "Actitud: Paciente, respetuosa y formal.",
+                "Lleva fotocopias de todo (ellos se quedan las copias, tú muestras originales).",
+                "Si te falta algo, pregunta '¿Puedo traerlo mañana?' en lugar de irte."
+            ]
+        },
+        {
+            "step_id": "step_3_wait_collect",
+            "title": "Paso 3: Espera y Retiro",
+            "timeline_estimated": "3 a 6 semanas",
+            "actions": [
+                {
+                    "label": "Espera el SMS o revisa estado online",
+                    "description": "No vayas antes de tiempo a menos que pase el plazo máximo."
+                },
+                {
+                    "label": "Recogida de tarjeta/etiqueta",
+                    "description": "Debes ir personalmente. Lleva pasaporte."
+                },
+                {
+                    "label": "Verificación final",
+                    "description": "Revisa que tu nombre, fecha de nacimiento y VIGENCIA sean correctos antes de salir de la ventanilla."
+                }
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "id": "passport_valid_6_months",
+            "failure_message_human": "Tu pasaporte caduca pronto. El MUP no puede darte residencia más allá de la validez de tu pasaporte.",
+            "blocks_flow": true
+        },
+        {
+            "id": "residence_reason_still_valid",
+            "failure_message_human": "Si ya no trabajas, estudias o estás casado/a, NO es una renovación simple. Es un cambio de base y requiere otro proceso.",
+            "blocks_flow": true
+        },
+        {
+            "id": "complete_document_set",
+            "failure_message_human": "Faltan documentos obligatorios. Sin el set completo, la ventanilla te rechazará.",
+            "blocks_flow": true
+        }
+    ],
+    "special_cases": {
+        "passport_expires_before_residency": {
+            "title": "Pasaporte vence antes que la residencia deseada",
+            "guidance": "Solo te darán residencia hasta la fecha de vencimiento del pasaporte (menos 3 meses). Renueva tu pasaporte PRIMERO."
+        },
+        "change_of_ground": {
+            "title": "Cambio de motivo (ej. de Trabajo a Matrimonio)",
+            "guidance": "Esto NO es una renovación estándar. Debes cumplir todos los requisitos del NUEVO motivo como si fuera la primera vez."
+        },
+        "expired_1_30_days": {
+            "title": "Vencida hace menos de 30 días",
+            "guidance": "Ve urgentemente al MUP. A menudo aceptan la renovación con una justificación escrita y posible multa.",
+            "is_crisis": true
+        },
+        "expired_31_plus_days": {
+            "title": "Vencida hace más de 30 días",
+            "guidance": "Situación compleja. Tu residencia se ha interrumpido legalmente. Es probable que debas salir del país o reiniciar proceso. Mantén la calma y ve al MUP.",
+            "is_crisis": true
+        },
+        "permanent_residency_eligible": {
+            "title": "Elegible para Residencia Permanente",
+            "guidance": "Si llevas 3 años de residencia temporal continua (o casad@ con serbi@), pide el formulario de 'Stalni Boravak'. Es otro trámite diferente."
+        }
+    },
+    "guardian_integration": {
+        "read_permission": [
+            "legal_clock"
+        ],
+        "write_permission": [],
+        "behavior": "Si legal_clock indica < 7 días, Guardian fuerza la visualización de este flujo en modo ALERTA ROJA e impide navegación ociosa."
+    }
+}
