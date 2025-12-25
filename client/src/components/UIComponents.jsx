@@ -102,7 +102,6 @@ export const DebugPanel = ({ guardianState, setGuardianState }) => (
             </label>
         </div>
     </div>
-    </div >
 );
 
 export const DailyProblemsList = ({ problems }) => {
@@ -116,7 +115,7 @@ export const DailyProblemsList = ({ problems }) => {
             padding: '10px',
             borderRadius: '6px',
             borderLeft: `4px solid ${priority === 'critical' ? '#d9534f' :
-                    priority === 'important' ? '#f0ad4e' : '#5cb85c'
+                priority === 'important' ? '#f0ad4e' : '#5cb85c'
                 }`,
             background: '#fff',
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
