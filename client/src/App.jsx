@@ -90,7 +90,7 @@ function App() {
         </div>
       )}
 
-      )}
+
 
       {/* 4. DAILY PROBLEMS (Always visible if not blocked, even during flow if allowed) */}
       {!components.blockScreen.visible && appOutput?.daily_problems && (
