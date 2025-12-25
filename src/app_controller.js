@@ -12,6 +12,7 @@
 
 const NIPEngine = require('./nip_engine');
 const FlowEngine = require('./flow_engine');
+const DailyProblemEngine = require('./daily_problem_engine');
 const fs = require('fs');
 const path = require('path');
 
@@ -19,6 +20,7 @@ class AppController {
     constructor() {
         this.nip = new NIPEngine();
         this.flowEngine = new FlowEngine();
+        this.dpe = new DailyProblemEngine();
 
         // Preload known flows or lazy load. 
         // For this implementation, we map IDs to locations.
@@ -94,7 +96,7 @@ class AppController {
         // ---------------------------------------------------------
         // 4. SYNTHESIS & PRIORITIZATION
         // ---------------------------------------------------------
-        return this._synthesize(nipResult, flowResult);
+        return this._synthesize(nipResult, flowResult, context);
     }
 
     _loadFlow(flowId) {
@@ -111,7 +113,7 @@ class AppController {
         }
     }
 
-    _synthesize(nip, flow) {
+    _synthesize(nip, flow, context) {
         // Default base: NIP
         const output = {
             system_state: 'ok',
@@ -121,7 +123,8 @@ class AppController {
             blocked_reason: null,
             steps: [],
             next_action: null,
-            presentation_mode: nip.presentation_mode
+            presentation_mode: nip.presentation_mode,
+            daily_problems: null // Default null (STABLE)
         };
 
         // If Flow exists, it refines logic
@@ -160,11 +163,43 @@ class AppController {
                 // Generic action from NIP context if available, or static fallback
                 if (output.urgency === 10) output.next_action = "BUSCAR AYUDA INMEDIATA";
             }
+            output.has_active_flow = false; // Corrected: If no flow, then no active flow.
+            output.suppress_legacy_checklists = false; // If no flow, don't suppress.
         }
 
         // Final consistency check
         if (output.urgency >= 8 && output.presentation_mode === 'normal') {
             output.presentation_mode = 'alert';
+        }
+
+        // ---------------------------------------------------------
+        // 5. DAILY PROBLEM ENGINE (DPE) INTEGRATION
+        // ---------------------------------------------------------
+        // Only run if not blocked
+        if (output.system_state !== 'blocked') {
+            const dpeResult = this.dpe.assess(context);
+
+            if (dpeResult.status === 'BUSY' && dpeResult.problems.length > 0) {
+                let allowedProblems = dpeResult.problems;
+
+                // RULE 1: FLOW SUPPRESSION
+                // If active flow AND (CRISIS or ALERT/FORCED_ALERT) -> Max 1 CRITICAL Only
+                const isHighStressFlow = output.has_active_flow &&
+                    (output.zone === 'CRISIS' || output.presentation_mode === 'forced_alert');
+
+                if (isHighStressFlow) {
+                    // Filter: Only Critical
+                    const criticals = allowedProblems.filter(p => p.priority === 'critical');
+                    // Cap: Max 1
+                    allowedProblems = criticals.slice(0, 1);
+                }
+
+                // RULE 2: DETERMINISTIC ORDER (Already done by DPE, but enforcing safeguards)
+                // Filter out if empty after suppression
+                if (allowedProblems.length > 0) {
+                    output.daily_problems = allowedProblems;
+                }
+            }
         }
 
         return output;
@@ -179,7 +214,8 @@ class AppController {
             blocked_reason: null,
             steps: [],
             next_action: null,
-            presentation_mode: 'normal'
+            presentation_mode: 'normal',
+            daily_problems: null
         };
         return { ...defaults, ...overrides };
     }

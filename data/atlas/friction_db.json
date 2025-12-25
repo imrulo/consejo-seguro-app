@@ -1,0 +1,132 @@
+[
+    {
+        "id": "beli_karton_check",
+        "category": "operative",
+        "priority": "critical",
+        "trigger": {
+            "recent_events": [
+                "just_arrived",
+                "moved_house"
+            ]
+        },
+        "content": {
+            "title": "Registro Policial (Beli Karton)",
+            "what": "Acabas de llegar o mudarte.",
+            "why": "La policía exige saber tu dirección en 24h.",
+            "action": "Ve con tu casero al MUP hoy mismo.",
+            "avoid": "Esperar al 'lunes' o 'tener tiempo'.",
+            "worry_signal": "Han pasado más de 24h sin registro."
+        }
+    },
+    {
+        "id": "notary_preparation",
+        "category": "operative",
+        "priority": "important",
+        "trigger": {
+            "recent_events": [
+                "contract_signing",
+                "buying_property"
+            ]
+        },
+        "content": {
+            "title": "Notario (Javni Beležnik)",
+            "what": "Vas a firmar un documento oficial.",
+            "why": "Sin el sello del notario, tu firma no vale nada legalmente.",
+            "action": "Lleva pasaporte y traductor oficial si no hablas serbio.",
+            "avoid": "Firmar el papel antes de estar frente al notario.",
+            "worry_signal": "Te piden 'Court Interpreter' y no tienes uno."
+        }
+    },
+    {
+        "id": "rain_taxi_scam",
+        "category": "mobility",
+        "priority": "important",
+        "trigger": {
+            "city": "Belgrade",
+            "weather": "rain"
+        },
+        "content": {
+            "title": "Alerta Taxi: Lluvia",
+            "what": "Llueve y hay alta demanda.",
+            "why": "Los taxis ilegales ('Divlji') salen a cazar desesperados.",
+            "action": "Usa apps (Pink/Naxis) o llama. No pares en calle.",
+            "avoid": "Coches sin matrícula 'TX' al final.",
+            "worry_signal": "Taxímetro 'turbo' o apagado."
+        }
+    },
+    {
+        "id": "busplus_audit",
+        "category": "mobility",
+        "priority": "critical",
+        "trigger": {
+            "city": "Belgrade",
+            "day_of_week": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+            ]
+        },
+        "content": {
+            "title": "Control de BusPlus",
+            "what": "Usas transporte público en día laboral.",
+            "why": "Los controles son frecuentes y la multa es inmediata.",
+            "action": "Envía SMS 'A90' al 9011 antes de subir.",
+            "avoid": "Hacerte el extranjero que no entiende.",
+            "worry_signal": "Te piden pasaporte los controladores."
+        }
+    },
+    {
+        "id": "parking_zones",
+        "category": "mobility",
+        "priority": "useful",
+        "trigger": {
+            "city": "Belgrade",
+            "has_car": true
+        },
+        "content": {
+            "title": "Zonas de Parking",
+            "what": "Vas a aparcar en la calle.",
+            "why": "No hay parquímetros. Todo es por SMS.",
+            "action": "Mira el color (Rojo 9111, Amarillo 9112, Verde 9113).",
+            "avoid": "Aparcar en 'Zona Azul' de residentes.",
+            "worry_signal": "Tu coche no está (Llama a Parking Servis)."
+        }
+    },
+    {
+        "id": "exchange_office_receipt",
+        "category": "money",
+        "priority": "useful",
+        "trigger": {
+            "recent_events": [
+                "salary_day",
+                "trip_abroad"
+            ]
+        },
+        "content": {
+            "title": "Cambio de Divisas",
+            "what": "Vas a cambiar Euros a Dinares.",
+            "why": "Las tasas varían. Las 'Menjačnica' son mejores que bancos.",
+            "action": "Pide siempre el recibo ('Račun') y cuenta el dinero allí.",
+            "avoid": "Cambiar en el aeropuerto (llegadas).",
+            "worry_signal": "La tasa es inferior a 116 RSD/EUR."
+        }
+    },
+    {
+        "id": "pharmacy_antibiotics",
+        "category": "health",
+        "priority": "important",
+        "trigger": {
+            "health_status": "sick"
+        },
+        "content": {
+            "title": "Antibióticos con Receta",
+            "what": "Te sientes mal y quieres antibióticos.",
+            "why": "Serbia es estricta. No te los venderán sin receta.",
+            "action": "Ve a un médico general (Dom Zdravlja o Privado) primero.",
+            "avoid": "Insistir en la farmacia sin papel.",
+            "worry_signal": "Fiebre alta persistente."
+        }
+    }
+]
