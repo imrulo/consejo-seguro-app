@@ -1,0 +1,55 @@
+{
+    "flow_metadata": {
+        "flow_id": "transport_belgrade",
+        "country": "RS",
+        "domain": "transport",
+        "critical": false,
+        "source": "official_sources.json"
+    },
+    "urgency_logic": {
+        "zones": [
+            {
+                "id": "zone_info",
+                "range_days": [
+                    0,
+                    999
+                ],
+                "label": "INFO",
+                "description_human": "Información general de transporte",
+                "recommended_action": "Compra tu ticket via SMS",
+                "guardian_override": false
+            }
+        ]
+    },
+    "critical_steps": [
+        {
+            "step_id": "step_ticket",
+            "title": "Compra de Billete (Zona A)",
+            "items": [
+                {
+                    "id": "info_90min",
+                    "label": "Billete 90 minutos",
+                    "description": "Costo: {{live.belgrade_transport.ticket_90min_zone_a.value}}. Enviar SMS '{{live.belgrade_transport.ticket_90min_zone_a.sms_code}}' al {{live.belgrade_transport.ticket_90min_zone_a.recipient}}."
+                },
+                {
+                    "id": "info_day",
+                    "label": "Billete Diario",
+                    "description": "Costo: {{live.belgrade_transport.ticket_day_zone_a.value}}."
+                }
+            ]
+        },
+        {
+            "step_id": "step_night",
+            "title": "Transporte Nocturno",
+            "items": [
+                {
+                    "id": "info_night",
+                    "label": "Horario 00:00 - 04:00",
+                    "description": "Estado actual: {{live.belgrade_transport.ticket_night.value}}. Nota: {{live.belgrade_transport.ticket_night.note}}"
+                }
+            ]
+        }
+    ],
+    "dependencies": [],
+    "special_cases": {}
+}

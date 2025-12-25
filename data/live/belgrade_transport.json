@@ -1,0 +1,27 @@
+{
+    "context": "public_transport",
+    "location": "Belgrade",
+    "last_updated": "2024-12-25",
+    "source": "https://www.busevi.com/cenovnik-karata-za-prevoz-beograd/",
+    "data": {
+        "ticket_90min_zone_a": {
+            "value": "50 RSD",
+            "sms_code": "A90",
+            "recipient": "9011"
+        },
+        "ticket_day_zone_a": {
+            "value": "120 RSD",
+            "sms_code": "A1",
+            "recipient": "9011"
+        },
+        "ticket_night": {
+            "value": "FREE",
+            "condition": "00:00 - 04:00 (Previously paid, now integrated or lax)",
+            "note": "Night transport status often changes, verify on official app 'Beograd Plus'"
+        },
+        "penalty_fee": {
+            "value": "5000 RSD",
+            "note": "Reduced to 2500 RSD if paid within 8 days"
+        }
+    }
+}

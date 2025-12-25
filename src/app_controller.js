@@ -24,7 +24,7 @@ class AppController {
         // For this implementation, we map IDs to locations.
         this.FLOW_REGISTRY = {
             'renewal_residency': '../data/flows/renewal_residency_flow.json',
-            // Add others as they are implemented
+            'transport_belgrade': '../data/flows/transport_belgrade_flow.json'
         };
     }
 
@@ -148,6 +148,10 @@ class AppController {
             // Steps & Actions
             output.steps = flow.available_steps;
             output.next_action = flow.next_recommended_action;
+
+            // PRIORITY FIX: Explicitly mark that a flow is active to suppress legacy checklists
+            output.has_active_flow = true;
+            output.suppress_legacy_checklists = true;
         }
         // Fallback if no flow but High Urgency (e.g. Health)
         else {

@@ -6,9 +6,11 @@
  * Deterministic. No UI. No hidden logic.
  */
 
+const LiveDataResolver = require('./live_data_resolver');
+
 class FlowEngine {
     constructor() {
-        // No state stored in instance
+        this.liveResolver = new LiveDataResolver();
     }
 
     /**
@@ -21,6 +23,15 @@ class FlowEngine {
         if (!flow || !context) {
             throw new Error("FlowEngine: Missing flow or context");
         }
+
+        // Pre-process: Interpolate Live Data into Flow definition (Naive approach, or Just-In-Time)
+        // Better to resolve the used parts (steps, guidance) to save perf?
+        // For simplicity and correctness with the requirement "No prices... hardcoded inside flows",
+        // we resolve the whole flow object or the relevant parts before processing or at output.
+        // Let's resolve the 'critical_steps' and 'special_cases' text.
+
+        // NOTE: Ideally we don't mutate input 'flow'.
+        // Let's perform logic on raw flow, then resolve strings in the OUTPUT.
 
         const daysRemaining = context.days_remaining;
         const checks = context.checks || {}; // e.g. { passport_valid_6_months: true }
@@ -51,24 +62,18 @@ class FlowEngine {
         }
 
         // 5. Select Available Steps
-        // If blocked, maybe no steps available? Or just show block?
-        // Usually steps are instructions. If blocked, users fix block first.
-        // We will return steps but marked as "disabled" by UI if blocked.
-        // The Engine simply exposes them.
         const availableSteps = flow.critical_steps.map(step => ({
             id: step.step_id,
             title: step.title,
-            // Simple logic: If blocked, steps are theoretically available to VIEW, but not to COMPLETE.
-            // But strict Blocking usually means "Stop".
-            // We pass the list. UI decides formatting.
+            items: step.items // Include items for deeper resolution
         }));
 
-        return {
+        const rawResult = {
             current_zone: {
                 id: currentZone.id,
                 label: currentZone.label,
                 description: currentZone.description_human,
-                color_code: this._mapZoneToColor(currentZone.id), // Helper for standardized generic colors
+                color_code: this._mapZoneToColor(currentZone.id),
                 guardian_override: currentZone.guardian_override
             },
             blocked: blocked,
@@ -79,6 +84,9 @@ class FlowEngine {
             critical_warnings: criticalWarnings,
             next_recommended_action: nextAction
         };
+
+        // RESOLVE LIVE DATA
+        return this.liveResolver.resolveObject(rawResult);
     }
 
     _determineZone(zones, days) {
