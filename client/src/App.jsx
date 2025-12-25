@@ -90,38 +90,29 @@ function App() {
         </div>
       )}
 
-          )}
+      )}
+
+      {/* 4. DAILY PROBLEMS (Always visible if not blocked, even during flow if allowed) */}
+      {!components.blockScreen.visible && appOutput?.daily_problems && (
+        <DailyProblemsList problems={appOutput.daily_problems} />
+      )}
+
+      {/* INPUT ALWAYS VISIBLE UNLESS BLOCKED */}
+      {!components.blockScreen.visible && (
+        <InputBar onSend={setUserInput} loading={false} />
+      )}
+
+      {/* DEBUG PANEL: Hidden in production unless ?debug=true */}
+      {window.location.search.includes('debug=true') && (
+        <DebugPanel guardianState={guardianState} setGuardianState={setGuardianState} />
+      )}
+
+      <div style={{ marginTop: '30px', borderTop: '1px solid #ccc', fontSize: '0.7em', color: '#999', paddingTop: '10px' }}>
+        <p><strong>ConsejoSeguro Beta (RC0)</strong></p>
+        <p>Esta herramienta es informativa y no constituye asesoramiento legal profesional.</p>
+        <p>En caso de duda, consulte siempre las fuentes oficiales del Gobierno de Serbia.</p>
+      </div>
     </div>
-  )
-}
-
-{/* 4. DAILY PROBLEMS (Always visible if not blocked, even during flow if allowed) */ }
-{
-  !components.blockScreen.visible && appOutput?.daily_problems && (
-    <DailyProblemsList problems={appOutput.daily_problems} />
-  )
-}
-
-{/* INPUT ALWAYS VISIBLE UNLESS BLOCKED */ }
-{
-  !components.blockScreen.visible && (
-    <InputBar onSend={setUserInput} loading={false} />
-  )
-}
-
-{/* DEBUG PANEL: Hidden in production unless ?debug=true */ }
-{
-  window.location.search.includes('debug=true') && (
-    <DebugPanel guardianState={guardianState} setGuardianState={setGuardianState} />
-  )
-}
-
-<div style={{ marginTop: '30px', borderTop: '1px solid #ccc', fontSize: '0.7em', color: '#999', paddingTop: '10px' }}>
-  <p><strong>ConsejoSeguro Beta (RC0)</strong></p>
-  <p>Esta herramienta es informativa y no constituye asesoramiento legal profesional.</p>
-  <p>En caso de duda, consulte siempre las fuentes oficiales del Gobierno de Serbia.</p>
-</div>
-    </div >
   );
 }
 
