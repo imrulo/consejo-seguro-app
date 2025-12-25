@@ -14,6 +14,10 @@ const AppController = require('@core/app_controller');
 const LiveDataResolver = require('@core/live_data_resolver');
 
 // Import Data (Vite will bundle these as JSON)
+const DailyProblemEngine = require('@core/daily_problem_engine');
+import frictionDB from '@data/atlas/friction_db.json';
+
+// Import Data (Vite will bundle these as JSON)
 import renewalFlow from '@data/flows/renewal_residency_flow.json'
 import transportFlow from '@data/flows/transport_belgrade_flow.json'
 import belgradeTransportData from '@data/live/belgrade_transport.json'
@@ -36,11 +40,14 @@ LiveDataResolver.prototype.load = function (domain) {
     return null;
 }
 
-// 3. Shim 'fs' and 'path' requirements if they are top-level calls in other files (rare but possible).
-// Fortunately, our core classes only require them. Since we override the methods that USE them,
-// we might get away with it if the bundler doesn't choke on the require('fs') statement itself.
-// Vite handling of CJS 'require' calls to node builtins might need a plugin or simple ignore if execution flow is patched.
-// If Vite fails on "Module 'fs' has been externalized...", we need a vite plugin-node-polyfills.
-// For now, let's try direct patching.
+// 3. Browser-Specific AppController Factory
+// We need to inject the DPE with the Vite-imported JSON
+class BrowserAppController extends AppController {
+    constructor() {
+        // Inject DPE with browser-loaded DB
+        const browserDPE = new DailyProblemEngine(frictionDB);
+        super({ dpe: browserDPE });
+    }
+}
 
-export { AppController };
+export { BrowserAppController as AppController };

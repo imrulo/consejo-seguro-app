@@ -5,7 +5,14 @@
  * Deterministically maps User Context -> Priority Micro-Problems.
  */
 
-const frictionDB = require('../data/atlas/friction_db.json');
+let frictionDB = [];
+try {
+    frictionDB = require('../data/atlas/friction_db.json');
+} catch (e) {
+    // In some browser environments, require might fail or be stubbed.
+    // We expect dependency injection in those cases.
+    console.warn("[DPE] FrictionDB require failed, expecting injection.");
+}
 
 class DailyProblemEngine {
     constructor(db = frictionDB) {

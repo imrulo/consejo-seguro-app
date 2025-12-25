@@ -17,10 +17,10 @@ const fs = require('fs');
 const path = require('path');
 
 class AppController {
-    constructor() {
+    constructor(dependencies = {}) {
         this.nip = new NIPEngine();
         this.flowEngine = new FlowEngine();
-        this.dpe = new DailyProblemEngine();
+        this.dpe = dependencies.dpe || new DailyProblemEngine();
 
         // Preload known flows or lazy load. 
         // For this implementation, we map IDs to locations.
