@@ -5,10 +5,10 @@
  * In the browser, we must override these loading mechanisms to use imported JSONs.
  */
 
-// Core Imports (ESM via Vite CommonJS Interop)
-import AppController from '@core/app_controller';
-import LiveDataResolver from '@core/live_data_resolver';
-import DailyProblemEngine from '@core/daily_problem_engine';
+// Core Imports (Using require for CJS compatibility)
+const AppController = require('@core/app_controller');
+const LiveDataResolver = require('@core/live_data_resolver');
+const DailyProblemEngine = require('@core/daily_problem_engine');
 import frictionDB from '@data/atlas/friction_db.json';
 
 // Import Data (Vite will bundle these as JSON)
