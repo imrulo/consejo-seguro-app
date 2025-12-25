@@ -178,6 +178,7 @@ class AppController {
         // Only run if not blocked
         if (output.system_state !== 'blocked') {
             const dpeResult = this.dpe.assess(context);
+            console.log("DEBUG: DPE Result:", JSON.stringify(dpeResult, null, 2));
 
             if (dpeResult.status === 'BUSY' && dpeResult.problems.length > 0) {
                 let allowedProblems = dpeResult.problems;

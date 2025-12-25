@@ -102,4 +102,42 @@ export const DebugPanel = ({ guardianState, setGuardianState }) => (
             </label>
         </div>
     </div>
+    </div >
 );
+
+export const DailyProblemsList = ({ problems }) => {
+    if (!problems || problems.length === 0) return null;
+
+    const styles = {
+        container: { marginTop: '20px', paddingTop: '15px', borderTop: '1px solid #eee' },
+        header: { fontSize: '0.9em', color: '#666', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' },
+        list: { display: 'flex', flexDirection: 'column', gap: '10px' },
+        card: (priority) => ({
+            padding: '10px',
+            borderRadius: '6px',
+            borderLeft: `4px solid ${priority === 'critical' ? '#d9534f' :
+                    priority === 'important' ? '#f0ad4e' : '#5cb85c'
+                }`,
+            background: '#fff',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+        }),
+        title: { fontWeight: 'bold', fontSize: '0.95em', marginBottom: '3px' },
+        desc: { fontSize: '0.85em', color: '#555' },
+        action: { marginTop: '5px', fontSize: '0.8em', fontWeight: 'bold', color: '#333' }
+    };
+
+    return (
+        <div style={styles.container}>
+            <div style={styles.header}>Fricción Diaria (Detectada)</div>
+            <div style={styles.list}>
+                {problems.map(prob => (
+                    <div key={prob.id} style={styles.card(prob.priority)}>
+                        <div style={styles.title}>{prob.content.title}</div>
+                        <div style={styles.desc}>{prob.content.what} {prob.content.why}</div>
+                        <div style={styles.action}>✅ {prob.content.action}</div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};

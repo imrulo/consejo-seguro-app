@@ -9,7 +9,11 @@ const app = new AppController();
 const baseContext = {
     country: "RS",
     days_remaining_legal: 90,
-    checks: {},
+    checks: {
+        "passport_valid_6_months": true,
+        "residence_reason_still_valid": true,
+        "complete_document_set": true
+    },
     city: "Belgrade", // Triggers Taxi (if rain)
     weather: "rain",  // Triggers Taxi
     day_of_week: "Monday", // Triggers BusPlus
