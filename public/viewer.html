@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIP Diagnostic Viewer</title>
+    <title>ConsejoSeguro Diagnostic Viewer</title>
     <style>
         body {
             font-family: monospace;
@@ -118,7 +118,15 @@
             border-bottom: 4px solid gold;
         }
 
+        .zone-naranja {
+            border-bottom: 4px solid orange;
+        }
+
         .zone-rojo {
+            border-bottom: 4px solid red;
+        }
+
+        .zone-alert {
             border-bottom: 4px solid red;
         }
 
@@ -127,28 +135,38 @@
             color: #fff;
             background: #333;
         }
+
+        .zone-expired {
+            border-bottom: 4px solid grey;
+            color: #fff;
+            background: #000;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>NIP Diagnostic Viewer</h1>
-        <p>Motor Determinista v1.0.0 (Contract Frozen)</p>
+        <h1>ConsejoSeguro Orchestration Viewer</h1>
+        <p>AppController v1.0 [Guardian + NIP + FlowEngine]</p>
 
         <div class="control-group">
             <label>Text Input:</label>
             <textarea id="userText" placeholder="Escribe tu problema en español..."></textarea>
             <div style="margin-top: 5px;">
-                <button class="secondary" onclick="setInput('Mi residencia vence en 5 días', 5, false)">Caso: Vence 5
-                    días</button>
-                <button class="secondary" onclick="setInput('Acaba de nacer mi hijo', 60, false)">Caso: Hijo
-                    nació</button>
-                <button class="secondary" onclick="setInput('Quiero abrir una cuenta bancaria', 30, false)">Caso:
-                    Banco</button>
-                <button class="secondary" onclick="setInput('No sé qué hacer', 90, false)">Caso: Ambiguo</button>
-                <button class="secondary" onclick="setInput('Quiero renovar', 20, true)">Caso: Admin Block</button>
-                <button class="secondary" onclick="setInput('Tengo mucha fiebre urgencia', 90, false)">Caso:
-                    Salud</button>
+                <button class="secondary"
+                    onclick="setInput('Mi residencia vence en 5 días', 5, false, CHECKS_HAPPY)">Caso: Vence 5 días
+                    (Crisis)</button>
+                <button class="secondary"
+                    onclick="setInput('Mi residencia vence en 40 días', 40, false, CHECKS_FAIL_PASSPORT)">Caso: Bloqueo
+                    Flujo (Pasaporte)</button>
+                <button class="secondary" onclick="setInput('Quiero abrir cuenta', 90, false, CHECKS_HAPPY)">Caso: Banco
+                    (Ok)</button>
+                <button class="secondary" onclick="setInput('Hola buenos días', 90, false, CHECKS_HAPPY)">Caso: Ambiguo
+                    (Ok)</button>
+                <button class="secondary" onclick="setInput('Tengo fiebre urgencia', 90, false, CHECKS_HAPPY)">Caso:
+                    Salud (Crisis)</button>
+                <button class="secondary" onclick="setInput('Quiero renovar', 20, true, CHECKS_HAPPY)">Caso: Guardian
+                    Block</button>
             </div>
         </div>
 
@@ -163,11 +181,11 @@
             </div>
         </div>
 
-        <button onclick="run()">EVALUAR (Run NIP)</button>
+        <button onclick="run()">EVALUAR (Run AppController)</button>
 
         <div id="dashboard" class="dashboard" style="display:none;">
             <div class="dash-item" id="dash-intent-box">
-                <div class="dash-label">Intención</div>
+                <div class="dash-label">System State</div>
                 <div class="dash-value" id="dash-intent">-</div>
             </div>
             <div class="dash-item" id="dash-urgency-box">
@@ -192,11 +210,75 @@
     </div>
 
     <!-- HACK: Define module object so Node.js engine script doesn't crash in browser -->
-    <script>var module = {};</script>
-    <!-- Load the Engine Source directly -->
+    <script>var module = {}; var require = function(){}; /* Mock require */</script>
+
+    <!-- Load scripts manually since we are not bundling yet. Order matters. -->
     <script src="../src/nip_engine.js"></script>
+    <script src="../src/flow_engine.js"></script>
+    <!-- AppController assumes Node env. We'll need a browser-friendly tweak or valid loading strategy.
+         Since AppController uses 'require' internally for flows, we need to mock or bundle.
+         QUICK FIX: We will inline a browser-adaptable AppController or load a browser-compatible version.
+         
+         BETTER FIX: For this Viewer prototype loop, we will load AppController but we need to ensuring 
+         it can find flows. JS in browser cannot read FS. 
+         
+         ADAPTATION: We will inject the FLOW JSON directly into the AppController instance in viewer.js 
+         because browser JS cannot require('fs').
+    -->
+    <script src="../src/app_controller.js"></script>
+
+    <!-- Browser Adaptation Script -->
+    <script>
+        // Patch AppController to work in browser (no FS)
+        if (typeof AppController !== 'undefined') {
+            // Override _loadFlow to allow fetching or static mapping
+            AppController.prototype._loadFlow = function (flowId) {
+                // Hardcoded for viewer demo purpose
+                if (flowId === 'renewal_residency') {
+                    // We would fetch this in real app. Sync AJAX for demo or preloaded object.
+                    return window.PRELOADED_FLOW_RENEWAL;
+                }
+                return null;
+            };
+        }
+    </script>
+
+    <!-- Preload Flow JSON -->
+    <script>
+        window.PRELOADED_FLOW_RENEWAL = {
+            "flow_metadata": { "flow_id": "renewal_residency", "critical": true, "depends_on_guardian_state": ["legal_clock"] },
+            "urgency_logic": {
+                "zones": [
+                    { "id": "zone_safe", "range_days": [60, 999], "label": "VERDE", "description_human": "Safe", "recommended_action": "Check docs", "guardian_override": false },
+                    { "id": "zone_pre_alert", "range_days": [30, 59], "label": "AMARILLO", "description_human": "Start now", "recommended_action": "Gather docs", "guardian_override": false },
+                    { "id": "zone_alert", "range_days": [15, 29], "label": "NARANJA", "description_human": "Submit now", "recommended_action": "Go to MUP", "guardian_override": false },
+                    { "id": "zone_danger", "range_days": [7, 14], "label": "ROJO", "description_human": "Risk", "recommended_action": "Go TOMORROW", "guardian_override": true },
+                    { "id": "zone_crisis", "range_days": [1, 6], "label": "CRISIS", "description_human": "Emergency", "recommended_action": "Go TODAY", "guardian_override": true },
+                    { "id": "zone_expired", "range_days": [-999, 0], "label": "POST-EXPIRY", "description_human": "Expired", "recommended_action": "Go Immediately", "guardian_override": true }
+                ]
+            },
+            "critical_steps": [], "dependencies": [
+                { "id": "passport_valid_6_months", "failure_message_human": "Pasaporte caduca pronto", "blocks_flow": true },
+                { "id": "residence_reason_still_valid", "failure_message_human": "Motivo no valido", "blocks_flow": true },
+                { "id": "complete_document_set", "failure_message_human": "Faltan documentos", "blocks_flow": true }
+            ], "special_cases": {}
+        }; // Simplified for inline browser demo, or we could fetch the real JSON file content via fetch() if server running.
+        // To be robust, let's fetch it if server is running, fallback to this minimal mock.
+    </script>
 
     <script src="viewer.js"></script>
+
+    <!-- Fetch real flow JSON if possible -->
+    <script>
+        fetch('../data/flows/renewal_residency_flow.json')
+            .then(response => response.json())
+            .then(json => {
+                window.PRELOADED_FLOW_RENEWAL = json;
+                console.log("Real Flow JSON Loaded into Viewer");
+            })
+            .catch(e => console.log("Using fallback flow JSON"));
+    </script>
+
 </body>
 
 </html>
