@@ -17,7 +17,8 @@ class NIPEngine {
             finance_transfer: ['transferencia', 'enviar', 'recibir', 'wise', 'western union'],
             health_emergency: ['urgencia', 'hospital', 'fiebre', 'dolor', 'accidente', 'sangre', 'ambulancia', '194', 'emergencia'],
             residency_family: ['familia', 'esposa', 'esposo', 'traer', 'reagrupacion', 'unificacion'],
-            residency_first_time: ['primera vez', 'sacar residencia', 'obtener residencia', 'permiso trabajo']
+            residency_first_time: ['primera vez', 'sacar residencia', 'obtener residencia', 'permiso trabajo'],
+            transport_belgrade: ['bus', 'transporte', 'busplus', 'sverc', 'multa', 'controlador', 'ticket', 'boleto', 'tram', 'trole']
         };
 
         this.FLOW_MAP = {
@@ -26,7 +27,8 @@ class NIPEngine {
             finance_bank_account: 'money_flow',
             finance_transfer: 'money_flow',
             residency_family: 'family_flow', // Assuming mapped to general family flow logic
-            residency_first_time: 'residency_module' // Placeholder
+            residency_first_time: 'residency_module', // Placeholder
+            transport_belgrade: 'transport_belgrade'
         };
     }
 
