@@ -12,7 +12,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@core': path.resolve(__dirname, '../src'),
-      '@data': path.resolve(__dirname, '../data')
+      '@data': path.resolve(__dirname, '../data'),
+      'fs': path.resolve(__dirname, './src/mocks/node-polyfills.js'),
+      'path': path.resolve(__dirname, './src/mocks/node-polyfills.js')
     }
   },
   esbuild: {
@@ -23,6 +25,7 @@ export default defineConfig({
     sourcemap: false,
   },
   define: {
-    'process.env': {}
+    'process.env': {},
+    '__dirname': '""'
   }
 })
