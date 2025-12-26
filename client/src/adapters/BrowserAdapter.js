@@ -15,6 +15,12 @@ import frictionDB from '@data/atlas/friction_db.json';
 const unwrap = (mod) => (mod && mod.__esModule) ? mod.default : (mod.default || mod);
 
 const AppController = unwrap(AppControllerModule);
+
+if (!AppController || !AppController.prototype) {
+    const keys = Object.keys(AppControllerModule || {}).join(', ');
+    throw new Error(`[Debug] AppController failed to load. Module Keys: [${keys}]. Value: ${AppController}`);
+}
+
 const LiveDataResolver = unwrap(LiveDataResolverModule);
 const DailyProblemEngine = unwrap(DailyProblemEngineModule);
 
