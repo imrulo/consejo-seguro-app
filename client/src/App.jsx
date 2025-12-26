@@ -159,10 +159,12 @@ function App() {
                   <Checklist 
                     title="Problemas frecuentes que causan multas o bloqueos" 
                     items={[
-                      "Residencia vencida o en proceso de renovación tardía",
-                      "Documentos incompletos para trámites oficiales", 
-                      "Desconocimiento de cambios en transporte público",
-                      "Registro tardío de domicilio (Beli Karton)"
+                      "Registro policial no realizado en 24 horas (multa hasta 50.000 RSD - fuente: mup.gov.rs)",
+                      "Residencia temporal vencida sin renovación (deportación posible - fuente: welcometoserbia.gov.rs)", 
+                      "Trabajo sin permiso laboral válido (multa y prohibición de entrada - fuente: nsz.gov.rs)",
+                      "No validar boletos de transporte público (multa 5.000 RSD - fuente: gsp.rs)",
+                      "Documentos oficiales no traducidos al serbio para trámites (rechazo automático - fuente: mfa.gov.rs)",
+                      "Cambio de dirección no reportado en 15 días (multa administrativa - fuente: mup.gov.rs)"
                     ]} 
                   />
                 </div>
@@ -196,8 +198,16 @@ function App() {
         <p style={{ margin: '0 0 4px 0' }}>
           Esta herramienta es informativa y no reemplaza asesoría legal profesional.
         </p>
-        <p style={{ margin: '0' }}>
+        <p style={{ margin: '0 0 8px 0' }}>
           En caso de duda, consulte siempre las fuentes oficiales del Gobierno de Serbia.
+        </p>
+        <p style={{ 
+          margin: '0', 
+          fontSize: '0.75rem', 
+          color: '#9ca3af',
+          fontStyle: 'italic'
+        }}>
+          Información basada en fuentes oficiales: welcometoserbia.gov.rs, mup.gov.rs, nsz.gov.rs, mfa.gov.rs
         </p>
       </div>
     </div>

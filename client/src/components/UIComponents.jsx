@@ -114,10 +114,12 @@ export const InputBar = ({ onSend, loading }) => {
     const [val, setVal] = React.useState('');
     
     const exampleChips = [
-        "Mi residencia vence en 2 semanas",
-        "Necesito renovar mi visa",
-        "¿Cómo funciona el transporte en Belgrado?",
-        "Problemas con documentos"
+        "Mi residencia temporal vence en 2 semanas",
+        "¿Cómo registro mi dirección en la policía?",
+        "Necesito permiso de trabajo, ¿qué documentos?",
+        "¿Dónde pago multa de transporte público?",
+        "Mi empleador no me da contrato escrito",
+        "¿Cómo abrir cuenta bancaria sin residencia?"
     ];
     
     return (
