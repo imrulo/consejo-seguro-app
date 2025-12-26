@@ -5,14 +5,18 @@
  * In the browser, we must override these loading mechanisms to use imported JSONs.
  */
 
+// Core Imports via Namespace (To avoid 'default not exported' errors)
+import * as AppControllerModule from '@core/app_controller';
+import * as LiveDataResolverModule from '@core/live_data_resolver';
+import * as DailyProblemEngineModule from '@core/daily_problem_engine';
+import frictionDB from '@data/atlas/friction_db.json';
+
 // Helper to unwrap default exports (Vite/Rollup CJS Interop)
 const unwrap = (mod) => (mod && mod.__esModule) ? mod.default : (mod.default || mod);
 
-// Core Imports (Using require + unwrap for safety)
-const AppController = unwrap(require('@core/app_controller'));
-const LiveDataResolver = unwrap(require('@core/live_data_resolver'));
-const DailyProblemEngine = unwrap(require('@core/daily_problem_engine'));
-import frictionDB from '@data/atlas/friction_db.json';
+const AppController = unwrap(AppControllerModule);
+const LiveDataResolver = unwrap(LiveDataResolverModule);
+const DailyProblemEngine = unwrap(DailyProblemEngineModule);
 
 // Import Data (Vite will bundle these as JSON)
 import renewalFlow from '@data/flows/renewal_residency_flow.json'
