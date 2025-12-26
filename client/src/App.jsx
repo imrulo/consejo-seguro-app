@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { AppController } from './adapters/BrowserAdapter';
-// Fix import for CJS module
-import * as UILogic from '@core/ui_render_logic';
-const { deriveUIState, UI_MODES } = UILogic; // Or UILogic.default if wrapped
+import AppController from './adapters/BrowserAdapter';
+// Use ESM version directly
+import { deriveUIState, UI_MODES } from './core_esm/UIRenderLogic.js';
 
 import { CrisisBanner, BlockedScreen, FlowRenderer, Checklist, InputBar, DebugPanel, DailyProblemsList } from './components/UIComponents';
 

@@ -54,4 +54,5 @@ class BrowserAppController extends AppController {
     }
 }
 
-export { BrowserAppController as AppController };
+// Export as default for better minification compatibility
+export default BrowserAppController;

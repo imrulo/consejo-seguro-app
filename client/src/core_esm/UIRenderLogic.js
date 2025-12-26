@@ -78,7 +78,5 @@ function deriveUIState(appOutput) {
     };
 }
 
-module.exports = {
-    UI_MODES,
-    deriveUIState
-};
+export { UI_MODES, deriveUIState };
+export default { UI_MODES, deriveUIState };
