@@ -1,18 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import createAppController from './adapters/BrowserAdapter';
+import React, { useState, useEffect } from 'react';
+import appController from './adapters/BrowserAdapter';
 // Use ESM version directly
 import { deriveUIState, UI_MODES } from './core_esm/UIRenderLogic.js';
 
 import { CrisisBanner, BlockedScreen, FlowRenderer, Checklist, InputBar, DebugPanel, DailyProblemsList } from './components/UIComponents';
 
 function App() {
-  // Crear instancia dentro del componente para asegurar que todo esté cargado
-  const appController = useMemo(() => {
-    if (typeof createAppController === 'function') {
-      return createAppController();
-    }
-    throw new Error('createAppController is not a function');
-  }, []);
 
   // SYSTEM STATE
   const [guardianState, setGuardianState] = useState({
@@ -25,10 +18,8 @@ function App() {
 
   // Initial Run & Reactivity
   useEffect(() => {
-    if (appController) {
-      runSystem();
-    }
-  }, [guardianState, userInput, appController]);
+    runSystem();
+  }, [guardianState, userInput]);
 
   const runSystem = () => {
     if (!appController || typeof appController.process !== 'function') {

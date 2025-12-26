@@ -1,8 +1,8 @@
 /**
  * Browser Adapter for ConsejoSeguro Core Logic
  * 
- * SOLUCIÓN RADICAL: Factory function en lugar de class extension
- * para evitar problemas de minificación en producción.
+ * SOLUCIÓN ULTRA-RADICAL: Instancia directa en lugar de factory function
+ * para eliminar completamente problemas de minificación.
  */
 
 // Core Imports (ESM - Direct)
@@ -39,14 +39,9 @@ AppController.prototype._loadFlow = function (flowId) {
     }
 }
 
-// Factory function - más confiable que class extension
-function createBrowserAppController() {
-    const browserDPE = new DailyProblemEngine(frictionDB);
-    const instance = new AppController({ dpe: browserDPE });
-    return instance;
-}
+// Crear instancia directamente - más robusto que factory function
+const browserDPE = new DailyProblemEngine(frictionDB);
+const appControllerInstance = new AppController({ dpe: browserDPE });
 
-// Export explícito - asegurar que funcione con minificación
-const createAppController = createBrowserAppController;
-export { createAppController };
-export default createAppController;
+// Exportar instancia directamente - sin funciones intermedias
+export default appControllerInstance;
