@@ -13,6 +13,7 @@ const LiveDataResolver = unwrap(require('./live_data_resolver.cjs'));
 
 class FlowEngine {
     constructor() {
+        if (typeof LiveDataResolver !== 'function') throw new Error(`Critical: LiveDataResolver is not a constructor in FlowEngine. Got: ${typeof LiveDataResolver}`);
         this.liveResolver = new LiveDataResolver();
     }
 
