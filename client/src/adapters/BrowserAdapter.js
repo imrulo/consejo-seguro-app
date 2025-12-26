@@ -6,9 +6,9 @@
  */
 
 // Core Imports via Namespace (To avoid 'default not exported' errors)
-import * as AppControllerModule from '@core/app_controller';
-import * as LiveDataResolverModule from '@core/live_data_resolver';
-import * as DailyProblemEngineModule from '@core/daily_problem_engine';
+import * as AppControllerModule from '@core/app_controller.cjs';
+import * as LiveDataResolverModule from '@core/live_data_resolver.cjs';
+import * as DailyProblemEngineModule from '@core/daily_problem_engine.cjs';
 import frictionDB from '@data/atlas/friction_db.json';
 
 // Helper to unwrap default exports (Vite/Rollup CJS Interop)
