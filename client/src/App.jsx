@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import createAppController from './adapters/BrowserAdapter';
 // Use ESM version directly
 import { deriveUIState, UI_MODES } from './core_esm/UIRenderLogic.js';
 
 import { CrisisBanner, BlockedScreen, FlowRenderer, Checklist, InputBar, DebugPanel, DailyProblemsList } from './components/UIComponents';
 
-const appController = createAppController();
-
 function App() {
+  // Crear instancia dentro del componente para asegurar que todo esté cargado
+  const appController = useMemo(() => {
+    if (typeof createAppController === 'function') {
+      return createAppController();
+    }
+    throw new Error('createAppController is not a function');
+  }, []);
+
   // SYSTEM STATE
   const [guardianState, setGuardianState] = useState({
     admin_block: false,
@@ -19,10 +25,17 @@ function App() {
 
   // Initial Run & Reactivity
   useEffect(() => {
-    runSystem();
-  }, [guardianState, userInput]);
+    if (appController) {
+      runSystem();
+    }
+  }, [guardianState, userInput, appController]);
 
   const runSystem = () => {
+    if (!appController || typeof appController.process !== 'function') {
+      console.error('AppController not initialized');
+      return;
+    }
+
     const guardianActiveStates = [];
     if (guardianState.days < 90) guardianActiveStates.push('legal_clock');
     if (guardianState.admin_block) guardianActiveStates.push('admin_block');

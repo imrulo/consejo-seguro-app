@@ -46,5 +46,7 @@ function createBrowserAppController() {
     return instance;
 }
 
-// Export factory function as default
-export default createBrowserAppController;
+// Export explícito - asegurar que funcione con minificación
+const createAppController = createBrowserAppController;
+export { createAppController };
+export default createAppController;
