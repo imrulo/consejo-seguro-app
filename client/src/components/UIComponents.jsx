@@ -460,3 +460,259 @@ export const DailyProblemsList = ({ problems }) => {
         </section>
     );
 };
+
+export const WelcomeHero = () => {
+    const isMobile = window.innerWidth < 768;
+    
+    return (
+        <section 
+            aria-label="Bienvenida y propósito de la aplicación"
+            style={{
+                textAlign: 'center',
+                marginBottom: '32px',
+                padding: isMobile ? '24px 16px' : '32px 24px',
+                background: 'linear-gradient(135deg, rgba(0, 123, 255, 0.1) 0%, rgba(76, 175, 80, 0.1) 100%)',
+                borderRadius: '20px',
+                border: '1px solid rgba(0, 123, 255, 0.2)',
+                backdropFilter: 'blur(10px)',
+                position: 'relative',
+                overflow: 'hidden'
+            }}
+        >
+            {/* Decorative background elements */}
+            <div style={{
+                position: 'absolute',
+                top: '-50%',
+                right: '-20%',
+                width: '200px',
+                height: '200px',
+                background: 'radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%)',
+                borderRadius: '50%',
+                pointerEvents: 'none'
+            }} />
+            <div style={{
+                position: 'absolute',
+                bottom: '-30%',
+                left: '-10%',
+                width: '150px',
+                height: '150px',
+                background: 'radial-gradient(circle, rgba(0, 123, 255, 0.1) 0%, transparent 70%)',
+                borderRadius: '50%',
+                pointerEvents: 'none'
+            }} />
+            
+            <div style={{ position: 'relative', zIndex: 1 }}>
+                {/* Main icon */}
+                <div style={{
+                    fontSize: isMobile ? '3rem' : '4rem',
+                    marginBottom: '16px',
+                    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1))'
+                }}>
+                    🛡️
+                </div>
+                
+                {/* Main heading */}
+                <h1 style={{
+                    fontSize: isMobile ? '1.5rem' : '2rem',
+                    fontWeight: '700',
+                    color: '#1565C0',
+                    marginBottom: '12px',
+                    lineHeight: '1.2'
+                }}>
+                    Tu sistema de protección en Serbia
+                </h1>
+                
+                {/* Subtitle */}
+                <p style={{
+                    fontSize: isMobile ? '1rem' : '1.1rem',
+                    color: '#2E7D32',
+                    marginBottom: '20px',
+                    fontWeight: '500',
+                    lineHeight: '1.4'
+                }}>
+                    Evita problemas legales, multas y complicaciones burocráticas
+                </p>
+                
+                {/* Value proposition */}
+                <div style={{
+                    display: 'flex',
+                    flexDirection: isMobile ? 'column' : 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: isMobile ? '12px' : '24px',
+                    marginTop: '24px'
+                }}>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        color: '#37474F',
+                        fontSize: '0.9rem',
+                        fontWeight: '500'
+                    }}>
+                        <span style={{ color: '#4CAF50', fontSize: '1.1rem' }}>✓</span>
+                        Información oficial verificada
+                    </div>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        color: '#37474F',
+                        fontSize: '0.9rem',
+                        fontWeight: '500'
+                    }}>
+                        <span style={{ color: '#4CAF50', fontSize: '1.1rem' }}>✓</span>
+                        Alertas personalizadas
+                    </div>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        color: '#37474F',
+                        fontSize: '0.9rem',
+                        fontWeight: '500'
+                    }}>
+                        <span style={{ color: '#4CAF50', fontSize: '1.1rem' }}>✓</span>
+                        Siempre actualizado
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export const QuickAccessCards = () => {
+    const isMobile = window.innerWidth < 768;
+    
+    const quickActions = [
+        {
+            icon: '📋',
+            title: 'Registro policial',
+            description: 'Obligatorio en 24h tras llegada',
+            color: '#007BFF',
+            bgColor: 'rgba(0, 123, 255, 0.1)',
+            borderColor: 'rgba(0, 123, 255, 0.2)'
+        },
+        {
+            icon: '🏠',
+            title: 'Residencia temporal',
+            description: 'Permisos y renovaciones',
+            color: '#4CAF50',
+            bgColor: 'rgba(76, 175, 80, 0.1)',
+            borderColor: 'rgba(76, 175, 80, 0.2)'
+        },
+        {
+            icon: '💼',
+            title: 'Permiso de trabajo',
+            description: 'Documentación laboral',
+            color: '#FF9800',
+            bgColor: 'rgba(255, 152, 0, 0.1)',
+            borderColor: 'rgba(255, 152, 0, 0.2)'
+        },
+        {
+            icon: '🚌',
+            title: 'Transporte público',
+            description: 'Tarifas y validación',
+            color: '#9C27B0',
+            bgColor: 'rgba(156, 39, 176, 0.1)',
+            borderColor: 'rgba(156, 39, 176, 0.2)'
+        }
+    ];
+    
+    return (
+        <section 
+            aria-label="Acceso rápido a temas importantes"
+            style={{
+                marginBottom: '32px'
+            }}
+        >
+            <h2 style={{
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
+                fontWeight: '600',
+                color: '#374151',
+                marginBottom: '16px',
+                textAlign: 'center'
+            }}>
+                Temas más consultados
+            </h2>
+            
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+                gap: '16px'
+            }}>
+                {quickActions.map((action, index) => (
+                    <div
+                        key={index}
+                        style={{
+                            padding: '20px',
+                            background: action.bgColor,
+                            borderRadius: '16px',
+                            border: `1px solid ${action.borderColor}`,
+                            transition: 'all 0.2s ease',
+                            cursor: 'pointer',
+                            backdropFilter: 'blur(10px)',
+                            position: 'relative',
+                            overflow: 'hidden'
+                        }}
+                        onMouseEnter={e => {
+                            e.target.style.transform = 'translateY(-2px)';
+                            e.target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)';
+                        }}
+                        onMouseLeave={e => {
+                            e.target.style.transform = 'translateY(0)';
+                            e.target.style.boxShadow = 'none';
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Información sobre ${action.title}: ${action.description}`}
+                    >
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '12px'
+                        }}>
+                            <div style={{
+                                fontSize: '1.5rem',
+                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))'
+                            }}>
+                                {action.icon}
+                            </div>
+                            <div style={{ flex: 1 }}>
+                                <h3 style={{
+                                    fontSize: '1rem',
+                                    fontWeight: '600',
+                                    color: action.color,
+                                    marginBottom: '4px',
+                                    margin: '0 0 4px 0'
+                                }}>
+                                    {action.title}
+                                </h3>
+                                <p style={{
+                                    fontSize: '0.85rem',
+                                    color: '#6B7280',
+                                    margin: '0',
+                                    lineHeight: '1.4'
+                                }}>
+                                    {action.description}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        {/* Subtle decorative element */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '-20px',
+                            right: '-20px',
+                            width: '60px',
+                            height: '60px',
+                            background: `radial-gradient(circle, ${action.borderColor} 0%, transparent 70%)`,
+                            borderRadius: '50%',
+                            pointerEvents: 'none'
+                        }} />
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+};
