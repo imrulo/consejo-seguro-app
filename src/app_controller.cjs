@@ -10,9 +10,9 @@
  * Primary Responsibility: Single Source of Truth for System State.
  */
 
-const NIP = require('./nip_engine.cjs');
-const Flow = require('./flow_engine.cjs');
-const DPE = require('./daily_problem_engine.cjs');
+const NIPEngine = require('./nip_engine.cjs');
+const FlowEngine = require('./flow_engine.cjs');
+const DailyProblemEngine = require('./daily_problem_engine.cjs');
 const fs = require('fs');
 const path = require('path');
 
