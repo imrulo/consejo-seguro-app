@@ -77,4 +77,5 @@ class LiveDataResolver {
     }
 }
 
+// Export for usage
 module.exports = LiveDataResolver;

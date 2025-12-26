@@ -112,4 +112,6 @@ class DailyProblemEngine {
     }
 }
 
+// Export for usage
 module.exports = DailyProblemEngine;
+```
