@@ -18,15 +18,31 @@ import belgradeTransportData from '@data/live/belgrade_transport.json'
 // Override LiveDataResolver.load BEFORE FlowEngine uses it
 if (LiveDataResolver && LiveDataResolver.prototype) {
     LiveDataResolver.prototype.load = function (domain) {
-        if (this.cache && this.cache[domain]) return this.cache[domain];
+        // Check cache first
+        if (this.cache && this.cache[domain]) {
+            return this.cache[domain];
+        }
         
         console.log(`[BrowserAdapter] Loading Live Data: ${domain}`);
         let data = null;
+        
+        // Map domain names to imported data
         if (domain === 'belgrade_transport') {
             data = belgradeTransportData;
-            if (this.cache) this.cache[domain] = data;
+            // Verify data structure
+            if (data && data.data) {
+                if (this.cache) {
+                    this.cache[domain] = data;
+                }
+                return data;
+            } else {
+                console.error(`[BrowserAdapter] Invalid data structure for ${domain}`);
+                return null;
+            }
         }
-        return data;
+        
+        console.warn(`[BrowserAdapter] Unknown domain: ${domain}`);
+        return null;
     }
 }
 
@@ -61,6 +77,12 @@ if (!appControllerInstance || typeof appControllerInstance.process !== 'function
     throw new Error('AppController instance is invalid or missing process method');
 }
 
-// Exportar de múltiples formas para máxima compatibilidad
-export { appControllerInstance };
+// Export pattern más robusto para minificación
+// Usar función getter para evitar problemas de minificación con const exports
+function getAppController() {
+    return appControllerInstance;
+}
+
+// Exportar tanto la función como la instancia directa
+export { appControllerInstance, getAppController };
 export default appControllerInstance;

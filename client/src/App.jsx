@@ -80,9 +80,9 @@ function App() {
 
           {/* 3B. IDLE / GENERIC */}
           {components.idleState.visible && (
-            <div>
-              <h1>ConsejoSeguro 🇷🇸</h1>
-              <p>Asistente de Inmigración Determinista</p>
+            <div style={{ padding: '20px 0' }}>
+              <h1 style={{ fontSize: '2em', marginBottom: '10px', color: '#212529', fontWeight: '700' }}>ConsejoSeguro 🇷🇸</h1>
+              <p style={{ fontSize: '1.1em', color: '#6c757d', marginBottom: '30px' }}>Asistente de Inmigración Determinista</p>
               <Checklist title="Sugerencias Rápidas" items={[
                 "Registra tu Beli Karton en 24h",
                 "No dejes vencer tu visa",

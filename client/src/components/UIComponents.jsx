@@ -34,17 +34,25 @@ export const BlockedScreen = ({ reason, safeAction }) => (
 
 export const FlowRenderer = ({ steps, flowId, zone }) => (
     <div>
-        <div style={{ marginBottom: '20px', padding: '10px', background: '#f8f9fa', borderLeft: `5px solid ${zone === 'CRISIS' ? 'red' : 'green'}` }}>
+        <div style={{ 
+            marginBottom: '24px', 
+            padding: '12px 16px', 
+            background: '#f8f9fa', 
+            borderLeft: `5px solid ${zone === 'CRISIS' ? '#dc3545' : '#28a745'}`,
+            borderRadius: '4px',
+            fontSize: '0.9em',
+            color: '#495057'
+        }}>
             <strong>Modo Activo:</strong> {flowId} ({zone})
         </div>
-        {steps.map(step => (
-            <div key={step.id} style={styles.step}>
-                <h3 style={styles.stepTitle}>{step.title}</h3>
+        {steps && steps.map(step => (
+            <div key={step.id} style={{...styles.step, marginBottom: '24px'}}>
+                <h3 style={{...styles.stepTitle, marginBottom: '12px'}}>{step.title}</h3>
                 {step.items && step.items.map(item => (
-                    <div key={item.id} style={styles.item}>
-                        <strong>{item.label}</strong>
-                        {item.description && <div>{item.description}</div>}
-                        {item.warning && <div style={{ color: 'red', fontSize: '0.9em' }}>⚠️ {item.warning}</div>}
+                    <div key={item.id} style={{...styles.item, padding: '8px 0', lineHeight: '1.6'}}>
+                        <strong style={{ display: 'block', marginBottom: '4px', color: '#212529' }}>{item.label}</strong>
+                        {item.description && <div style={{ color: '#495057', fontSize: '0.95em' }}>{item.description}</div>}
+                        {item.warning && <div style={{ color: '#dc3545', fontSize: '0.9em', marginTop: '4px', fontWeight: '500' }}>⚠️ {item.warning}</div>}
                     </div>
                 ))}
             </div>
@@ -53,10 +61,10 @@ export const FlowRenderer = ({ steps, flowId, zone }) => (
 );
 
 export const Checklist = ({ title, items }) => (
-    <div style={{ opacity: 0.6 }}>
-        <h3>{title}</h3>
-        <ul>
-            {items.map((it, idx) => <li key={idx}>{it}</li>)}
+    <div style={{ marginTop: '20px', padding: '15px', background: '#f8f9fa', borderRadius: '6px', borderLeft: '4px solid #007bff' }}>
+        <h3 style={{ margin: '0 0 10px 0', fontSize: '1.1em', fontWeight: '600', color: '#333' }}>{title}</h3>
+        <ul style={{ margin: 0, paddingLeft: '20px', color: '#555' }}>
+            {items.map((it, idx) => <li key={idx} style={{ marginBottom: '8px', lineHeight: '1.5' }}>{it}</li>)}
         </ul>
     </div>
 );

@@ -58,21 +58,36 @@ export default class LiveDataResolver {
         if (!text || typeof text !== 'string') return text;
 
         return text.replace(/\{\{live\.(\w+)\.([^\}]+)\}\}/g, (match, domain, pathStr) => {
-            const data = this.load(domain);
-            if (!data || !data.data) return match; // Keep placeholder if data not found
-
-            // Traverse path
-            const keys = pathStr.split('.');
-            let current = data.data;
-            for (const key of keys) {
-                if (current && typeof current === 'object' && key in current) {
-                    current = current[key];
-                } else {
-                    return match; // Path failed
+            try {
+                const data = this.load(domain);
+                if (!data || !data.data) {
+                    console.warn(`[LiveDataResolver] Data not found for domain: ${domain}`);
+                    return match; // Keep placeholder if data not found
                 }
-            }
 
-            return current;
+                // Traverse path
+                const keys = pathStr.split('.');
+                let current = data.data;
+                for (const key of keys) {
+                    if (current && typeof current === 'object' && key in current) {
+                        current = current[key];
+                    } else {
+                        console.warn(`[LiveDataResolver] Path failed: ${domain}.${pathStr} at key: ${key}`);
+                        return match; // Path failed
+                    }
+                }
+
+                // Verify we got a string/number, not an object
+                if (typeof current === 'string' || typeof current === 'number') {
+                    return String(current);
+                } else {
+                    console.warn(`[LiveDataResolver] Resolved value is not a primitive: ${domain}.${pathStr}`);
+                    return match;
+                }
+            } catch (error) {
+                console.error(`[LiveDataResolver] Error resolving ${match}:`, error);
+                return match; // Fail safe: return placeholder
+            }
         });
     }
 
