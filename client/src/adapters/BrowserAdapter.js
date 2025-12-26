@@ -30,10 +30,18 @@ AppController.prototype._loadFlow = function (flowId) {
 
 // 2. Override LiveDataResolver.load
 LiveDataResolver.prototype.load = function (domain) {
+    // Check cache first (consistent with original implementation)
+    if (this.cache[domain]) return this.cache[domain];
+    
     console.log(`[BrowserAdapter] Loading Live Data: ${domain}`);
     // Extract domain name if it matches our files
-    if (domain === 'belgrade_transport') return belgradeTransportData;
-    return null;
+    let data = null;
+    if (domain === 'belgrade_transport') {
+        data = belgradeTransportData;
+        // Cache it for future use
+        this.cache[domain] = data;
+    }
+    return data;
 }
 
 // 3. Browser-Specific AppController Factory

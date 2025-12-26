@@ -105,6 +105,5 @@ class DailyProblemEngine {
     }
 }
 
-// Export for usage
-
+export default DailyProblemEngine;
 

@@ -13,15 +13,33 @@ import path from 'path';
 export default class LiveDataResolver {
     constructor() {
         this.cache = {};
-        this.DATA_DIR = path.join(__dirname, '../data/live');
+        // Browser-safe: Only set DATA_DIR if __dirname is available (Node.js environment)
+        // In browser, this will be overridden by BrowserAdapter anyway
+        try {
+            if (typeof __dirname !== 'undefined' && __dirname) {
+                this.DATA_DIR = path.join(__dirname, '../data/live');
+            } else {
+                this.DATA_DIR = null; // Browser environment
+            }
+        } catch (e) {
+            this.DATA_DIR = null; // Browser environment
+        }
     }
 
     load(domain) {
         if (this.cache[domain]) return this.cache[domain];
 
+        // Browser-safe: If DATA_DIR is not set (browser env), return null early
+        // Note: BrowserAdapter will override this entire method, so this code path
+        // only runs in Node.js environment or if override hasn't happened yet
+        if (!this.DATA_DIR) {
+            return null;
+        }
+
+        // Node.js path: Use fs to load files
         const filePath = path.join(this.DATA_DIR, `${domain}.json`);
         try {
-            if (fs.existsSync(filePath)) {
+            if (fs.existsSync && fs.existsSync(filePath)) {
                 const raw = fs.readFileSync(filePath, 'utf8');
                 const json = JSON.parse(raw);
                 this.cache[domain] = json;

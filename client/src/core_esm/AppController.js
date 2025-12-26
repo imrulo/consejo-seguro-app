@@ -114,6 +114,12 @@ export default class AppController {
         const relativePath = this.FLOW_REGISTRY[flowId];
         if (!relativePath) return null;
 
+        // Browser-safe: If __dirname is not available, return null
+        // BrowserAdapter will override this method anyway
+        if (typeof __dirname === 'undefined' || !__dirname) {
+            return null;
+        }
+
         try {
             const fullPath = path.join(__dirname, relativePath);
             const raw = fs.readFileSync(fullPath, 'utf8');
