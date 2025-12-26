@@ -43,5 +43,6 @@ AppController.prototype._loadFlow = function (flowId) {
 const browserDPE = new DailyProblemEngine(frictionDB);
 const appControllerInstance = new AppController({ dpe: browserDPE });
 
-// Exportar instancia directamente - sin funciones intermedias
+// Exportar de múltiples formas para máxima compatibilidad
+export { appControllerInstance };
 export default appControllerInstance;
