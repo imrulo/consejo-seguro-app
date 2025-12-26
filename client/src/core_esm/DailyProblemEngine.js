@@ -5,7 +5,7 @@
  * Deterministically maps User Context -> Priority Micro-Problems.
  */
 
-import frictionDB from '../../../../data/atlas/friction_db.json';
+import frictionDB from '../../../data/atlas/friction_db.json';
 
 class DailyProblemEngine {
     constructor(db = frictionDB) {
