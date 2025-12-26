@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import AppController from './adapters/BrowserAdapter';
+import createAppController from './adapters/BrowserAdapter';
 // Use ESM version directly
 import { deriveUIState, UI_MODES } from './core_esm/UIRenderLogic.js';
 
 import { CrisisBanner, BlockedScreen, FlowRenderer, Checklist, InputBar, DebugPanel, DailyProblemsList } from './components/UIComponents';
 
-const appController = new AppController();
+const appController = createAppController();
 
 function App() {
   // SYSTEM STATE
