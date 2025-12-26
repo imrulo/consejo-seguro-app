@@ -52,19 +52,59 @@ function App() {
     runSystem();
   }, [runSystem]);
 
-  if (!uiState) return <div>Booting Guardian...</div>;
+  if (!uiState) return (
+    <div style={{
+      maxWidth: '600px',
+      margin: '0 auto',
+      padding: window.innerWidth < 768 ? '16px' : '20px',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+    }}>
+      <div style={{
+        textAlign: 'center',
+        padding: '40px 20px'
+      }}>
+        <div style={{
+          display: 'inline-block',
+          width: '40px',
+          height: '40px',
+          border: '3px solid #f3f4f6',
+          borderTop: '3px solid #3b82f6',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite',
+          marginBottom: '16px'
+        }}></div>
+        <p style={{
+          color: '#6b7280',
+          fontSize: '0.9rem',
+          margin: '0'
+        }}>
+          Iniciando sistema de protección...
+        </p>
+      </div>
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  );
 
   const { components } = uiState;
 
   return (
-    <div style={{ 
-        maxWidth: '600px', 
-        margin: '0 auto', 
-        padding: '20px', 
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-        lineHeight: '1.6',
-        color: '#1a1a1a'
-    }}>
+    <>
+      <a href="#main-content" className="skip-link">
+        Saltar al contenido principal
+      </a>
+      <div style={{ 
+          maxWidth: '600px', 
+          margin: '0 auto', 
+          padding: window.innerWidth < 768 ? '16px' : '20px',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+          lineHeight: '1.6',
+          color: '#000000' // Mejor contraste para accesibilidad
+      }}>
       {/* 1. LAYER: CRISIS */}
       {components.crisisAlert.visible && (
         <CrisisBanner urgency={components.crisisAlert.urgency} action={components.crisisAlert.action} />
@@ -87,25 +127,25 @@ function App() {
 
           {/* 3B. IDLE / GENERIC */}
           {components.idleState.visible && (
-            <div style={{ padding: '0' }}>
+            <main id="main-content" role="main" aria-label="Información de seguridad para inmigrantes" style={{ padding: '0' }} className="fade-in">
               {/* Hero Section */}
-              <div style={{ 
+              <header style={{ 
                 textAlign: 'center', 
                 marginBottom: '24px',
-                padding: '24px 0'
+                padding: window.innerWidth < 768 ? '16px 0' : '24px 0'
               }}>
                 <h1 style={{ 
-                  fontSize: '1.75rem', 
+                  fontSize: window.innerWidth < 768 ? '1.5rem' : '1.75rem', 
                   fontWeight: '700', 
-                  color: '#1a1a1a', 
+                  color: '#000000', 
                   marginBottom: '8px',
                   lineHeight: '1.2'
                 }}>
                   Evita multas y problemas legales en Serbia
                 </h1>
                 <p style={{ 
-                  fontSize: '1.1rem', 
-                  color: '#4a5568', 
+                  fontSize: window.innerWidth < 768 ? '1rem' : '1.1rem', 
+                  color: '#374151', 
                   marginBottom: '12px',
                   lineHeight: '1.5',
                   maxWidth: '480px',
@@ -114,7 +154,7 @@ function App() {
                   Orientación precisa para inmigrantes. Basado en normativas y prácticas locales.
                 </p>
                 <p style={{
-                  fontSize: '0.9rem',
+                  fontSize: window.innerWidth < 768 ? '0.85rem' : '0.9rem',
                   color: '#6b7280',
                   fontStyle: 'italic',
                   maxWidth: '420px',
@@ -122,7 +162,7 @@ function App() {
                 }}>
                   No necesitas escribir nada para ver riesgos comunes detectados para tu situación.
                 </p>
-              </div>
+              </header>
 
               {/* DAILY PROBLEMS - MOVED UP FOR PROTECTION PRIORITY */}
               {appOutput?.daily_problems && (
@@ -131,7 +171,7 @@ function App() {
 
               {/* Common Risks Section - Only show if no daily problems detected */}
               {(!appOutput?.daily_problems || appOutput.daily_problems.length === 0) && (
-                <div style={{ marginBottom: '24px' }}>
+                <section aria-label="Alertas de riesgo comunes" style={{ marginBottom: '24px' }}>
                   <div style={{
                     textAlign: 'center',
                     marginBottom: '16px',
@@ -159,17 +199,15 @@ function App() {
                   <Checklist 
                     title="Problemas frecuentes que causan multas o bloqueos" 
                     items={[
-                      "Registro policial no realizado en 24 horas (multa hasta 50.000 RSD - fuente: mup.gov.rs)",
-                      "Residencia temporal vencida sin renovación (deportación posible - fuente: welcometoserbia.gov.rs)", 
-                      "Trabajo sin permiso laboral válido (multa y prohibición de entrada - fuente: nsz.gov.rs)",
-                      "No validar boletos de transporte público (multa 5.000 RSD - fuente: gsp.rs)",
-                      "Documentos oficiales no traducidos al serbio para trámites (rechazo automático - fuente: mfa.gov.rs)",
-                      "Cambio de dirección no reportado en 15 días (multa administrativa - fuente: mup.gov.rs)"
+                      "🚨 Registro policial no realizado en 24 horas (multa hasta 50.000 RSD)",
+                      "🚨 Residencia temporal vencida sin renovación (deportación posible)", 
+                      "⚠️ Trabajo sin permiso laboral válido (multa y prohibición de entrada)",
+                      "⚠️ No validar boletos de transporte público (multa 5.000 RSD)"
                     ]} 
                   />
-                </div>
+                </section>
               )}
-            </div>
+            </main>
           )}
         </div>
       )}
@@ -184,16 +222,16 @@ function App() {
         <DebugPanel guardianState={guardianState} setGuardianState={setGuardianState} />
       )}
 
-      <div style={{ 
+      <footer style={{ 
         marginTop: '40px', 
         paddingTop: '20px',
         borderTop: '1px solid #e2e8f0', 
-        fontSize: '0.8rem', 
-        color: '#6b7280',
+        fontSize: window.innerWidth < 768 ? '0.75rem' : '0.8rem', 
+        color: '#4b5563', // Mejor contraste
         textAlign: 'center'
       }}>
         <p style={{ margin: '0 0 8px 0' }}>
-          <strong style={{ color: '#374151' }}>ConsejoSeguro</strong> · Basado en normativas y prácticas locales
+          <strong style={{ color: '#111827' }}>ConsejoSeguro</strong> · Basado en normativas y prácticas locales
         </p>
         <p style={{ margin: '0 0 4px 0' }}>
           Esta herramienta es informativa y no reemplaza asesoría legal profesional.
@@ -203,14 +241,15 @@ function App() {
         </p>
         <p style={{ 
           margin: '0', 
-          fontSize: '0.75rem', 
-          color: '#9ca3af',
+          fontSize: window.innerWidth < 768 ? '0.7rem' : '0.75rem', 
+          color: '#6b7280',
           fontStyle: 'italic'
         }}>
           Información basada en fuentes oficiales: welcometoserbia.gov.rs, mup.gov.rs, nsz.gov.rs, mfa.gov.rs
         </p>
+      </footer>
       </div>
-    </div>
+    </>
   );
 }
 

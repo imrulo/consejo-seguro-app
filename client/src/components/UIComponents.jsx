@@ -60,89 +60,114 @@ export const FlowRenderer = ({ steps, flowId, zone }) => (
     </div>
 );
 
-export const Checklist = ({ title, items }) => (
-    <div style={{ 
-        marginTop: '0', 
-        padding: '20px', 
-        background: '#fefaf8', 
-        borderRadius: '12px', 
-        border: '1px solid #f3e8d8',
-        borderLeft: '4px solid #d97706'
-    }}>
-        <h3 style={{ 
-            margin: '0 0 16px 0', 
-            fontSize: '1.05rem', 
-            fontWeight: '600', 
-            color: '#92400e',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
-        }}>
-            <span style={{ fontSize: '1.1rem' }}>⚠️</span>
-            {title}
-        </h3>
-        <ul style={{ 
-            margin: 0, 
-            paddingLeft: '0', 
-            listStyle: 'none',
-            color: '#78350f' 
-        }}>
-            {items.map((item, idx) => (
-                <li key={idx} style={{ 
-                    marginBottom: '12px', 
-                    lineHeight: '1.5',
+export const Checklist = ({ title, items }) => {
+    const isMobile = window.innerWidth < 768;
+    
+    return (
+        <div 
+            role="region"
+            aria-labelledby="checklist-title"
+            style={{ 
+                marginTop: '0', 
+                padding: isMobile ? '16px' : '20px', 
+                background: '#fefaf8', 
+                borderRadius: '12px', 
+                border: '1px solid #f3e8d8',
+                borderLeft: '4px solid #d97706'
+            }}
+        >
+            <h3 
+                id="checklist-title"
+                style={{ 
+                    margin: '0 0 16px 0', 
+                    fontSize: isMobile ? '1rem' : '1.05rem', 
+                    fontWeight: '600', 
+                    color: '#92400e',
                     display: 'flex',
-                    alignItems: 'flex-start',
+                    alignItems: 'center',
                     gap: '8px'
-                }}>
-                    <span style={{ 
-                        color: '#d97706', 
-                        fontWeight: 'bold',
-                        fontSize: '0.9rem',
-                        marginTop: '2px'
-                    }}>
-                        •
-                    </span>
-                    <span>{item}</span>
-                </li>
-            ))}
-        </ul>
-    </div>
-);
+                }}
+            >
+                <span style={{ fontSize: '1.1rem' }} aria-hidden="true">⚠️</span>
+                {title}
+            </h3>
+            <ul 
+                style={{ 
+                    margin: 0, 
+                    paddingLeft: '0', 
+                    listStyle: 'none',
+                    color: '#78350f' 
+                }}
+                role="list"
+            >
+                {items.map((item, idx) => (
+                    <li 
+                        key={idx} 
+                        role="listitem"
+                        style={{ 
+                            marginBottom: '14px', 
+                            lineHeight: '1.6',
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '10px',
+                            fontSize: isMobile ? '0.9rem' : '1rem'
+                        }}
+                    >
+                        <span 
+                            style={{ 
+                                color: '#d97706', 
+                                fontWeight: 'bold',
+                                fontSize: '0.9rem',
+                                marginTop: '2px',
+                                minWidth: '8px'
+                            }}
+                            aria-hidden="true"
+                        >
+                            •
+                        </span>
+                        <span>{item}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
 
 export const InputBar = ({ onSend, loading }) => {
     const [val, setVal] = React.useState('');
+    const isMobile = window.innerWidth < 768;
     
     const exampleChips = [
-        "Mi residencia temporal vence en 2 semanas",
-        "¿Cómo registro mi dirección en la policía?",
-        "Necesito permiso de trabajo, ¿qué documentos?",
-        "¿Dónde pago multa de transporte público?",
-        "Mi empleador no me da contrato escrito",
-        "¿Cómo abrir cuenta bancaria sin residencia?"
+        "Mi residencia vence en 2 semanas",
+        "¿Cómo registro mi dirección?",
+        "Necesito permiso de trabajo",
+        "¿Dónde pago multa de transporte?"
     ];
     
     return (
-        <div style={{ 
-            marginTop: '32px', 
-            padding: '20px', 
-            background: '#f8fafc',
-            borderRadius: '12px',
-            border: '1px solid #e2e8f0'
-        }}>
+        <section 
+            aria-label="Consulta personalizada"
+            style={{ 
+                marginTop: '32px', 
+                padding: isMobile ? '16px' : '20px', 
+                background: '#f8fafc',
+                borderRadius: '12px',
+                border: '1px solid #e2e8f0'
+            }}
+        >
             {/* Section Header */}
             <div style={{
                 marginBottom: '16px',
                 textAlign: 'center'
             }}>
-                <h3 style={{
+                <h2 style={{
                     fontSize: '1rem',
                     fontWeight: '600',
                     color: '#374151',
                     margin: '0 0 4px 0'
                 }}>
                     ¿Tienes una situación específica?
-                </h3>
+                </h2>
                 <p style={{
                     fontSize: '0.85rem',
                     color: '#6b7280',
@@ -154,30 +179,37 @@ export const InputBar = ({ onSend, loading }) => {
 
             {/* Input Section */}
             <div style={{ marginBottom: '16px' }}>
-                <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ 
+                    display: 'flex', 
+                    flexDirection: isMobile ? 'column' : 'row',
+                    gap: '12px' 
+                }}>
                     <input
+                        aria-label="Describe tu situación específica"
                         style={{
                             flex: 1,
-                            padding: '12px 16px',
-                            fontSize: '16px',
+                            padding: '14px 16px', // Más grande para móvil
+                            fontSize: '16px', // Evita zoom en iOS
                             border: '2px solid #e2e8f0',
                             borderRadius: '8px',
                             outline: 'none',
                             transition: 'border-color 0.2s',
                             fontFamily: 'inherit',
-                            background: '#ffffff'
+                            background: '#ffffff',
+                            minHeight: '44px' // Mínimo táctil
                         }}
                         value={val}
                         onChange={e => setVal(e.target.value)}
                         onKeyDown={e => e.key === 'Enter' && onSend(val)}
                         onFocus={e => e.target.style.borderColor = '#3b82f6'}
                         onBlur={e => e.target.style.borderColor = '#e2e8f0'}
-                        placeholder="Ej: Mi visa vence en 15 días y no sé qué documentos necesito..."
+                        placeholder={isMobile ? "Ej: Mi visa vence en 15 días..." : "Ej: Mi visa vence en 15 días y no sé qué documentos necesito..."}
                         disabled={loading}
                     />
                     <button 
+                        aria-label={loading ? 'Evaluando situación' : 'Evaluar situación'}
                         style={{
-                            padding: '12px 24px',
+                            padding: '14px 24px',
                             background: loading ? '#9ca3af' : '#1f2937',
                             color: '#fff',
                             border: 'none',
@@ -185,7 +217,9 @@ export const InputBar = ({ onSend, loading }) => {
                             cursor: loading ? 'not-allowed' : 'pointer',
                             fontWeight: '600',
                             fontSize: '0.95rem',
-                            transition: 'background-color 0.2s'
+                            transition: 'background-color 0.2s',
+                            minHeight: '44px', // Mínimo táctil
+                            minWidth: isMobile ? '100%' : 'auto'
                         }}
                         onClick={() => onSend(val)} 
                         disabled={loading}
@@ -216,15 +250,17 @@ export const InputBar = ({ onSend, loading }) => {
                     {exampleChips.map((chip, idx) => (
                         <button
                             key={idx}
+                            aria-label={`Usar ejemplo: ${chip}`}
                             style={{
-                                padding: '6px 12px',
+                                padding: '8px 16px', // Más grande para móvil
                                 background: '#ffffff',
                                 border: '1px solid #d1d5db',
-                                borderRadius: '16px',
-                                fontSize: '0.8rem',
+                                borderRadius: '20px',
+                                fontSize: '0.85rem',
                                 color: '#374151',
                                 cursor: 'pointer',
-                                transition: 'all 0.2s'
+                                transition: 'all 0.2s',
+                                minHeight: '36px' // Mínimo táctil
                             }}
                             onClick={() => setVal(chip)}
                             onMouseEnter={e => {
@@ -241,7 +277,7 @@ export const InputBar = ({ onSend, loading }) => {
                     ))}
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
@@ -272,6 +308,8 @@ export const DebugPanel = ({ guardianState, setGuardianState }) => (
 export const DailyProblemsList = ({ problems }) => {
     if (!problems || problems.length === 0) return null;
 
+    const isMobile = window.innerWidth < 768;
+
     const getPriorityIcon = (priority) => {
         switch (priority) {
             case 'critical': return '🚨';
@@ -288,11 +326,19 @@ export const DailyProblemsList = ({ problems }) => {
         }
     };
 
+    const getPriorityLabel = (priority) => {
+        switch (priority) {
+            case 'critical': return 'Crítico';
+            case 'important': return 'Importante';
+            default: return 'Información';
+        }
+    };
+
     const styles = {
         container: { 
             marginTop: '0', 
             marginBottom: '32px',
-            padding: '20px',
+            padding: isMobile ? '16px' : '20px',
             background: '#fefefe',
             borderRadius: '12px',
             border: '1px solid #e5e7eb',
@@ -302,7 +348,7 @@ export const DailyProblemsList = ({ problems }) => {
             marginBottom: '4px'
         },
         title: {
-            fontSize: '1.1rem', 
+            fontSize: isMobile ? '1rem' : '1.1rem', 
             fontWeight: '700',
             color: '#111827',
             marginBottom: '6px',
@@ -322,7 +368,7 @@ export const DailyProblemsList = ({ problems }) => {
             gap: '12px' 
         },
         card: (priority) => ({
-            padding: '14px 16px',
+            padding: isMobile ? '12px 14px' : '14px 16px',
             borderRadius: '8px',
             borderLeft: `4px solid ${getPriorityColor(priority)}`,
             background: priority === 'critical' ? '#fef2f2' : 
@@ -342,12 +388,12 @@ export const DailyProblemsList = ({ problems }) => {
         },
         cardTitle: { 
             fontWeight: '600', 
-            fontSize: '0.95rem', 
+            fontSize: isMobile ? '0.9rem' : '0.95rem', 
             color: '#111827',
             flex: 1
         },
         desc: { 
-            fontSize: '0.9rem', 
+            fontSize: isMobile ? '0.85rem' : '0.9rem', 
             color: '#4b5563',
             marginBottom: '10px',
             lineHeight: '1.5',
@@ -369,21 +415,32 @@ export const DailyProblemsList = ({ problems }) => {
     };
 
     return (
-        <div style={styles.container}>
+        <section 
+            aria-label="Alertas detectadas para tu situación"
+            style={styles.container}
+        >
             <div style={styles.header}>
-                <div style={styles.title}>
-                    <span>🛡️</span>
+                <h2 style={styles.title}>
+                    <span aria-hidden="true">🛡️</span>
                     Alertas detectadas para tu situación
-                </div>
+                </h2>
                 <div style={styles.subtitle}>
                     Estas alertas se basan en situaciones frecuentes de inmigrantes en tu contexto
                 </div>
             </div>
-            <div style={styles.list}>
+            <div style={styles.list} role="list">
                 {problems.map(prob => (
-                    <div key={prob.id} style={styles.card(prob.priority)}>
+                    <div 
+                        key={prob.id} 
+                        style={styles.card(prob.priority)}
+                        role="listitem"
+                        aria-label={`Alerta ${getPriorityLabel(prob.priority)}: ${prob.content.title}`}
+                    >
                         <div style={styles.cardHeader}>
-                            <span style={styles.cardIcon}>
+                            <span 
+                                style={styles.cardIcon}
+                                aria-label={`Prioridad: ${getPriorityLabel(prob.priority)}`}
+                            >
                                 {getPriorityIcon(prob.priority)}
                             </span>
                             <div style={styles.cardTitle}>
@@ -393,13 +450,13 @@ export const DailyProblemsList = ({ problems }) => {
                         <div style={styles.desc}>
                             {prob.content.what} {prob.content.why}
                         </div>
-                        <div style={styles.action}>
-                            <span>✓</span>
+                        <div style={styles.action} role="note" aria-label="Recomendación">
+                            <span aria-hidden="true">✓</span>
                             <span>Recomendación: {prob.content.action}</span>
                         </div>
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
     );
 };
