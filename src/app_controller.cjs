@@ -21,8 +21,13 @@ const path = require('path');
 
 class AppController {
     constructor(dependencies = {}) {
+        if (typeof NIPEngine !== 'function') throw new Error(`Critical: NIPEngine is not a constructor. Got: ${typeof NIPEngine}`);
         this.nip = new NIPEngine();
+
+        if (typeof FlowEngine !== 'function') throw new Error(`Critical: FlowEngine is not a constructor. Got: ${typeof FlowEngine}`);
         this.flowEngine = new FlowEngine();
+
+        if (typeof DailyProblemEngine !== 'function') throw new Error(`Critical: DailyProblemEngine is not a constructor. Got: ${typeof DailyProblemEngine}`);
         this.dpe = dependencies.dpe || new DailyProblemEngine();
 
         // Preload known flows or lazy load. 
