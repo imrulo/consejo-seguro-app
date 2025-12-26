@@ -6,7 +6,10 @@
  * Deterministic. No UI. No hidden logic.
  */
 
-const LiveDataResolver = require('./live_data_resolver');
+// Helper for CJS/ESM Interop
+const unwrap = (mod) => (mod && mod.__esModule) ? mod.default : (mod.default || mod);
+
+const LiveDataResolver = unwrap(require('./live_data_resolver.cjs'));
 
 class FlowEngine {
     constructor() {

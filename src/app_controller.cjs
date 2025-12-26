@@ -10,9 +10,12 @@
  * Primary Responsibility: Single Source of Truth for System State.
  */
 
-const NIPEngine = require('./nip_engine.cjs');
-const FlowEngine = require('./flow_engine.cjs');
-const DailyProblemEngine = require('./daily_problem_engine.cjs');
+// Helper for CJS/ESM Interop
+const unwrap = (mod) => (mod && mod.__esModule) ? mod.default : (mod.default || mod);
+
+const NIPEngine = unwrap(require('./nip_engine.cjs'));
+const FlowEngine = unwrap(require('./flow_engine.cjs'));
+const DailyProblemEngine = unwrap(require('./daily_problem_engine.cjs'));
 const fs = require('fs');
 const path = require('path');
 
