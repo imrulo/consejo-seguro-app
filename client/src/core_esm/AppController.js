@@ -14,6 +14,7 @@
 import NIPEngine from './NIPEngine.js';
 import FlowEngine from './FlowEngine.js';
 import DailyProblemEngine from './DailyProblemEngine.js';
+import LiveDataResolver from './LiveDataResolver.js';
 // fs and path shims might be needed if logic uses them?
 // Browser environment usually doesn't have fs/path. 
 // We rely on polyfills or removing file usage.
@@ -24,13 +25,12 @@ import path from 'path';
 
 export default class AppController {
     constructor(dependencies = {}) {
-        if (typeof NIPEngine !== 'function') throw new Error(`Critical: NIPEngine is not a constructor. Got: ${typeof NIPEngine}`);
         this.nip = new NIPEngine();
-
-        if (typeof FlowEngine !== 'function') throw new Error(`Critical: FlowEngine is not a constructor. Got: ${typeof FlowEngine}`);
-        this.flowEngine = new FlowEngine();
-
-        if (typeof DailyProblemEngine !== 'function') throw new Error(`Critical: DailyProblemEngine is not a constructor. Got: ${typeof DailyProblemEngine}`);
+        
+        // Allow dependency injection of LiveDataResolver for browser compatibility
+        const liveDataResolver = dependencies.liveDataResolver || new LiveDataResolver();
+        this.flowEngine = new FlowEngine(liveDataResolver);
+        
         this.dpe = dependencies.dpe || new DailyProblemEngine();
 
         // Preload known flows or lazy load. 

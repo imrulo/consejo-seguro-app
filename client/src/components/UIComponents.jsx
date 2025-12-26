@@ -61,29 +61,184 @@ export const FlowRenderer = ({ steps, flowId, zone }) => (
 );
 
 export const Checklist = ({ title, items }) => (
-    <div style={{ marginTop: '20px', padding: '15px', background: '#f8f9fa', borderRadius: '6px', borderLeft: '4px solid #007bff' }}>
-        <h3 style={{ margin: '0 0 10px 0', fontSize: '1.1em', fontWeight: '600', color: '#333' }}>{title}</h3>
-        <ul style={{ margin: 0, paddingLeft: '20px', color: '#555' }}>
-            {items.map((it, idx) => <li key={idx} style={{ marginBottom: '8px', lineHeight: '1.5' }}>{it}</li>)}
+    <div style={{ 
+        marginTop: '0', 
+        padding: '20px', 
+        background: '#fefaf8', 
+        borderRadius: '12px', 
+        border: '1px solid #f3e8d8',
+        borderLeft: '4px solid #d97706'
+    }}>
+        <h3 style={{ 
+            margin: '0 0 16px 0', 
+            fontSize: '1.05rem', 
+            fontWeight: '600', 
+            color: '#92400e',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+        }}>
+            <span style={{ fontSize: '1.1rem' }}>⚠️</span>
+            {title}
+        </h3>
+        <ul style={{ 
+            margin: 0, 
+            paddingLeft: '0', 
+            listStyle: 'none',
+            color: '#78350f' 
+        }}>
+            {items.map((item, idx) => (
+                <li key={idx} style={{ 
+                    marginBottom: '12px', 
+                    lineHeight: '1.5',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '8px'
+                }}>
+                    <span style={{ 
+                        color: '#d97706', 
+                        fontWeight: 'bold',
+                        fontSize: '0.9rem',
+                        marginTop: '2px'
+                    }}>
+                        •
+                    </span>
+                    <span>{item}</span>
+                </li>
+            ))}
         </ul>
     </div>
 );
 
 export const InputBar = ({ onSend, loading }) => {
     const [val, setVal] = React.useState('');
+    
+    const exampleChips = [
+        "Mi residencia vence en 2 semanas",
+        "Necesito renovar mi visa",
+        "¿Cómo funciona el transporte en Belgrado?",
+        "Problemas con documentos"
+    ];
+    
     return (
-        <div style={styles.inputContainer}>
-            <input
-                style={styles.input}
-                value={val}
-                onChange={e => setVal(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && onSend(val)}
-                placeholder="Describe tu situación..."
-                disabled={loading}
-            />
-            <button style={styles.button} onClick={() => onSend(val)} disabled={loading}>
-                {loading ? '...' : 'Evaluar'}
-            </button>
+        <div style={{ 
+            marginTop: '32px', 
+            padding: '20px', 
+            background: '#f8fafc',
+            borderRadius: '12px',
+            border: '1px solid #e2e8f0'
+        }}>
+            {/* Section Header */}
+            <div style={{
+                marginBottom: '16px',
+                textAlign: 'center'
+            }}>
+                <h3 style={{
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    color: '#374151',
+                    margin: '0 0 4px 0'
+                }}>
+                    ¿Tienes una situación específica?
+                </h3>
+                <p style={{
+                    fontSize: '0.85rem',
+                    color: '#6b7280',
+                    margin: '0'
+                }}>
+                    Describe tu caso para recibir orientación personalizada
+                </p>
+            </div>
+
+            {/* Input Section */}
+            <div style={{ marginBottom: '16px' }}>
+                <div style={{ display: 'flex', gap: '12px' }}>
+                    <input
+                        style={{
+                            flex: 1,
+                            padding: '12px 16px',
+                            fontSize: '16px',
+                            border: '2px solid #e2e8f0',
+                            borderRadius: '8px',
+                            outline: 'none',
+                            transition: 'border-color 0.2s',
+                            fontFamily: 'inherit',
+                            background: '#ffffff'
+                        }}
+                        value={val}
+                        onChange={e => setVal(e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && onSend(val)}
+                        onFocus={e => e.target.style.borderColor = '#3b82f6'}
+                        onBlur={e => e.target.style.borderColor = '#e2e8f0'}
+                        placeholder="Ej: Mi visa vence en 15 días y no sé qué documentos necesito..."
+                        disabled={loading}
+                    />
+                    <button 
+                        style={{
+                            padding: '12px 24px',
+                            background: loading ? '#9ca3af' : '#1f2937',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '8px',
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            fontWeight: '600',
+                            fontSize: '0.95rem',
+                            transition: 'background-color 0.2s'
+                        }}
+                        onClick={() => onSend(val)} 
+                        disabled={loading}
+                        onMouseEnter={e => !loading && (e.target.style.backgroundColor = '#111827')}
+                        onMouseLeave={e => !loading && (e.target.style.backgroundColor = '#1f2937')}
+                    >
+                        {loading ? 'Evaluando...' : 'Evaluar'}
+                    </button>
+                </div>
+            </div>
+            
+            {/* Example Chips */}
+            <div>
+                <div style={{ 
+                    fontSize: '0.8rem', 
+                    color: '#6b7280', 
+                    marginBottom: '8px',
+                    textAlign: 'center'
+                }}>
+                    Ejemplos comunes:
+                </div>
+                <div style={{ 
+                    display: 'flex', 
+                    flexWrap: 'wrap', 
+                    gap: '8px',
+                    justifyContent: 'center'
+                }}>
+                    {exampleChips.map((chip, idx) => (
+                        <button
+                            key={idx}
+                            style={{
+                                padding: '6px 12px',
+                                background: '#ffffff',
+                                border: '1px solid #d1d5db',
+                                borderRadius: '16px',
+                                fontSize: '0.8rem',
+                                color: '#374151',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                            }}
+                            onClick={() => setVal(chip)}
+                            onMouseEnter={e => {
+                                e.target.style.backgroundColor = '#f3f4f6';
+                                e.target.style.borderColor = '#9ca3af';
+                            }}
+                            onMouseLeave={e => {
+                                e.target.style.backgroundColor = '#ffffff';
+                                e.target.style.borderColor = '#d1d5db';
+                            }}
+                        >
+                            {chip}
+                        </button>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };
@@ -115,33 +270,131 @@ export const DebugPanel = ({ guardianState, setGuardianState }) => (
 export const DailyProblemsList = ({ problems }) => {
     if (!problems || problems.length === 0) return null;
 
+    const getPriorityIcon = (priority) => {
+        switch (priority) {
+            case 'critical': return '🚨';
+            case 'important': return '⚠️';
+            default: return '🔍';
+        }
+    };
+
+    const getPriorityColor = (priority) => {
+        switch (priority) {
+            case 'critical': return '#dc2626';
+            case 'important': return '#d97706';
+            default: return '#059669';
+        }
+    };
+
     const styles = {
-        container: { marginTop: '20px', paddingTop: '15px', borderTop: '1px solid #eee' },
-        header: { fontSize: '0.9em', color: '#666', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' },
-        list: { display: 'flex', flexDirection: 'column', gap: '10px' },
+        container: { 
+            marginTop: '0', 
+            marginBottom: '32px',
+            padding: '20px',
+            background: '#fefefe',
+            borderRadius: '12px',
+            border: '1px solid #e5e7eb',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+        },
+        header: { 
+            marginBottom: '4px'
+        },
+        title: {
+            fontSize: '1.1rem', 
+            fontWeight: '700',
+            color: '#111827',
+            marginBottom: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+        },
+        subtitle: {
+            fontSize: '0.85rem',
+            color: '#6b7280',
+            marginBottom: '16px',
+            fontStyle: 'italic'
+        },
+        list: { 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '12px' 
+        },
         card: (priority) => ({
-            padding: '10px',
-            borderRadius: '6px',
-            borderLeft: `4px solid ${priority === 'critical' ? '#d9534f' :
-                priority === 'important' ? '#f0ad4e' : '#5cb85c'
-                }`,
-            background: '#fff',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+            padding: '14px 16px',
+            borderRadius: '8px',
+            borderLeft: `4px solid ${getPriorityColor(priority)}`,
+            background: priority === 'critical' ? '#fef2f2' : 
+                       priority === 'important' ? '#fffbeb' : '#f0fdf4',
+            border: `1px solid ${priority === 'critical' ? '#fecaca' : 
+                                 priority === 'important' ? '#fed7aa' : '#bbf7d0'}`
         }),
-        title: { fontWeight: 'bold', fontSize: '0.95em', marginBottom: '3px' },
-        desc: { fontSize: '0.85em', color: '#555' },
-        action: { marginTop: '5px', fontSize: '0.8em', fontWeight: 'bold', color: '#333' }
+        cardHeader: {
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '8px',
+            marginBottom: '8px'
+        },
+        cardIcon: {
+            fontSize: '1.1rem',
+            marginTop: '1px'
+        },
+        cardTitle: { 
+            fontWeight: '600', 
+            fontSize: '0.95rem', 
+            color: '#111827',
+            flex: 1
+        },
+        desc: { 
+            fontSize: '0.9rem', 
+            color: '#4b5563',
+            marginBottom: '10px',
+            lineHeight: '1.5',
+            marginLeft: '28px'
+        },
+        action: { 
+            fontSize: '0.85rem', 
+            fontWeight: '600', 
+            color: getPriorityColor('default'),
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            marginLeft: '28px',
+            padding: '6px 12px',
+            background: '#f0fdf4',
+            borderRadius: '6px',
+            border: '1px solid #bbf7d0'
+        }
     };
 
     return (
         <div style={styles.container}>
-            <div style={styles.header}>Fricción Diaria (Detectada)</div>
+            <div style={styles.header}>
+                <div style={styles.title}>
+                    <span>🛡️</span>
+                    Alertas detectadas para tu situación
+                </div>
+                <div style={styles.subtitle}>
+                    Estas alertas se basan en situaciones frecuentes de inmigrantes en tu contexto
+                </div>
+            </div>
             <div style={styles.list}>
                 {problems.map(prob => (
                     <div key={prob.id} style={styles.card(prob.priority)}>
-                        <div style={styles.title}>{prob.content.title}</div>
-                        <div style={styles.desc}>{prob.content.what} {prob.content.why}</div>
-                        <div style={styles.action}>✅ {prob.content.action}</div>
+                        <div style={styles.cardHeader}>
+                            <span style={styles.cardIcon}>
+                                {getPriorityIcon(prob.priority)}
+                            </span>
+                            <div style={styles.cardTitle}>
+                                {prob.content.title}
+                            </div>
+                        </div>
+                        <div style={styles.desc}>
+                            {prob.content.what} {prob.content.why}
+                        </div>
+                        <div style={styles.action}>
+                            <span>✓</span>
+                            <span>Recomendación: {prob.content.action}</span>
+                        </div>
                     </div>
                 ))}
             </div>

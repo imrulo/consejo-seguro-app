@@ -9,9 +9,9 @@
 import LiveDataResolver from './LiveDataResolver.js';
 
 export default class FlowEngine {
-    constructor() {
-        if (typeof LiveDataResolver !== 'function') throw new Error(`Critical: LiveDataResolver is not a constructor in FlowEngine. Got: ${typeof LiveDataResolver}`);
-        this.liveResolver = new LiveDataResolver();
+    constructor(liveDataResolver = null) {
+        // Allow dependency injection of LiveDataResolver for browser compatibility
+        this.liveResolver = liveDataResolver || new LiveDataResolver();
     }
 
     /**

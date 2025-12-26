@@ -7,8 +7,8 @@ import path from 'path'
 export default defineConfig({
   plugins: [
     viteCommonjs({
-      // Explicitly include all JS files (including ../src) to ensure Core modules are transformed
-      include: [/\.js$/, /\.cjs$/]
+      // Only transform specific CommonJS files, not all JS files
+      include: [/node_modules/]
     }),
     react()
   ],
@@ -20,13 +20,16 @@ export default defineConfig({
       'path': path.resolve(__dirname, './src/mocks/node-polyfills.js')
     }
   },
-  esbuild: {
-    drop: ['console', 'debugger'],
-  },
   build: {
     outDir: 'dist',
-    sourcemap: true, // Habilitar sourcemaps para debugging
+    sourcemap: true, // Keep sourcemaps for debugging
     minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        // Ensure consistent naming for better debugging
+        manualChunks: undefined
+      }
+    }
   },
   define: {
     'process.env': {},

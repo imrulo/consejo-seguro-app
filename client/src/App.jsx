@@ -17,11 +17,7 @@ function App() {
   const [uiState, setUiState] = useState(null);
 
   // Initial Run & Reactivity
-  useEffect(() => {
-    runSystem();
-  }, [guardianState, userInput]);
-
-  const runSystem = () => {
+  const runSystem = React.useCallback(() => {
     if (!appController || typeof appController.process !== 'function') {
       console.error('AppController not initialized');
       return;
@@ -50,14 +46,25 @@ function App() {
     console.log("App Output:", output);
     setAppOutput(output);
     setUiState(deriveUIState(output));
-  };
+  }, [guardianState, userInput]);
+
+  useEffect(() => {
+    runSystem();
+  }, [runSystem]);
 
   if (!uiState) return <div>Booting Guardian...</div>;
 
-  const { mode, components } = uiState;
+  const { components } = uiState;
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', fontFamily: 'sans-serif' }}>
+    <div style={{ 
+        maxWidth: '600px', 
+        margin: '0 auto', 
+        padding: '20px', 
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        lineHeight: '1.6',
+        color: '#1a1a1a'
+    }}>
       {/* 1. LAYER: CRISIS */}
       {components.crisisAlert.visible && (
         <CrisisBanner urgency={components.crisisAlert.urgency} action={components.crisisAlert.action} />
@@ -80,24 +87,89 @@ function App() {
 
           {/* 3B. IDLE / GENERIC */}
           {components.idleState.visible && (
-            <div style={{ padding: '20px 0' }}>
-              <h1 style={{ fontSize: '2em', marginBottom: '10px', color: '#212529', fontWeight: '700' }}>ConsejoSeguro 🇷🇸</h1>
-              <p style={{ fontSize: '1.1em', color: '#6c757d', marginBottom: '30px' }}>Asistente de Inmigración Determinista</p>
-              <Checklist title="Sugerencias Rápidas" items={[
-                "Registra tu Beli Karton en 24h",
-                "No dejes vencer tu visa",
-                "Mantén tu pasaporte válido"
-              ]} />
+            <div style={{ padding: '0' }}>
+              {/* Hero Section */}
+              <div style={{ 
+                textAlign: 'center', 
+                marginBottom: '24px',
+                padding: '24px 0'
+              }}>
+                <h1 style={{ 
+                  fontSize: '1.75rem', 
+                  fontWeight: '700', 
+                  color: '#1a1a1a', 
+                  marginBottom: '8px',
+                  lineHeight: '1.2'
+                }}>
+                  Evita multas y problemas legales en Serbia
+                </h1>
+                <p style={{ 
+                  fontSize: '1.1rem', 
+                  color: '#4a5568', 
+                  marginBottom: '12px',
+                  lineHeight: '1.5',
+                  maxWidth: '480px',
+                  margin: '0 auto 12px auto'
+                }}>
+                  Orientación precisa para inmigrantes. Basado en normativas y prácticas locales.
+                </p>
+                <p style={{
+                  fontSize: '0.9rem',
+                  color: '#6b7280',
+                  fontStyle: 'italic',
+                  maxWidth: '420px',
+                  margin: '0 auto'
+                }}>
+                  No necesitas escribir nada para ver riesgos comunes detectados para tu situación.
+                </p>
+              </div>
+
+              {/* DAILY PROBLEMS - MOVED UP FOR PROTECTION PRIORITY */}
+              {appOutput?.daily_problems && (
+                <DailyProblemsList problems={appOutput.daily_problems} />
+              )}
+
+              {/* Common Risks Section - Only show if no daily problems detected */}
+              {(!appOutput?.daily_problems || appOutput.daily_problems.length === 0) && (
+                <div style={{ marginBottom: '24px' }}>
+                  <div style={{
+                    textAlign: 'center',
+                    marginBottom: '16px',
+                    padding: '12px',
+                    background: '#f0fdf4',
+                    borderRadius: '8px',
+                    border: '1px solid #bbf7d0'
+                  }}>
+                    <p style={{
+                      margin: '0',
+                      fontSize: '0.9rem',
+                      color: '#166534',
+                      fontWeight: '500'
+                    }}>
+                      🛡️ Sin riesgos críticos detectados hoy
+                    </p>
+                    <p style={{
+                      margin: '4px 0 0 0',
+                      fontSize: '0.8rem',
+                      color: '#15803d'
+                    }}>
+                      Estas son situaciones frecuentes que suelen causar problemas
+                    </p>
+                  </div>
+                  <Checklist 
+                    title="Problemas frecuentes que causan multas o bloqueos" 
+                    items={[
+                      "Residencia vencida o en proceso de renovación tardía",
+                      "Documentos incompletos para trámites oficiales", 
+                      "Desconocimiento de cambios en transporte público",
+                      "Registro tardío de domicilio (Beli Karton)"
+                    ]} 
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>
-      )}
-
-
-
-      {/* 4. DAILY PROBLEMS (Always visible if not blocked, even during flow if allowed) */}
-      {!components.blockScreen.visible && appOutput?.daily_problems && (
-        <DailyProblemsList problems={appOutput.daily_problems} />
       )}
 
       {/* INPUT ALWAYS VISIBLE UNLESS BLOCKED */}
@@ -110,10 +182,23 @@ function App() {
         <DebugPanel guardianState={guardianState} setGuardianState={setGuardianState} />
       )}
 
-      <div style={{ marginTop: '30px', borderTop: '1px solid #ccc', fontSize: '0.7em', color: '#999', paddingTop: '10px' }}>
-        <p><strong>ConsejoSeguro Beta (RC0)</strong></p>
-        <p>Esta herramienta es informativa y no constituye asesoramiento legal profesional.</p>
-        <p>En caso de duda, consulte siempre las fuentes oficiales del Gobierno de Serbia.</p>
+      <div style={{ 
+        marginTop: '40px', 
+        paddingTop: '20px',
+        borderTop: '1px solid #e2e8f0', 
+        fontSize: '0.8rem', 
+        color: '#6b7280',
+        textAlign: 'center'
+      }}>
+        <p style={{ margin: '0 0 8px 0' }}>
+          <strong style={{ color: '#374151' }}>ConsejoSeguro</strong> · Basado en normativas y prácticas locales
+        </p>
+        <p style={{ margin: '0 0 4px 0' }}>
+          Esta herramienta es informativa y no reemplaza asesoría legal profesional.
+        </p>
+        <p style={{ margin: '0' }}>
+          En caso de duda, consulte siempre las fuentes oficiales del Gobierno de Serbia.
+        </p>
       </div>
     </div>
   );
