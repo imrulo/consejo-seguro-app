@@ -25,14 +25,8 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false,
+    sourcemap: true, // Habilitar sourcemaps para debugging
     minify: 'esbuild',
-    rollupOptions: {
-      output: {
-        // Mantener nombres de exportaciones para mejor debugging
-        preserveModules: false,
-      }
-    }
   },
   define: {
     'process.env': {},
