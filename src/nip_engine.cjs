@@ -214,6 +214,4 @@ class NIPEngine {
 }
 
 // Export for usage
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = NIPEngine;
-}
+module.exports = NIPEngine;
