@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>client</title>
   <script>
+    // 1. Global Error Handler
     window.onerror = function (msg, url, line, col, error) {
       // Force display of error on top of everything
       document.documentElement.innerHTML = '<div style="background:black; color:red; padding:20px; font-family:monospace; z-index:99999; position:fixed; top:0; left:0; width:100%; height:100%; overflow:auto;">' +
@@ -15,6 +16,18 @@
         '<p>' + url + ':' + line + ':' + col + '</p>' +
         '<pre style="color:#aaa;">' + (error ? error.stack : 'No stack') + '</pre>' +
         '</div>';
+    };
+
+    // 2. Runtime Require Shim (for legacy CJS modules leaked by Vite)
+    window.require = function (mod) {
+      console.warn('[Shim] require called for:', mod);
+      if (mod === 'fs') return { readFileSync: () => "{}" }; // Return empty JSON string
+      if (mod === 'path') return {
+        join: (...args) => args.join('/'),
+        resolve: (...args) => args.join('/'),
+        dirname: () => ''
+      };
+      return {}; // Fallback
     };
   </script>
 </head>
