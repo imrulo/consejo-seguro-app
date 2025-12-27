@@ -18,10 +18,10 @@ Contiene TODAS las fuentes verificadas que usa la app. Ninguna información debe
 ```
 
 **Fuentes críticas a verificar:**
-- ✅ https://welcometoserbia.gov.rs/home
-- ✅ https://www.mup.gov.rs
-- ✅ https://euprava.gov.rs
-- ✅ https://www.mpravde.gov.rs
+  - ✅ https://welcometoserbia.gov.rs/home
+  - ✅ https://www.mup.gov.rs
+  - ✅ https://euprava.gov.rs
+  - ✅ https://www.mpravde.gov.rs
 
 **Si una URL ya no funciona:**
 1. Buscar la nueva URL oficial
@@ -32,12 +32,13 @@ Contiene TODAS las fuentes verificadas que usa la app. Ninguna información debe
 ### 2. Revisar Cambios en Procedimientos
 
 **Welcome to Serbia - Review Completo:**
-- Ir a https://welcometoserbia.gov.rs/home
+  - Ir a https://welcometoserbia.gov.rs/home
 - Revisar secciones: Residence Permits, Work, Family
 - Buscar avisos de "Updated" o "New Procedure"
 - Comparar con nuestros flujos funcionales
 
 **MUP - Ministerio del Interior:**
+  - Ir a https://www.mup.gov.rs
 - Revisar https://www.mup.gov.rs/wps/portal/sr/dokumenti/stranci
 - Verificar tasas actualizadas (a veces cambian)
 - Verificar horarios de atención

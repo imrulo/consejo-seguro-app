@@ -30,7 +30,7 @@
     "where": {
         "name": "Comisaría de Policía (MUP) del municipio donde vives",
         "note": "Importante: Debe ser la comisaría de tu municipio exacto (ej. si vives en Vračar, no puedes ir a la de Stari Grad).",
-        "map_link": "https://www.google.com/maps/search/Police+Station+Belgrade"
+           // "map_link": "https://www.google.com/maps/search/Police+Station+Belgrade" // URL eliminada por no ser oficial (.gov.rs)
     },
     "how": [
         "Confirma con tu dueño/host que tiene el título de propiedad (Ugovor o kupoprodaji) o el ID chip leído.",

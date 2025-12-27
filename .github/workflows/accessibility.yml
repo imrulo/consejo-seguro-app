@@ -1,0 +1,27 @@
+name: Accessibility CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm install
+      - name: Build Next.js app
+        run: npm run build
+      - name: Start Next.js app
+        run: npm start &
+      - name: Wait for app
+        run: npx wait-on http://localhost:3000
+      - name: Run axe accessibility test
+        run: npm run test:accessibility

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://consejoseguro.vercel.app/</loc>
+  </url>
+  <url>
+    <loc>https://consejoseguro.vercel.app/categorias</loc>
+  </url>
+  <url>
+    <loc>https://consejoseguro.vercel.app/flujos</loc>
+  </url>
+  <url>
+    <loc>https://consejoseguro.vercel.app/acerca</loc>
+  </url>
+  <!-- Agrega aquí más URLs de flujos y secciones según sea necesario -->
+</urlset>

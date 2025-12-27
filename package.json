@@ -3,9 +3,14 @@
     "private": true,
     "scripts": {
         "install-client": "cd client && npm install",
-        "build": "cd client && npm install && npm run build"
+        "build": "cd client && npm install && npm run build",
+        "test:accessibility": "node scripts/axe-accessibility.js"
     },
     "engines": {
         "node": ">=18"
     }
+   "devDependencies": {
+       "axe-core": "^4.8.2",
+       "puppeteer": "^21.3.8"
+   }
 }

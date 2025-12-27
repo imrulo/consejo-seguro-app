@@ -2,7 +2,7 @@
     "meta": {
         "id": "public-transport-belgrade",
         "updated": "2024-12-20",
-        "source": "https://beogradplus.rs"
+            // "source": "https://beogradplus.rs" // URL eliminada por no ser oficial (.gov.rs)
     },
     "title": {
         "es": "Transporte Público (Beograd Plus)",
@@ -13,7 +13,7 @@
     "where": {
         "name": "Toda la red de GSP Belgrado",
         "note": "Zonas A, B y C cubren toda la ciudad.",
-        "map_link": "https://www.google.com/maps/search/Beograd+Plus+Ticket+Point"
+           // "map_link": "https://www.google.com/maps/search/Beograd+Plus+Ticket+Point" // URL eliminada por no ser oficial (.gov.rs)
     },
     "how": [
         "Identifica tu zona (Zona A es el centro expandido).",

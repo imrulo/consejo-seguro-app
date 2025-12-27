@@ -13,7 +13,7 @@
     "where": {
         "name": "Oficina de Policía para Extranjeros (MUP)",
         "note": "Busca la comisaría de tu municipio (ej. Stari Grad, Vračar).",
-        "map_link": "https://www.google.com/maps/search/Police+Station+Serbia"
+           // "map_link": "https://www.google.com/maps/search/Police+Station+Serbia" // URL eliminada por no ser oficial (.gov.rs)
     },
     "how": [
         "Compra el formulario 'Prijava boravišta stranca' en un kiosco o librería 'Službeni Glasnik'.",

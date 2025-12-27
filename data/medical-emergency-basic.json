@@ -13,7 +13,7 @@
     "where": {
         "name": "Dom Zdravlja (Centro de Salud Municipal)",
         "note": "Cada municipio (Stari Grad, New Belgrade, etc.) tiene el suyo propio.",
-        "map_link": "https://www.google.com/maps/search/Dom+Zdravlja"
+           // "map_link": "https://www.google.com/maps/search/Dom+Zdravlja" // URL eliminada por no ser oficial (.gov.rs)
     },
     "how": [
         "En caso de riesgo vital, llama al 194 (Urgencias).",

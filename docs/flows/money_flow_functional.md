@@ -535,19 +535,19 @@ Si busca: "banco", "transferencia", "dinero", "cuenta"
 ## Fuentes Oficiales
 
 **Bancos principales:**
-- Raiffeisen Banka: https://www.raiffeisenbank.rs
-- UniCredit Banka: https://www.unicreditbank.rs
-- Banca Intesa: https://www.bancaintesa.rs
+<!-- Ejemplo: https://www.raiffeisenbank.rs (eliminada por no ser oficial .gov.rs) -->
+<!-- Ejemplo: https://www.unicreditbank.rs (eliminada por no ser oficial .gov.rs) -->
+<!-- Ejemplo: https://www.bancaintesa.rs (eliminada por no ser oficial .gov.rs) -->
 
 **Servicios de transferencia:**
-- Wise: https://wise.com
-- Revolut: https://revolut.com
+<!-- Ejemplo: https://wise.com (eliminada por no ser oficial .gov.rs) -->
+<!-- Ejemplo: https://revolut.com (eliminada por no ser oficial .gov.rs) -->
 
-**Asociación Bancaria de Serbia:**
-- https://www.ubs-asb.com (información general)
+**Asociación de Bancos de Serbia:**
+<!-- https://www.ubs-asb.com (eliminada por no ser oficial .gov.rs) -->
 
-**Banco Nacional de Serbia:**
-- https://www.nbs.rs (tasas oficiales, regulaciones)
+**Banco Central de Serbia:**
+<!-- https://www.nbs.rs (eliminada por no ser oficial .gov.rs) -->
 
 ---
 

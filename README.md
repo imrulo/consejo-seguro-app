@@ -1,50 +1,39 @@
-# ConsejoSeguro.com 🛡️
+# ConsejoSeguro (Next.js)
 
-**Tu Asistente de Inmigración Verificado**
+ConsejoSeguro es un compañero digital gratuito, práctico y empático para inmigrantes en Serbia. Proporciona orientación oficial y consejos accionables para evitar multas, problemas legales y frustraciones cotidianas, siempre desde la perspectiva del usuario inmigrante.
 
-ConsejoSeguro.com es una Plataforma Web Progresiva (PWA) diseñada para ayudar a inmigrantes y turistas a navegar los trámites legales y la vida cotidiana en Serbia (y pronto en otros destinos) con confianza y claridad.
+## Características principales
 
-## 🚀 Misión
+- Diseño mobile-first, accesible y modular
+- Todas las fuentes citadas son oficiales del gobierno serbio (.gov.rs, officialgazette.rs)
+- Flujos funcionales y checklists para cada área de la vida
+- Navegación intuitiva, breadcrumbs y enlaces relacionados
+- SSR/SSG con Next.js (app router)
+- Optimización para Lighthouse 90+
 
-Nuestra misión es simplificar la burocracia y proporcionar información precisa, actualizada y fácil de entender para que tu transición a un nuevo país sea lo más fluida posible.
+## Estructura
 
-## ✨ Características Principales
+- `/app` - Páginas y rutas principales (Next.js app router)
+- `/components` - Componentes reutilizables (UI, ErrorBoundary, etc.)
+- `/styles` - Estilos globales
+- `/public` - Assets estáticos, favicon, robots.txt, sitemap.xml
+- `/data` - Checklists, flujos y fuentes oficiales (JSON)
 
-- **📱 Experiencia PWA**: Accede instantáneamente desde tu móvil como si fuera una app nativa, con soporte offline.
-- **🗺️ Guías de Trámites**: Instrucciones paso a paso para el Registro de Residencia (Beli Karton), Tarjetas SIM, Transporte Público y más.
-- **🔍 Búsqueda Inteligente**: Encuentra rápidamente la información que necesitas.
-- **💎 Diseño Premium**: Interfaz moderna, limpia y amigable, optimizada para la legibilidad y la calma.
-- **🌍 Multinacional**: Preparado para expandirse a múltiples trámites y regiones.
-
-## 🛠️ Tecnologías
-
-- **Frontend**: HTML5 Semántico, Vanilla CSS (con variables modernas y efectos de glassmorphism), JavaScript Moderno (ES6+).
-- **Almacenamiento**: Datos estructurados en JSON.
-- **PWA**: Service Workers para soporte offline y Manifest para instalación en el dispositivo.
-- **Despliegue**: Optimizado para Vercel.
-
-## 📁 Estructura del Proyecto
-
-- `assets/`: Estilos CSS, lógica JavaScript e iconos.
-- `data/`: Archivos JSON con la información de los trámites y guías.
-- `index.html`: La puerta de entrada a la plataforma.
-- `viewer.html`: Motor de visualización dinámico para las guías de trámites.
-- `manifest.json` & `service-worker.js`: Núcleo de la tecnología PWA.
-
-## 💻 Desarrollo Local
-
-Para ejecutar el proyecto localmente, puedes usar cualquier servidor estático simple:
+## Instalación y desarrollo
 
 ```bash
-# Usando Python
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-Luego, abre `http://localhost:8000` en tu navegador.
+## Accesibilidad y rendimiento
 
-## 🌐 Despliegue
+- Cumple con WCAG 2.1 AA
+- Pruebas automáticas recomendadas con axe-core y Lighthouse CI
 
-El proyecto está listo para ser desplegado en **Vercel**. Simplemente conecta tu repositorio de GitHub y Vercel se encargará del resto utilizando la configuración predefinida en `vercel.json`.
+## Licencia
+
+MIT
 
 ---
 

@@ -125,7 +125,7 @@
     "regulatory_bodies": {
         "national_bank": {
             "name": "National Bank of Serbia (NBS)",
-            "url": "https://www.nbs.rs",
+                // "url": "https://www.nbs.rs" // URL eliminada por no ser oficial (.gov.rs)
             "topics": [
                 "exchange_rates",
                 "banking_regulations",
@@ -136,7 +136,7 @@
         },
         "banking_association": {
             "name": "Association of Serbian Banks",
-            "url": "https://www.ubs-asb.com",
+                // "url": "https://www.ubs-asb.com" // URL eliminada por no ser oficial (.gov.rs)
             "topics": [
                 "banking_info",
                 "consumer_protection"
@@ -148,7 +148,7 @@
     "legal_resources": {
         "apostille_convention": {
             "name": "Hague Apostille Convention",
-            "url": "https://www.hcch.net/es/states/hcch-members",
+                // "url": "https://www.hcch.net/es/states/hcch-members" // URL eliminada por no ser oficial (.gov.rs)
             "authority": "Hague Conference on Private International Law",
             "topics": [
                 "apostille",
@@ -159,7 +159,7 @@
         },
         "legal_gazette": {
             "name": "Official Gazette of Republic of Serbia",
-            "url": "https://www.slglasnik.com",
+                // "url": "https://www.slglasnik.com" // URL eliminada por no ser oficial (.gov.rs)
             "topics": [
                 "laws",
                 "regulations",
@@ -172,7 +172,7 @@
     "banks": {
         "raiffeisen": {
             "name": "Raiffeisen Bank Serbia",
-            "url": "https://www.raiffeisenbank.rs",
+                // "url": "https://www.raiffeisenbank.rs" // URL eliminada por no ser oficial (.gov.rs)
             "foreigner_friendly": true,
             "languages": [
                 "sr",
@@ -188,7 +188,7 @@
         },
         "unicredit": {
             "name": "UniCredit Bank Serbia",
-            "url": "https://www.unicreditbank.rs",
+                // "url": "https://www.unicreditbank.rs" // URL eliminada por no ser oficial (.gov.rs)
             "foreigner_friendly": true,
             "languages": [
                 "sr",
@@ -204,7 +204,7 @@
         },
         "intesa": {
             "name": "Banca Intesa Serbia",
-            "url": "https://www.bancaintesa.rs",
+                // "url": "https://www.bancaintesa.rs" // URL eliminada por no ser oficial (.gov.rs)
             "foreigner_friendly": true,
             "languages": [
                 "sr",
