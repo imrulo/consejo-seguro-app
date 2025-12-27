@@ -112,7 +112,16 @@ class AppController {
         if (!relativePath) return null;
 
         try {
-            const fullPath = path.join(__dirname, relativePath);
+                // aikido-suppress-next-line AIK_ts_generic_path_traversal
+            // Validación estricta: solo permite rutas relativas dentro de atlas/flows y nombres válidos
+            const allowedBase = path.resolve(__dirname, 'atlas/flows') + path.sep;
+            const fullPath = path.resolve(__dirname, relativePath);
+                // aikido-suppress-next-line AIK_ts_generic_path_traversal
+            const validName = /^[\w\-\.\/]+\.json$/.test(relativePath);
+            if (!fullPath.startsWith(allowedBase) || !validName) {
+                console.error(`Blocked attempt to load flow with invalid path: ${relativePath}`);
+                return null;
+            }
             const raw = fs.readFileSync(fullPath, 'utf8');
             return JSON.parse(raw);
         } catch (e) {

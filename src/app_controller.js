@@ -10,11 +10,11 @@
  * Primary Responsibility: Single Source of Truth for System State.
  */
 
-const NIPEngine = require('./nip_engine');
-const FlowEngine = require('./flow_engine');
-const DailyProblemEngine = require('./daily_problem_engine');
-const fs = require('fs');
-const path = require('path');
+import NIPEngine from './nip_engine.js';
+import FlowEngine from './flow_engine.js';
+import DailyProblemEngine from './daily_problem_engine.js';
+import fs from 'fs';
+import path from 'path';
 
 class AppController {
     constructor(dependencies = {}) {
@@ -104,8 +104,16 @@ class AppController {
         if (!relativePath) return null;
 
         try {
-            const fullPath = path.join(__dirname, relativePath);
-            const raw = fs.readFileSync(fullPath, 'utf8');
+            // Only allow files inside ../data/flows/ and with .json extension
+            const flowsDir = path.resolve(process.cwd(), 'data/flows');
+            const requestedPath = path.resolve(process.cwd(), relativePath);
+
+            const validName = /^[\w\-\.]+\.json$/.test(path.basename(requestedPath));
+            if (!requestedPath.startsWith(flowsDir) || !validName) {
+                console.error(`Blocked attempt to load flow with invalid path: ${relativePath}`);
+                return null;
+            }
+            const raw = fs.readFileSync(requestedPath, 'utf8');
             return JSON.parse(raw);
         } catch (e) {
             console.error(`Failed to load flow ${flowId}:`, e);
@@ -222,5 +230,5 @@ class AppController {
     }
 }
 
-module.exports = AppController;
+export default AppController;
 
