@@ -1,3 +1,62 @@
+/* Botones de navegación mejorados */
+.nav-btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: #e6f7fa;
+  color: #1a4d6a;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-btn:hover, .nav-btn:focus {
+  background: #1a4d6a;
+  color: #fff;
+  outline: none;
+}
+
+/* Feedback visual en tarjetas */
+.card {
+  cursor: pointer;
+  outline: none;
+}
+.card:focus, .card:hover {
+  box-shadow: 0 4px 16px rgba(26,77,106,0.15);
+  border: 1.5px solid #1a4d6a;
+}
+
+/* Mejor jerarquía visual */
+h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+h3 {
+  font-size: 1.1rem;
+  color: #1a4d6a;
+}
+
+/* Accesibilidad y responsividad refinada */
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  main {
+    padding: 1rem 0.2rem;
+  }
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+  nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
 html, body {
   margin: 0;
   padding: 0;
