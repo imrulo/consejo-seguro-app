@@ -1,20 +1,27 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Hero from '@/components/Hero';
 import Card from '@/components/Card';
 import ChatWidget from '@/components/ChatWidget';
 import TranslatorCard from '@/components/TranslatorCard';
 import BureaucracyMap from '@/components/BureaucracyMap';
+import Modal from '@/components/Modal';
 import { 
   Bus, 
   Wifi, 
   Coffee,
   ArrowRight,
-  Download
+  Download,
+  Stethoscope,
+  Phone,
+  ShieldCheck,
+  FileText
 } from 'lucide-react';
 
 export default function Home() {
+  const [activeModal, setActiveModal] = useState<string | null>(null);
+
   const translatorCards = [
     {
       spanish: "Necesito un médico",
@@ -36,9 +43,13 @@ export default function Home() {
     }
   ];
 
+  const handleNavigate = (action: string) => {
+    setActiveModal(action);
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 pb-20">
-      <Hero />
+      <Hero onNavigate={handleNavigate} />
       
       {/* Roadmap Section */}
       <section className="mt-8 mb-6">
@@ -78,25 +89,37 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <h2 className="font-condensed font-bold text-xl text-gray-800 mb-4">Herramientas Útiles</h2>
           <div className="grid grid-cols-2 gap-4">
-            <Card className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200">
+            <Card 
+              onClick={() => setActiveModal('wifi')}
+              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200"
+            >
               <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
                 <Wifi size={24} />
               </div>
               <span className="font-bold text-sm text-center">WiFi Gratis</span>
             </Card>
-            <Card className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200">
+            <Card 
+              onClick={() => setActiveModal('open_transport')}
+              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200"
+            >
               <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
                 <Bus size={24} />
               </div>
               <span className="font-bold text-sm text-center">Rutas Bus</span>
             </Card>
-            <Card className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200">
+            <Card 
+              onClick={() => setActiveModal('community')}
+              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200"
+            >
               <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
                 <Coffee size={24} />
               </div>
               <span className="font-bold text-sm text-center">Comunidad</span>
             </Card>
-            <Card className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 bg-gray-900 text-white">
+            <Card 
+              onClick={() => setActiveModal('download')}
+              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 bg-gray-900 text-white"
+            >
               <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white">
                 <Download size={24} />
               </div>
@@ -115,6 +138,103 @@ export default function Home() {
       </div>
 
       <ChatWidget />
+
+      {/* --- MODALS FOR INTERACTIONS --- */}
+
+      {/* Doctor / Medical Modal */}
+      <Modal
+        isOpen={activeModal === 'open_doctor'}
+        onClose={() => setActiveModal(null)}
+        title="Asistencia Médica"
+      >
+        <div className="space-y-4">
+          <div className="bg-red-50 p-4 rounded-xl border border-red-100 flex items-start gap-3">
+            <Stethoscope className="text-red-600 shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-red-800">¿Es una emergencia vital?</h4>
+              <p className="text-sm text-red-600 mb-2">Si hay peligro de vida, llama al 194 inmediatamente.</p>
+              <a href="tel:194" className="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg font-bold text-sm">
+                <Phone size={16} /> Llamar 194
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-bold mb-2">Frases útiles (con audio)</h4>
+            <div className="space-y-2">
+              <TranslatorCard 
+                spanishText="Tengo fiebre alta"
+                serbianText="Imam visoku temperaturu"
+                pronunciation="Imam vi-so-ku tem-pe-ra-tu-ru"
+                category="medical"
+              />
+              <TranslatorCard 
+                spanishText="Me duele aquí"
+                serbianText="Boli me ovde"
+                pronunciation="Bo-li me ov-de"
+                category="medical"
+              />
+            </div>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Police / Security Modal */}
+      <Modal
+        isOpen={activeModal === 'open_police'}
+        onClose={() => setActiveModal(null)}
+        title="Policía y Seguridad"
+      >
+        <div className="space-y-4">
+          <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex items-start gap-3">
+            <ShieldCheck className="text-blue-600 shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-blue-800">Registro Policial (Beli Karton)</h4>
+              <p className="text-sm text-blue-600">Debes registrarte dentro de las 24 horas de tu llegada.</p>
+            </div>
+          </div>
+          <TranslatorCard 
+            spanishText="Vengo a registrar mi residencia (Beli Karton)"
+            serbianText="Došao sam da prijavim boravište (Beli Karton)"
+            pronunciation="Do-shao sam da pri-ya-vim bo-ra-vish-te"
+            category="police"
+          />
+        </div>
+      </Modal>
+
+      {/* Transport Modal */}
+      <Modal
+        isOpen={activeModal === 'open_transport'}
+        onClose={() => setActiveModal(null)}
+        title="Transporte Público"
+      >
+        <div className="space-y-4">
+           <p className="text-gray-600">En Belgrado, el transporte se paga enviando un SMS.</p>
+           <div className="bg-gray-100 p-4 rounded-xl">
+             <h4 className="font-bold mb-2">Cómo pagar el bus:</h4>
+             <ol className="list-decimal list-inside space-y-2 text-sm">
+               <li>Envía un SMS al número <strong>9011</strong></li>
+               <li>Texto: <strong>A90</strong> (Para 90 minutos)</li>
+               <li>Costo: 50 RSD</li>
+             </ol>
+           </div>
+           <TranslatorCard 
+             spanishText="¿Qué autobús va al centro?"
+             serbianText="Koji autobus ide do centra?"
+             category="general"
+           />
+        </div>
+      </Modal>
+
+      {/* Placeholder Modals */}
+      <Modal
+        isOpen={['wifi', 'community', 'download', 'open_papers', 'open_sim'].includes(activeModal || '')}
+        onClose={() => setActiveModal(null)}
+        title="Próximamente"
+      >
+        <p className="text-gray-600">Esta función estará disponible en la próxima actualización offline.</p>
+      </Modal>
+
     </div>
   );
 }

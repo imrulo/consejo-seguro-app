@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Volume2, Maximize2, Copy, Check } from 'lucide-react';
+import { Volume2, Maximize2, Copy, Check, Pause } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface TranslatorCardProps {
@@ -14,6 +14,7 @@ interface TranslatorCardProps {
 export default function TranslatorCard({ spanishText, serbianText, pronunciation, category }: TranslatorCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const colors = {
     medical: 'bg-red-50 border-red-200 text-red-800',
@@ -31,8 +32,27 @@ export default function TranslatorCard({ spanishText, serbianText, pronunciation
 
   const handlePlay = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // In a real app, this would play TTS
-    alert("Reproduciendo audio en serbio... (Simulado)");
+    
+    if ('speechSynthesis' in window) {
+      if (isPlaying) {
+        window.speechSynthesis.cancel();
+        setIsPlaying(false);
+        return;
+      }
+
+      setIsPlaying(true);
+      const utterance = new SpeechSynthesisUtterance(serbianText);
+      // Try to find a Serbian voice, fallback to generic
+      // Note: 'sr-RS' might not be available on all devices, but the engine usually handles it or falls back
+      utterance.lang = 'sr-RS'; 
+      
+      utterance.onend = () => setIsPlaying(false);
+      utterance.onerror = () => setIsPlaying(false);
+      
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert("Tu dispositivo no soporta la reproducción de audio.");
+    }
   };
 
   return (
@@ -47,10 +67,13 @@ export default function TranslatorCard({ spanishText, serbianText, pronunciation
       <div className="absolute top-3 right-3 flex gap-2">
         <button 
           onClick={handlePlay}
-          className="p-2 rounded-full bg-white/80 hover:bg-white text-gray-700 shadow-sm"
-          aria-label="Escuchar pronunciación"
+          className={clsx(
+            "p-2 rounded-full shadow-sm transition-colors",
+            isPlaying ? "bg-primary text-white" : "bg-white/80 hover:bg-white text-gray-700"
+          )}
+          aria-label={isPlaying ? "Detener audio" : "Escuchar pronunciación"}
         >
-          <Volume2 size={18} />
+          {isPlaying ? <Pause size={18} /> : <Volume2 size={18} />}
         </button>
         {isFlipped && (
           <button 
