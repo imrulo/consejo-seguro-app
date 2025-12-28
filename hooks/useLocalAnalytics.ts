@@ -4,17 +4,8 @@ import { useState, useEffect } from 'react';
 
 // Keys for localStorage
 const ANALYTICS_PREFIX = 'cs_metrics_';
-const EVENTS = [
-  'transporte_used',
-  'translator_used',
-  'sos_opened',
-  'favorites_added',
-  'papers_opened',
-  'community_opened'
-] as const;
 
-type EventType = typeof EVENTS[number];
-
+// We allow any string for events now to support dynamic tracking
 export const useLocalAnalytics = () => {
   const [metrics, setMetrics] = useState<Record<string, number>>({});
   const [lastUsed, setLastUsed] = useState<Record<string, string>>({});
@@ -24,19 +15,26 @@ export const useLocalAnalytics = () => {
     const loadedMetrics: Record<string, number> = {};
     const loadedLastUsed: Record<string, string> = {};
     
-    EVENTS.forEach(event => {
-      const count = localStorage.getItem(`${ANALYTICS_PREFIX}${event}_count`);
-      const time = localStorage.getItem(`${ANALYTICS_PREFIX}${event}_last`);
-      
-      if (count) loadedMetrics[event] = parseInt(count);
-      if (time) loadedLastUsed[event] = time;
-    });
+    // Scan localStorage for metrics
+    if (typeof window !== 'undefined') {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith(ANALYTICS_PREFIX) && key.endsWith('_count')) {
+          const eventName = key.replace(ANALYTICS_PREFIX, '').replace('_count', '');
+          const count = localStorage.getItem(key);
+          const time = localStorage.getItem(`${ANALYTICS_PREFIX}${eventName}_last`);
+          
+          if (count) loadedMetrics[eventName] = parseInt(count);
+          if (time) loadedLastUsed[eventName] = time;
+        }
+      }
+    }
     
     setMetrics(loadedMetrics);
     setLastUsed(loadedLastUsed);
   }, []);
 
-  const trackEvent = (event: EventType) => {
+  const trackEvent = (event: string) => {
     const keyCount = `${ANALYTICS_PREFIX}${event}_count`;
     const keyTime = `${ANALYTICS_PREFIX}${event}_last`;
     
@@ -52,6 +50,7 @@ export const useLocalAnalytics = () => {
   };
 
   const getDaysActive = () => {
+    if (typeof window === 'undefined') return 0;
     const firstRun = localStorage.getItem('cs_first_run_date');
     if (!firstRun) {
       localStorage.setItem('cs_first_run_date', new Date().toISOString());

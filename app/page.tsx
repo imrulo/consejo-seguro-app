@@ -28,7 +28,7 @@ import {
   Star,
   BookOpen,
   Scale,
-  HandHeart,
+  HeartHandshake,
   Baby
 } from 'lucide-react';
 
@@ -348,7 +348,7 @@ export default function Home() {
         </button>
         <button className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl shadow-sm hover:bg-gray-50 text-left">
           <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-            <HandHeart size={20} />
+            <HeartHandshake size={20} />
           </div>
           <div>
             <p className="font-bold text-gray-900">Voluntariado</p>
