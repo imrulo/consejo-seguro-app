@@ -2,8 +2,6 @@
 
 **ConsejoSeguro** is a Progressive Web Application (PWA) designed to serve as a comprehensive, offline-first survival guide for immigrants and refugees in Serbia. It provides verified official information, emergency resources, and empathetic support to help users navigate bureaucracy, healthcare, and daily life with confidence.
 
-![ConsejoSeguro Preview](www.consejoseguro.com)
-
 ## 🚀 Features
 
 - **Offline-First & PWA**: Fully functional without an internet connection. Installable on mobile devices (iOS/Android) as a native-like app.
