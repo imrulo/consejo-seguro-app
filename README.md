@@ -1,53 +1,71 @@
-# ConsejoSeguro - PWA
+# ConsejoSeguro
 
-Plataforma progresiva web (PWA) diseñada para ayudar a inmigrantes y refugiados en Serbia, proporcionando información oficial verificada y apoyo empático.
+**ConsejoSeguro** is a Progressive Web Application (PWA) designed to serve as a comprehensive, offline-first survival guide for immigrants and refugees in Serbia. It provides verified official information, emergency resources, and empathetic support to help users navigate bureaucracy, healthcare, and daily life with confidence.
 
-## Características
+![ConsejoSeguro Preview](/public/og-image.png)
 
-- **PWA Instalable**: Funciona offline y se puede instalar en dispositivos móviles.
-- **Diseño Empático**: UI/UX cálida, accesible (WCAG 2.2 AA) y profesional.
-- **Tecnología Moderna**: Construido con Next.js 14, Tailwind CSS y TypeScript.
-- **Multidioma**: Estructura lista para soporte de múltiples idiomas.
+## 🚀 Features
 
-## Estructura del Proyecto
+- **Offline-First & PWA**: Fully functional without an internet connection. Installable on mobile devices (iOS/Android) as a native-like app.
+- **Privacy-Focused**: No login required, no tracking of personal data. All sensitive interactions remain local on the device.
+- **Immediate Action**: One-tap access to emergency numbers (Ambulance, Police) and essential tools.
+- **Empathetic UX**: Designed for high-stress situations with calm, clear, and accessible UI (WCAG 2.2 AA compliant).
+- **Practical Tools**:
+  - **Translator Cards**: Audio-enabled phrases for medical and legal situations.
+  - **Bureaucracy Map**: Step-by-step guides for visas, residence, and white card (Beli Karton).
+  - **Transport Guide**: Instructions for SMS bus payments to avoid fines.
+  - **Daily Check-in**: Local habit-forming tool to track well-being.
 
-- `/app`: Rutas y layouts de Next.js (App Router).
-- `/components`: Componentes reutilizables (Header, Footer, Cards, etc.).
-- `/public`: Activos estáticos, manifest.json, service worker.
-- `/assets`: Archivos originales (backup).
+## 🛠️ Tech Stack
 
-## Desarrollo Local
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Deployment**: [Vercel](https://vercel.com/)
+- **Analytics**: Vercel Analytics (Privacy-preserving)
 
-1. Instalar dependencias:
-   ```bash
-   npm install
-   ```
+## 🏁 Getting Started
 
-2. Correr servidor de desarrollo:
-   ```bash
-   npm run dev
-   ```
+To run the project locally:
 
-3. Abrir [http://localhost:3000](http://localhost:3000) en tu navegador.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/imrulo/consejo-seguro-app.git
+    cd consejo-seguro-app
+    ```
 
-## Deploy en Vercel
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-1. Sube este repositorio a GitHub/GitLab/Bitbucket.
-2. Importa el proyecto en [Vercel](https://vercel.com).
-3. Vercel detectará automáticamente que es un proyecto Next.js.
-4. (Opcional) Configura variables de entorno si es necesario.
-5. Haz clic en **Deploy**.
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-La aplicación incluye `@vercel/analytics` pre-configurado para monitorear el rendimiento real de los usuarios.
+4.  **Open in browser:**
+    Navigate to [http://localhost:3000](http://localhost:3000).
 
-## Branding
+## 📂 Project Structure
 
-- **Colores**:
-  - Primario: `#003366` (Azul Marino - Confianza)
-  - Secundario: `#008000` (Verde Esmeralda - Esperanza)
-  - Acento: `#FFA500` (Naranja - Alertas)
-- **Tipografía**: Roboto y Roboto Condensed.
+- `/app`: Application routes, layouts, and global logic (Next.js App Router).
+- `/components`: Reusable UI components (FeatureCards, Modals, etc.).
+- `/hooks`: Custom React hooks (e.g., `useLocalAnalytics`).
+- `/public`: Static assets, manifest.json, and service worker configuration.
 
-## Accesibilidad
+## 🤝 Contributing
 
-El sitio está diseñado siguiendo las pautas WCAG 2.2 AA, asegurando alto contraste, navegación por teclado y soporte para lectores de pantalla.
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+If you find this project useful or want to support its development for vulnerable communities:
+
+- **GitHub Sponsors**: [Sponsor imrulo](https://github.com/sponsors/imrulo)
+- **Crypto (ETH)**: `imrulo.eth` (0xc7427F23C55a980cD2Ceea25eDb3b372af70aF0E)
+
+## 📄 License
+
+This project is open source and available under the [MITD License](LICENSE).
