@@ -1,0 +1,28 @@
+{
+  "home.hero_title": "ConsejoSeguro",
+  "home.hero_subtitle": "Your trusted companion in Serbia",
+  "home.slogan": "Your safe and empathetic guide in a new home",
+  "home.cta_app": "Download the App",
+  "home.cta_guides": "Explore Guides",
+  "home.benefits_title": "Why use ConsejoSeguro?",
+  "home.benefit1_title": "Verified official information",
+  "home.benefit1_text": "Safe data validated by international organizations.",
+  "home.benefit2_title": "Personalized alerts",
+  "home.benefit2_text": "Receive notifications about important changes and opportunities.",
+  "home.benefit3_title": "Empathetic 24/7 support",
+  "home.benefit3_text": "Human attention: chatbot and expert team.",
+  "home.topics_title": "Popular Topics",
+  "home.topic1_title": "Health & emergency",
+  "home.topic1_text": "Assistance and medical centers",
+  "home.topic2_title": "School psychology",
+  "home.topic2_text": "Support for students",
+  "home.topic3_title": "Free transport",
+  "home.topic3_text": "Safe mobility in Belgrade",
+  "home.topic4_title": "Migration procedures",
+  "home.topic4_text": "Permits and renewals",
+  "home.testimonials_title": "Real stories of hope",
+  "home.situation_title": "Describe your situation (optional)",
+  "home.situation_placeholder": "Example: I just arrived, looking for temporary housing and how to legalize my residency.",
+  "home.situation_sent": "Your message has been sent! You'll soon receive personalized guidance."
+}
+
