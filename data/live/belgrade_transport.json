@@ -2,7 +2,6 @@
     "context": "public_transport",
     "location": "Belgrade",
     "last_updated": "2024-12-25",
-    // "source": "https://www.busevi.com/cenovnik-karata-za-prevoz-beograd/" // URL eliminada por no ser oficial (.gov.rs)
     "data": {
         "ticket_90min_zone_a": {
             "value": "50 RSD",
