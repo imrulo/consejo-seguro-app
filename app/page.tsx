@@ -12,6 +12,7 @@ import DailyTip from '@/components/DailyTip';
 import Favorites from '@/components/Favorites';
 import Onboarding from '@/components/Onboarding';
 import { Nudge, useNudges } from '@/components/Nudge';
+import { useLocalAnalytics } from '@/hooks/useLocalAnalytics'; // Import hook
 import { 
   Bus, 
   Wifi, 
@@ -40,6 +41,9 @@ export default function Home() {
   
   // Use Nudges Hook
   const { activeNudge, checkNudge, dismissNudge } = useNudges();
+  
+  // Use Analytics Hook
+  const { trackEvent, metrics } = useLocalAnalytics();
 
   // Load Favorites on Mount
   useEffect(() => {
@@ -47,7 +51,6 @@ export default function Home() {
     if (saved) {
       setFavorites(JSON.parse(saved));
     } else {
-      // START EMPTY to teach user how to add favorites
       setFavorites([]);
     }
   }, []);
@@ -60,6 +63,7 @@ export default function Home() {
       newFavorites = favorites.filter(f => f.id !== item.id);
     } else {
       newFavorites = [item, ...favorites];
+      trackEvent('favorites_added'); // Track favorite added
     }
     setFavorites(newFavorites);
     localStorage.setItem('cs_favorites', JSON.stringify(newFavorites));
@@ -70,6 +74,12 @@ export default function Home() {
   const handleNavigate = (action: string) => {
     setActiveModal(action);
     
+    // Tracking
+    if (action === 'open_transport') trackEvent('transporte_used');
+    if (action === 'open_emergency') trackEvent('sos_opened');
+    if (action === 'open_papers') trackEvent('papers_opened');
+    if (action === 'community') trackEvent('community_opened');
+
     // Nudge Logic: Track usage count for nudges
     const countKey = `cs_usage_${action}`;
     const currentCount = parseInt(localStorage.getItem(countKey) || '0') + 1;
@@ -83,11 +93,15 @@ export default function Home() {
 
   // Nudge for Translator Audio
   const handleAudioPlay = () => {
+    trackEvent('translator_used'); // Track audio usage
     const countKey = 'cs_usage_audio';
     const currentCount = parseInt(localStorage.getItem(countKey) || '0') + 1;
     localStorage.setItem(countKey, currentCount.toString());
     checkNudge('translator_audio', currentCount);
   };
+
+  // Adaptive UI Logic: Check if Transport is top feature
+  const isTransportTop = (metrics['transporte_used'] || 0) > 5;
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 pb-20">
@@ -180,6 +194,19 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <h2 className="font-condensed font-bold text-xl text-gray-800 mb-4">Herramientas Útiles</h2>
           <div className="grid grid-cols-2 gap-4">
+            {/* ADAPTIVE UI: Show Transport First if Used Often */}
+            {isTransportTop && (
+              <Card 
+                onClick={() => handleNavigate('open_transport')}
+                className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px] ring-2 ring-primary ring-offset-2"
+              >
+                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                  <Bus size={24} />
+                </div>
+                <span className="font-bold text-sm text-center">Rutas Bus (Top)</span>
+              </Card>
+            )}
+
             <Card 
               onClick={() => handleNavigate('open_papers')}
               className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
@@ -189,15 +216,19 @@ export default function Home() {
               </div>
               <span className="font-bold text-sm text-center">Papeles y Trámites</span>
             </Card>
-            <Card 
-              onClick={() => handleNavigate('open_transport')}
-              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
-            >
-              <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                <Bus size={24} />
-              </div>
-              <span className="font-bold text-sm text-center">Rutas Bus</span>
-            </Card>
+
+            {!isTransportTop && (
+               <Card 
+               onClick={() => handleNavigate('open_transport')}
+               className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
+             >
+               <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                 <Bus size={24} />
+               </div>
+               <span className="font-bold text-sm text-center">Rutas Bus</span>
+             </Card>
+            )}
+
             <Card 
               onClick={() => handleNavigate('community')}
               className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
@@ -231,11 +262,12 @@ export default function Home() {
       <ChatWidget />
       
       <QuickActionBar 
-        onEmergency={() => setActiveModal('open_emergency')}
+        onEmergency={() => handleNavigate('open_emergency')} // Tracked via handleNavigate
         onTranslator={() => {
           document.querySelector('section:nth-of-type(3)')?.scrollIntoView({ behavior: 'smooth' });
+          trackEvent('translator_used');
         }}
-        onTransport={() => setActiveModal('open_transport')}
+        onTransport={() => handleNavigate('open_transport')} // Tracked via handleNavigate
       />
 
       {/* --- MODALS FOR INTERACTIONS --- */}
