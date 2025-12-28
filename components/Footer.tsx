@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Mail, Phone, ExternalLink } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, Phone, ExternalLink, Heart } from 'lucide-react';
 import Logo from './Logo';
 
 export default function Footer() {
@@ -65,10 +65,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact & Support */}
           <div>
             <h3 className="text-white font-bold mb-4 font-condensed uppercase tracking-wider">Contacto</h3>
-            <ul className="space-y-3 text-sm">
+            <ul className="space-y-3 text-sm mb-6">
               <li className="flex items-start gap-3">
                 <Mail size={18} className="mt-0.5 text-accent" />
                 <span>soporte@consejoseguro.com</span>
@@ -77,10 +77,24 @@ export default function Footer() {
                 <Phone size={18} className="mt-0.5 text-accent" />
                 <span>+381 11 123 4567</span>
               </li>
-              <li className="text-xs text-gray-500 mt-4">
-                Disponible Lunes a Viernes, 9:00 - 17:00
-              </li>
             </ul>
+
+            {/* Funding Button */}
+            <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+              <p className="text-xs text-gray-400 mb-2 font-bold uppercase tracking-wider">Apoya este proyecto</p>
+              <a 
+                href="https://github.com/sponsors/imrulo" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-3 rounded-lg transition-colors text-sm"
+              >
+                <Heart size={16} className="fill-white" />
+                Sponsor en GitHub
+              </a>
+              <p className="text-[10px] text-gray-500 mt-2 text-center">
+                O vía crypto: <span className="font-mono text-gray-400 select-all cursor-pointer hover:text-white" title="Click para copiar">imrulo.eth</span>
+              </p>
+            </div>
           </div>
         </div>
 
