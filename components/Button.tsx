@@ -13,7 +13,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', fullWidth, children, ...props }, ref) => {
+  ({ className, variant = 'primary', size = 'md', fullWidth, onClick, children, ...props }, ref) => {
     const variants = {
       primary: 'bg-primary text-white hover:bg-primary/90 shadow-md',
       secondary: 'bg-secondary text-white hover:bg-secondary/90 shadow-md',
@@ -27,11 +27,21 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       lg: 'px-8 py-3.5 text-lg font-semibold',
     };
 
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      // Haptic feedback
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        navigator.vibrate(10);
+      }
+      if (onClick) onClick(e);
+    };
+
     return (
       <button
         ref={ref}
+        onClick={handleClick}
         className={cn(
-          'inline-flex items-center justify-center rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
+          'inline-flex items-center justify-center rounded-lg transition-all duration-100 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
+          'active:scale-95', // Global visual feedback
           variants[variant],
           sizes[size],
           fullWidth && 'w-full',

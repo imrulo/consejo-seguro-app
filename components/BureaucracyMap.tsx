@@ -22,18 +22,18 @@ export default function BureaucracyMap() {
     {
       id: '1',
       title: 'Llegada',
-      description: 'Aeropuerto Nikola Tesla',
+      description: 'Aeropuerto',
       status: 'completed',
       icon: <MapPin size={16} />,
       detailTitle: 'Bienvenido a Serbia',
       detailContent: (
         <div>
            <p className="text-gray-600 mb-4">¡Ya estás aquí! Lo más difícil ya pasó.</p>
-           <h4 className="font-bold text-sm mb-2">Lo que ya lograste:</h4>
+           <h4 className="font-bold text-sm mb-2">Lo que ya tienes:</h4>
            <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-             <li>Pasar control de pasaportes</li>
-             <li>Recoger equipaje</li>
-             <li>Cambiar un poco de dinero (Dinares)</li>
+             <li>Pasaporte sellado</li>
+             <li>Equipaje contigo</li>
+             <li>Dinares (moneda local)</li>
            </ul>
         </div>
       )
@@ -41,64 +41,71 @@ export default function BureaucracyMap() {
     {
       id: '2',
       title: 'Beli Karton',
-      description: 'Registro policial (24h)',
+      description: 'Registro policial',
       status: 'current',
       icon: <Clock size={16} className="text-orange-500" />,
       detailTitle: 'El Papel Blanco (Beli Karton)',
       detailContent: (
         <div>
            <div className="bg-orange-50 border-l-4 border-orange-500 p-3 mb-4">
-             <p className="text-sm text-orange-800 font-bold">⚠️ CRÍTICO: Tienes 24 horas para hacer esto.</p>
+             <p className="text-sm text-orange-800 font-bold">⚠️ Importante: Tienes 24 horas.</p>
            </div>
            <p className="text-gray-600 mb-4 text-sm">
-             Es el registro de tu domicilio ante la policía. Sin esto, no puedes hacer nada más (ni cuenta de banco, ni visa).
+             Es el papelito que dice dónde duermes. Sin él, no puedes abrir cuenta de banco ni pedir visa.
            </p>
            <h4 className="font-bold text-sm mb-2">¿Cómo se consigue?</h4>
            <ul className="list-disc list-inside text-sm text-gray-600 space-y-1 mb-4">
-             <li><strong>Si estás en hotel/hostel:</strong> Ellos lo hacen por ti. Pídelo al check-in.</li>
-             <li><strong>Si estás en Airbnb/Amigos:</strong> El dueño debe ir contigo a la comisaría.</li>
+             <li><strong>Hotel/Hostel:</strong> Te lo dan en recepción. Pídelo.</li>
+             <li><strong>Airbnb/Amigos:</strong> El dueño debe ir contigo a la policía.</li>
            </ul>
-           <Button fullWidth onClick={() => alert("Abriendo guía detallada de Beli Karton (Próximamente)")}>Ver Guía Completa</Button>
+           <Button fullWidth onClick={() => alert("Abriendo guía detallada de Beli Karton (Próximamente)")}>Ver Guía Paso a Paso</Button>
         </div>
       )
     },
     {
       id: '3',
-      title: 'Cuenta Bancaria',
-      description: 'Requisito para visa',
+      title: 'Banco',
+      description: 'Cuenta local',
       status: 'locked',
       detailTitle: 'Abrir Cuenta Bancaria',
       detailContent: (
         <div>
            <div className="bg-gray-100 p-3 mb-4 rounded flex items-center gap-2">
              <Lock size={16} className="text-gray-500" />
-             <p className="text-sm text-gray-600">Bloqueado hasta tener Beli Karton.</p>
+             <p className="text-sm text-gray-600">Necesitas el Beli Karton primero.</p>
            </div>
            <p className="text-sm text-gray-600">
-             Necesitarás una cuenta de "No Residente" para depositar los fondos que demuestren solvencia para tu visa.
+             Para la visa, necesitas una cuenta de "No Residente" donde demuestres que tienes ahorros.
            </p>
         </div>
       )
     },
     {
       id: '4',
-      title: 'Visa D / Residencia',
-      description: 'Solicitud en MUP',
+      title: 'Visa D',
+      description: 'Residencia',
       status: 'locked',
       detailTitle: 'Permiso de Residencia',
       detailContent: (
         <div>
            <div className="bg-gray-100 p-3 mb-4 rounded flex items-center gap-2">
              <Lock size={16} className="text-gray-500" />
-             <p className="text-sm text-gray-600">Bloqueado hasta tener todos los requisitos.</p>
+             <p className="text-sm text-gray-600">Necesitas todos los pasos anteriores.</p>
            </div>
            <p className="text-sm text-gray-600">
-             Este es el paso final para legalizar tu estancia a largo plazo. Se hace en la oficina de extranjeros (Savska 35 en Belgrado).
+             El paso final. Se tramita en la oficina de extranjeros (Savska 35).
            </p>
         </div>
       )
     }
   ];
+
+  const handleStepClick = (step: Step) => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(10);
+    }
+    setSelectedStep(step);
+  };
 
   return (
     <>
@@ -114,8 +121,8 @@ export default function BureaucracyMap() {
               )}
               
               <div 
-                className="relative z-10 flex flex-col items-center group cursor-pointer"
-                onClick={() => setSelectedStep(step)}
+                className="relative z-10 flex flex-col items-center group cursor-pointer active:scale-95 transition-transform duration-150"
+                onClick={() => handleStepClick(step)}
               >
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all ${
                   step.status === 'completed' ? 'bg-green-500 border-green-100 text-white' :
@@ -141,6 +148,7 @@ export default function BureaucracyMap() {
             </div>
           ))}
         </div>
+        <p className="text-xs text-gray-400 text-center mt-2">(Toca un paso para ver detalles)</p>
       </div>
 
       <Modal

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Volume2, Maximize2, Copy, Check, Pause, Star } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -66,17 +66,30 @@ export default function TranslatorCard({
 
   const handleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
+    // Haptic feedback
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(10);
+    }
     if (onToggleFavorite) onToggleFavorite();
+  };
+
+  const handleClick = () => {
+    // Haptic feedback
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(10);
+    }
+    setIsFlipped(!isFlipped);
   };
 
   return (
     <div 
       className={clsx(
-        "relative w-full rounded-xl border-2 transition-all duration-300 cursor-pointer hover:shadow-lg",
-        isFlipped ? "bg-white border-primary shadow-xl scale-105 z-10" : colors[category],
+        "relative w-full rounded-xl border-2 transition-all duration-200 cursor-pointer",
+        "active:scale-95", // Immediate visual feedback
+        isFlipped ? "bg-white border-primary shadow-xl scale-105 z-10" : clsx(colors[category], "hover:shadow-lg"),
         "h-48"
       )}
-      onClick={() => setIsFlipped(!isFlipped)}
+      onClick={handleClick}
     >
       <div className="absolute top-3 right-3 flex gap-2 z-20">
         {/* Favorite Button */}
@@ -84,7 +97,7 @@ export default function TranslatorCard({
           <button
             onClick={handleFavorite}
             className={clsx(
-              "p-2 rounded-full shadow-sm transition-colors",
+              "p-2 rounded-full shadow-sm transition-colors active:scale-90",
               isFavorite ? "bg-yellow-100 text-yellow-500" : "bg-white/80 hover:bg-white text-gray-400"
             )}
           >
@@ -95,7 +108,7 @@ export default function TranslatorCard({
         <button 
           onClick={handlePlay}
           className={clsx(
-            "p-2 rounded-full shadow-sm transition-colors",
+            "p-2 rounded-full shadow-sm transition-colors active:scale-90",
             isPlaying ? "bg-primary text-white" : "bg-white/80 hover:bg-white text-gray-700"
           )}
           aria-label={isPlaying ? "Detener audio" : "Escuchar pronunciación"}
@@ -106,7 +119,7 @@ export default function TranslatorCard({
         {isFlipped && (
           <button 
             onClick={handleCopy}
-            className="p-2 rounded-full bg-white/80 hover:bg-white text-gray-700 shadow-sm"
+            className="p-2 rounded-full bg-white/80 hover:bg-white text-gray-700 shadow-sm active:scale-90"
             aria-label="Copiar texto"
           >
             {copied ? <Check size={18} className="text-green-600" /> : <Copy size={18} />}
