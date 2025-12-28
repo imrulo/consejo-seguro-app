@@ -10,6 +10,8 @@ import Modal from '@/components/Modal';
 import QuickActionBar from '@/components/QuickActionBar';
 import DailyTip from '@/components/DailyTip';
 import Favorites from '@/components/Favorites';
+import Onboarding from '@/components/Onboarding';
+import { Nudge, useNudges } from '@/components/Nudge';
 import { 
   Bus, 
   Wifi, 
@@ -35,6 +37,9 @@ interface FavoriteItem {
 export default function Home() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+  
+  // Use Nudges Hook
+  const { activeNudge, checkNudge, dismissNudge } = useNudges();
 
   // Load Favorites on Mount
   useEffect(() => {
@@ -42,11 +47,8 @@ export default function Home() {
     if (saved) {
       setFavorites(JSON.parse(saved));
     } else {
-      // Default favorites
-      setFavorites([
-        { id: 'medical_phrase_1', title: 'Necesito médico', type: 'phrase', action: 'open_doctor' },
-        { id: 'transport_guide', title: 'Pagar el Bus', type: 'guide', action: 'open_transport' }
-      ]);
+      // START EMPTY to teach user how to add favorites
+      setFavorites([]);
     }
   }, []);
 
@@ -67,23 +69,31 @@ export default function Home() {
 
   const handleNavigate = (action: string) => {
     setActiveModal(action);
+    
+    // Nudge Logic: Track usage count for nudges
+    const countKey = `cs_usage_${action}`;
+    const currentCount = parseInt(localStorage.getItem(countKey) || '0') + 1;
+    localStorage.setItem(countKey, currentCount.toString());
+
+    // Check specific nudges
+    if (action === 'open_transport') {
+      checkNudge('transport_fav', currentCount);
+    }
   };
 
-  // Helper to render Modal Title with Favorite Button
-  const ModalTitle = ({ title, item }: { title: string, item: FavoriteItem }) => (
-    <div className="flex items-center gap-2">
-      <span>{title}</span>
-      <button 
-        onClick={(e) => { e.stopPropagation(); toggleFavorite(item); }}
-        className="text-yellow-500 hover:scale-110 transition-transform"
-      >
-        <Star size={20} fill={isFav(item.id) ? "currentColor" : "none"} />
-      </button>
-    </div>
-  );
+  // Nudge for Translator Audio
+  const handleAudioPlay = () => {
+    const countKey = 'cs_usage_audio';
+    const currentCount = parseInt(localStorage.getItem(countKey) || '0') + 1;
+    localStorage.setItem(countKey, currentCount.toString());
+    checkNudge('translator_audio', currentCount);
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 pb-20">
+      <Onboarding />
+      <Nudge nudge={activeNudge!} onDismiss={dismissNudge} />
+
       <Hero onNavigate={handleNavigate} />
       
       {/* Daily Content & Favorites */}
@@ -171,7 +181,7 @@ export default function Home() {
           <h2 className="font-condensed font-bold text-xl text-gray-800 mb-4">Herramientas Útiles</h2>
           <div className="grid grid-cols-2 gap-4">
             <Card 
-              onClick={() => setActiveModal('open_papers')}
+              onClick={() => handleNavigate('open_papers')}
               className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
             >
               <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
@@ -180,7 +190,7 @@ export default function Home() {
               <span className="font-bold text-sm text-center">Papeles y Trámites</span>
             </Card>
             <Card 
-              onClick={() => setActiveModal('open_transport')}
+              onClick={() => handleNavigate('open_transport')}
               className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
             >
               <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
@@ -189,7 +199,7 @@ export default function Home() {
               <span className="font-bold text-sm text-center">Rutas Bus</span>
             </Card>
             <Card 
-              onClick={() => setActiveModal('community')}
+              onClick={() => handleNavigate('community')}
               className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
             >
               <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
@@ -198,7 +208,7 @@ export default function Home() {
               <span className="font-bold text-sm text-center">Comunidad</span>
             </Card>
             <Card 
-              onClick={() => setActiveModal('download')}
+              onClick={() => handleNavigate('download')}
               className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 bg-gray-900 text-white min-h-[120px]"
             >
               <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white">
@@ -437,7 +447,6 @@ export default function Home() {
       >
         <p className="text-gray-600">Esta función estará disponible en la próxima actualización offline.</p>
       </Modal>
-
     </div>
   );
 }

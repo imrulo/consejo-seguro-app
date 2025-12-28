@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Star, Pin } from 'lucide-react';
+import { Star, Pin, ArrowDown } from 'lucide-react';
 
 interface FavoriteItem {
   id: string;
@@ -16,7 +16,22 @@ interface FavoritesProps {
 }
 
 export default function Favorites({ items, onNavigate }: FavoritesProps) {
-  if (items.length === 0) return null;
+  // If no favorites, show Educational Empty State
+  if (items.length === 0) {
+    return (
+      <div className="mx-4 mb-6 bg-white border border-dashed border-gray-300 rounded-xl p-4 flex flex-col items-center text-center">
+        <div className="bg-yellow-50 p-2 rounded-full mb-2 animate-pulse">
+          <Star size={20} className="text-yellow-500 fill-yellow-500" />
+        </div>
+        <p className="text-sm font-bold text-gray-800 mb-1">
+          Tus atajos rápidos
+        </p>
+        <p className="text-xs text-gray-500 mb-0">
+          Toca la estrella ⭐ en cualquier guía o frase para guardarla aquí.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-4 mb-6">
