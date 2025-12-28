@@ -16,8 +16,11 @@ import {
   Stethoscope,
   Phone,
   ShieldCheck,
-  FileText
+  FileText,
+  AlertTriangle,
+  Info
 } from 'lucide-react';
+import Button from '@/components/Button';
 
 export default function Home() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -90,17 +93,17 @@ export default function Home() {
           <h2 className="font-condensed font-bold text-xl text-gray-800 mb-4">Herramientas Útiles</h2>
           <div className="grid grid-cols-2 gap-4">
             <Card 
-              onClick={() => setActiveModal('wifi')}
-              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200"
+              onClick={() => setActiveModal('open_papers')}
+              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
             >
               <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                <Wifi size={24} />
+                <FileText size={24} />
               </div>
-              <span className="font-bold text-sm text-center">WiFi Gratis</span>
+              <span className="font-bold text-sm text-center">Papeles y Trámites</span>
             </Card>
             <Card 
               onClick={() => setActiveModal('open_transport')}
-              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200"
+              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
             >
               <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
                 <Bus size={24} />
@@ -109,7 +112,7 @@ export default function Home() {
             </Card>
             <Card 
               onClick={() => setActiveModal('community')}
-              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200"
+              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 min-h-[120px]"
             >
               <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
                 <Coffee size={24} />
@@ -118,7 +121,7 @@ export default function Home() {
             </Card>
             <Card 
               onClick={() => setActiveModal('download')}
-              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 bg-gray-900 text-white"
+              className="p-4 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer border-b-4 border-gray-200 bg-gray-900 text-white min-h-[120px]"
             >
               <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white">
                 <Download size={24} />
@@ -202,33 +205,108 @@ export default function Home() {
         </div>
       </Modal>
 
-      {/* Transport Modal */}
+      {/* Transport Modal (UPDATED) */}
       <Modal
         isOpen={activeModal === 'open_transport'}
         onClose={() => setActiveModal(null)}
         title="Transporte Público"
       >
-        <div className="space-y-4">
-           <p className="text-gray-600">En Belgrado, el transporte se paga enviando un SMS.</p>
-           <div className="bg-gray-100 p-4 rounded-xl">
-             <h4 className="font-bold mb-2">Cómo pagar el bus:</h4>
-             <ol className="list-decimal list-inside space-y-2 text-sm">
-               <li>Envía un SMS al número <strong>9011</strong></li>
-               <li>Texto: <strong>A90</strong> (Para 90 minutos)</li>
-               <li>Costo: 50 RSD</li>
+        <div className="space-y-6">
+           {/* Step by Step SMS */}
+           <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+             <div className="flex items-center gap-2 mb-3">
+               <Phone className="text-blue-600" size={20} />
+               <h4 className="font-bold text-blue-900">Cómo pagar con SMS</h4>
+             </div>
+             <ol className="list-decimal list-inside space-y-3 text-sm text-gray-700">
+               <li className="pl-2">
+                 Envía un mensaje al número <span className="font-bold text-lg">9011</span>
+               </li>
+               <li className="pl-2">
+                 Escribe el código:
+                 <ul className="list-disc list-inside mt-2 ml-4 space-y-2">
+                   <li><span className="font-mono font-bold bg-white px-2 py-1 rounded border">A90</span> para 90 minutos (50 RSD)</li>
+                   <li><span className="font-mono font-bold bg-white px-2 py-1 rounded border">A1</span> para todo el día (120 RSD)</li>
+                 </ul>
+               </li>
+               <li className="pl-2">
+                 Recibirás un SMS de confirmación. <span className="font-bold">Guárdalo</span>, es tu boleto.
+               </li>
              </ol>
            </div>
-           <TranslatorCard 
-             spanishText="¿Qué autobús va al centro?"
-             serbianText="Koji autobus ide do centra?"
-             category="general"
-           />
+
+           {/* Warning */}
+           <div className="bg-orange-50 p-4 rounded-xl border border-orange-100 flex gap-3">
+             <AlertTriangle className="text-orange-600 shrink-0" />
+             <p className="text-sm text-orange-800">
+               <strong>¡Cuidado!</strong> No intentes pagarle al conductor con efectivo. Ya no aceptan dinero y podrías recibir una multa.
+             </p>
+           </div>
+
+           {/* Translator */}
+           <div>
+             <h4 className="font-bold mb-3">Frases para el bus</h4>
+             <TranslatorCard 
+               spanishText="¿Este autobús va al centro?"
+               serbianText="Da li ovaj autobus ide do centra?"
+               pronunciation="Da li o-vay au-to-bus i-de do tsen-tra"
+               category="general"
+             />
+           </div>
+        </div>
+      </Modal>
+
+      {/* Papers / Documents Modal (NEW) */}
+      <Modal
+        isOpen={activeModal === 'open_papers'}
+        onClose={() => setActiveModal(null)}
+        title="Trámites y Documentos"
+      >
+        <div className="space-y-6">
+          {/* Procedure 1: Beli Karton */}
+          <div className="border-b border-gray-100 pb-6">
+            <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
+              <span className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+              Beli Karton (Registro Policial)
+            </h4>
+            <p className="text-sm text-gray-600 mb-3">
+              Es el registro obligatorio de tu dirección. Debes hacerlo en las primeras 24 horas.
+            </p>
+            <div className="bg-gray-50 p-3 rounded-lg text-sm space-y-2">
+              <p>📍 <strong>Dónde:</strong> Comisaría de policía local (MUP).</p>
+              <p>🎒 <strong>Llevar:</strong> Pasaporte y al dueño del apartamento (con su ID y título de propiedad).</p>
+              <p>❌ <strong>Error común:</strong> Ir solo sin el dueño. No te atenderán.</p>
+            </div>
+          </div>
+
+          {/* Procedure 2: Residency */}
+          <div className="border-b border-gray-100 pb-6">
+            <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
+              <span className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+              Residencia Temporal
+            </h4>
+            <p className="text-sm text-gray-600 mb-3">
+              Permiso para vivir más de 90 días. Se solicita en la Oficina de Extranjeros.
+            </p>
+            <div className="bg-gray-50 p-3 rounded-lg text-sm space-y-2">
+              <p>📍 <strong>Dónde:</strong> Savska 35, Belgrado.</p>
+              <p>🎒 <strong>Llevar:</strong> Beli Karton, seguro médico, prueba de fondos, fotos.</p>
+            </div>
+          </div>
+
+           {/* Warning */}
+           <div className="bg-red-50 p-4 rounded-xl border border-red-100 flex gap-3">
+             <Info className="text-red-600 shrink-0" />
+             <p className="text-sm text-red-800">
+               <strong>Nota Importante:</strong> Las leyes cambian rápido. Verifica siempre en el grupo de Telegram de la comunidad antes de ir.
+             </p>
+           </div>
         </div>
       </Modal>
 
       {/* Placeholder Modals */}
       <Modal
-        isOpen={['wifi', 'community', 'download', 'open_papers', 'open_sim'].includes(activeModal || '')}
+        isOpen={['wifi', 'community', 'download', 'open_sim'].includes(activeModal || '')}
         onClose={() => setActiveModal(null)}
         title="Próximamente"
       >
