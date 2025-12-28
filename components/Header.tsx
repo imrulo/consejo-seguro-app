@@ -2,12 +2,13 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, ShieldAlert } from 'lucide-react';
 import Logo from './Logo';
 import Button from './Button';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [survivalMode, setSurvivalMode] = useState(false);
 
   const navItems = [
     { name: 'Inicio', href: '/' },
@@ -23,10 +24,23 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Logo className="h-10 w-10" />
-            <span className="font-condensed font-bold text-xl text-primary tracking-tight">
+            <span className="font-condensed font-bold text-xl text-primary tracking-tight hidden sm:block">
               ConsejoSeguro
             </span>
           </Link>
+
+          {/* Survival Mode Toggle (Mobile Prominent) */}
+          <button 
+            onClick={() => setSurvivalMode(!survivalMode)}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+              survivalMode 
+                ? 'bg-red-600 text-white shadow-lg animate-pulse' 
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            <ShieldAlert size={16} />
+            {survivalMode ? 'MODO SOS ACTIVADO' : 'Modo SOS'}
+          </button>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-8">
