@@ -11,27 +11,12 @@ interface FavoriteItem {
 }
 
 interface FavoritesProps {
+  items: FavoriteItem[];
   onNavigate: (action: string) => void;
 }
 
-export default function Favorites({ onNavigate }: FavoritesProps) {
-  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
-
-  useEffect(() => {
-    // Load favorites from localStorage
-    const saved = localStorage.getItem('cs_favorites');
-    if (saved) {
-      setFavorites(JSON.parse(saved));
-    } else {
-      // Default favorites for new users
-      setFavorites([
-        { id: 'fav1', title: 'Necesito un médico', type: 'phrase', action: 'open_doctor' },
-        { id: 'fav2', title: 'Pagar el Bus', type: 'guide', action: 'open_transport' }
-      ]);
-    }
-  }, []);
-
-  if (favorites.length === 0) return null;
+export default function Favorites({ items, onNavigate }: FavoritesProps) {
+  if (items.length === 0) return null;
 
   return (
     <div className="mx-4 mb-6">
@@ -39,7 +24,7 @@ export default function Favorites({ onNavigate }: FavoritesProps) {
         <Pin size={12} /> Accesos Directos
       </h3>
       <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-        {favorites.map((fav) => (
+        {items.map((fav) => (
           <button
             key={fav.id}
             onClick={() => onNavigate(fav.action)}

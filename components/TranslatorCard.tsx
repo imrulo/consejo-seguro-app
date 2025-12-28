@@ -1,17 +1,28 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Volume2, Maximize2, Copy, Check, Pause } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Volume2, Maximize2, Copy, Check, Pause, Star } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface TranslatorCardProps {
+  id?: string;
   spanishText: string;
   serbianText: string;
-  pronunciation?: string; // Phonetic reading
+  pronunciation?: string;
   category: 'medical' | 'police' | 'housing' | 'general';
+  isFavorite?: boolean;
+  onToggleFavorite?: () => void;
 }
 
-export default function TranslatorCard({ spanishText, serbianText, pronunciation, category }: TranslatorCardProps) {
+export default function TranslatorCard({ 
+  id,
+  spanishText, 
+  serbianText, 
+  pronunciation, 
+  category,
+  isFavorite,
+  onToggleFavorite
+}: TranslatorCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -42,8 +53,6 @@ export default function TranslatorCard({ spanishText, serbianText, pronunciation
 
       setIsPlaying(true);
       const utterance = new SpeechSynthesisUtterance(serbianText);
-      // Try to find a Serbian voice, fallback to generic
-      // Note: 'sr-RS' might not be available on all devices, but the engine usually handles it or falls back
       utterance.lang = 'sr-RS'; 
       
       utterance.onend = () => setIsPlaying(false);
@@ -55,6 +64,11 @@ export default function TranslatorCard({ spanishText, serbianText, pronunciation
     }
   };
 
+  const handleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onToggleFavorite) onToggleFavorite();
+  };
+
   return (
     <div 
       className={clsx(
@@ -64,7 +78,20 @@ export default function TranslatorCard({ spanishText, serbianText, pronunciation
       )}
       onClick={() => setIsFlipped(!isFlipped)}
     >
-      <div className="absolute top-3 right-3 flex gap-2">
+      <div className="absolute top-3 right-3 flex gap-2 z-20">
+        {/* Favorite Button */}
+        {onToggleFavorite && (
+          <button
+            onClick={handleFavorite}
+            className={clsx(
+              "p-2 rounded-full shadow-sm transition-colors",
+              isFavorite ? "bg-yellow-100 text-yellow-500" : "bg-white/80 hover:bg-white text-gray-400"
+            )}
+          >
+            <Star size={18} fill={isFavorite ? "currentColor" : "none"} />
+          </button>
+        )}
+
         <button 
           onClick={handlePlay}
           className={clsx(
@@ -75,6 +102,7 @@ export default function TranslatorCard({ spanishText, serbianText, pronunciation
         >
           {isPlaying ? <Pause size={18} /> : <Volume2 size={18} />}
         </button>
+        
         {isFlipped && (
           <button 
             onClick={handleCopy}
@@ -93,7 +121,7 @@ export default function TranslatorCard({ spanishText, serbianText, pronunciation
             <p className="text-xl font-bold leading-tight">{spanishText}</p>
             <div className="mt-4 flex items-center gap-2 text-sm opacity-70">
               <Maximize2 size={14} />
-              <span>Toca para mostrar en Serbio</span>
+              <span>Toca para mostrar</span>
             </div>
           </>
         ) : (

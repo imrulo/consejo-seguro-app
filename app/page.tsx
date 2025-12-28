@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Hero from '@/components/Hero';
 import Card from '@/components/Card';
 import ChatWidget from '@/components/ChatWidget';
@@ -14,44 +14,73 @@ import {
   Bus, 
   Wifi, 
   Coffee,
-  ArrowRight,
   Download,
   Stethoscope,
   Phone,
   ShieldCheck,
   FileText,
   AlertTriangle,
-  Info
+  Info,
+  Star
 } from 'lucide-react';
-import Button from '@/components/Button';
+
+// Favorite Item Type
+interface FavoriteItem {
+  id: string;
+  title: string;
+  type: 'phrase' | 'guide';
+  action: string;
+}
 
 export default function Home() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
-  const translatorCards = [
-    {
-      spanish: "Necesito un médico",
-      serbian: "Treba mi lekar",
-      pronunciation: "Tre-ba mi le-kar",
-      category: "medical" as const
-    },
-    {
-      spanish: "¿Dónde está la estación de policía?",
-      serbian: "Gde je policijska stanica?",
-      pronunciation: "Gde ye po-li-tsiy-ska sta-ni-tsa",
-      category: "police" as const
-    },
-    {
-      spanish: "Quiero registrar mi residencia",
-      serbian: "Želim da prijavim boravište",
-      pronunciation: "Ze-lim da pri-ya-vim bo-ra-vish-te",
-      category: "general" as const
+  // Load Favorites on Mount
+  useEffect(() => {
+    const saved = localStorage.getItem('cs_favorites');
+    if (saved) {
+      setFavorites(JSON.parse(saved));
+    } else {
+      // Default favorites
+      setFavorites([
+        { id: 'medical_phrase_1', title: 'Necesito médico', type: 'phrase', action: 'open_doctor' },
+        { id: 'transport_guide', title: 'Pagar el Bus', type: 'guide', action: 'open_transport' }
+      ]);
     }
-  ];
+  }, []);
+
+  // Toggle Favorite
+  const toggleFavorite = (item: FavoriteItem) => {
+    const exists = favorites.find(f => f.id === item.id);
+    let newFavorites;
+    if (exists) {
+      newFavorites = favorites.filter(f => f.id !== item.id);
+    } else {
+      newFavorites = [item, ...favorites];
+    }
+    setFavorites(newFavorites);
+    localStorage.setItem('cs_favorites', JSON.stringify(newFavorites));
+  };
+
+  const isFav = (id: string) => favorites.some(f => f.id === id);
 
   const handleNavigate = (action: string) => {
     setActiveModal(action);
   };
+
+  // Helper to render Modal Title with Favorite Button
+  const ModalTitle = ({ title, item }: { title: string, item: FavoriteItem }) => (
+    <div className="flex items-center gap-2">
+      <span>{title}</span>
+      <button 
+        onClick={(e) => { e.stopPropagation(); toggleFavorite(item); }}
+        className="text-yellow-500 hover:scale-110 transition-transform"
+      >
+        <Star size={20} fill={isFav(item.id) ? "currentColor" : "none"} />
+      </button>
+    </div>
+  );
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 pb-20">
@@ -60,7 +89,7 @@ export default function Home() {
       {/* Daily Content & Favorites */}
       <section className="mt-6">
         <div className="container mx-auto">
-          <Favorites onNavigate={handleNavigate} />
+          <Favorites items={favorites} onNavigate={handleNavigate} />
           <DailyTip />
         </div>
       </section>
@@ -84,16 +113,54 @@ export default function Home() {
             <span className="text-xs font-normal text-gray-500 bg-gray-200 px-2 py-0.5 rounded ml-auto">Offline ready</span>
           </h2>
           <div className="flex overflow-x-auto gap-4 pb-4 no-scrollbar snap-x">
-            {translatorCards.map((card, idx) => (
-              <div key={idx} className="min-w-[85%] sm:min-w-[300px] snap-center">
-                <TranslatorCard 
-                  spanishText={card.spanish}
-                  serbianText={card.serbian}
-                  pronunciation={card.pronunciation}
-                  category={card.category}
-                />
-              </div>
-            ))}
+            <div className="min-w-[85%] sm:min-w-[300px] snap-center">
+              <TranslatorCard 
+                id="medical_phrase_1"
+                spanishText="Necesito un médico"
+                serbianText="Treba mi lekar"
+                pronunciation="Tre-ba mi le-kar"
+                category="medical"
+                isFavorite={isFav('medical_phrase_1')}
+                onToggleFavorite={() => toggleFavorite({ 
+                  id: 'medical_phrase_1', 
+                  title: 'Necesito médico', 
+                  type: 'phrase', 
+                  action: 'open_doctor' 
+                })}
+              />
+            </div>
+            <div className="min-w-[85%] sm:min-w-[300px] snap-center">
+              <TranslatorCard 
+                id="police_phrase_1"
+                spanishText="¿Dónde está la estación de policía?"
+                serbianText="Gde je policijska stanica?"
+                pronunciation="Gde ye po-li-tsiy-ska sta-ni-tsa"
+                category="police"
+                isFavorite={isFav('police_phrase_1')}
+                onToggleFavorite={() => toggleFavorite({ 
+                  id: 'police_phrase_1', 
+                  title: 'Dónde está policía', 
+                  type: 'phrase', 
+                  action: 'open_police' 
+                })}
+              />
+            </div>
+            <div className="min-w-[85%] sm:min-w-[300px] snap-center">
+              <TranslatorCard 
+                id="general_phrase_1"
+                spanishText="Quiero registrar mi residencia"
+                serbianText="Želim da prijavim boravište"
+                pronunciation="Ze-lim da pri-ya-vim bo-ra-vish-te"
+                category="general"
+                isFavorite={isFav('general_phrase_1')}
+                onToggleFavorite={() => toggleFavorite({ 
+                  id: 'general_phrase_1', 
+                  title: 'Registrar residencia', 
+                  type: 'phrase', 
+                  action: 'open_papers' 
+                })}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -153,11 +220,9 @@ export default function Home() {
 
       <ChatWidget />
       
-      {/* Quick Action Bar (Mobile Only) */}
       <QuickActionBar 
         onEmergency={() => setActiveModal('open_emergency')}
         onTranslator={() => {
-          // Scroll to translator section
           document.querySelector('section:nth-of-type(3)')?.scrollIntoView({ behavior: 'smooth' });
         }}
         onTransport={() => setActiveModal('open_transport')}
@@ -165,7 +230,7 @@ export default function Home() {
 
       {/* --- MODALS FOR INTERACTIONS --- */}
 
-      {/* Emergency Modal (Triggered by Quick Action) */}
+      {/* Emergency Modal */}
       <Modal
         isOpen={activeModal === 'open_emergency'}
         onClose={() => setActiveModal(null)}
@@ -216,16 +281,22 @@ export default function Home() {
             <h4 className="font-bold mb-2">Frases útiles (con audio)</h4>
             <div className="space-y-2">
               <TranslatorCard 
+                id="med_fever"
                 spanishText="Tengo fiebre alta"
                 serbianText="Imam visoku temperaturu"
                 pronunciation="Imam vi-so-ku tem-pe-ra-tu-ru"
                 category="medical"
+                isFavorite={isFav('med_fever')}
+                onToggleFavorite={() => toggleFavorite({ id: 'med_fever', title: 'Tengo fiebre', type: 'phrase', action: 'open_doctor' })}
               />
               <TranslatorCard 
+                id="med_pain"
                 spanishText="Me duele aquí"
                 serbianText="Boli me ovde"
                 pronunciation="Bo-li me ov-de"
                 category="medical"
+                isFavorite={isFav('med_pain')}
+                onToggleFavorite={() => toggleFavorite({ id: 'med_pain', title: 'Me duele aquí', type: 'phrase', action: 'open_doctor' })}
               />
             </div>
           </div>
@@ -247,40 +318,48 @@ export default function Home() {
             </div>
           </div>
           <TranslatorCard 
+            id="pol_reg"
             spanishText="Vengo a registrar mi residencia (Beli Karton)"
             serbianText="Došao sam da prijavim boravište (Beli Karton)"
             pronunciation="Do-shao sam da pri-ya-vim bo-ra-vish-te"
             category="police"
+            isFavorite={isFav('pol_reg')}
+            onToggleFavorite={() => toggleFavorite({ id: 'pol_reg', title: 'Registrar Beli Karton', type: 'phrase', action: 'open_police' })}
           />
         </div>
       </Modal>
 
-      {/* Transport Modal (UPDATED) */}
+      {/* Transport Modal */}
       <Modal
         isOpen={activeModal === 'open_transport'}
         onClose={() => setActiveModal(null)}
         title="Transporte Público"
       >
+        {/* Header with Favorite Button override */}
+        <div className="absolute top-4 left-16 z-50">
+           {/* Custom placement if needed, or rely on internal Modal structure if modified. 
+               For now, adding a star inside the content area top right */}
+        </div>
+        
         <div className="space-y-6">
+           <div className="flex justify-between items-center">
+             <h4 className="font-bold text-blue-900">Guía de SMS</h4>
+             <button onClick={() => toggleFavorite({ id: 'transport_guide', title: 'Pagar el Bus', type: 'guide', action: 'open_transport' })}>
+               <Star size={24} className={isFav('transport_guide') ? "text-yellow-500 fill-yellow-500" : "text-gray-300"} />
+             </button>
+           </div>
+
            {/* Step by Step SMS */}
            <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-             <div className="flex items-center gap-2 mb-3">
-               <Phone className="text-blue-600" size={20} />
-               <h4 className="font-bold text-blue-900">Cómo pagar con SMS</h4>
-             </div>
              <ol className="list-decimal list-inside space-y-3 text-sm text-gray-700">
                <li className="pl-2">
-                 Envía un mensaje al número <span className="font-bold text-lg">9011</span>
+                 SMS a <span className="font-bold text-lg">9011</span>
                </li>
                <li className="pl-2">
-                 Escribe el código:
-                 <ul className="list-disc list-inside mt-2 ml-4 space-y-2">
-                   <li><span className="font-mono font-bold bg-white px-2 py-1 rounded border">A90</span> para 90 minutos (50 RSD)</li>
-                   <li><span className="font-mono font-bold bg-white px-2 py-1 rounded border">A1</span> para todo el día (120 RSD)</li>
-                 </ul>
+                 Código: <span className="font-mono font-bold bg-white px-2 py-1 rounded border">A90</span> (90 min)
                </li>
                <li className="pl-2">
-                 Recibirás un SMS de confirmación. <span className="font-bold">Guárdalo</span>, es tu boleto.
+                 Guarda el SMS de respuesta.
                </li>
              </ol>
            </div>
@@ -289,68 +368,64 @@ export default function Home() {
            <div className="bg-orange-50 p-4 rounded-xl border border-orange-100 flex gap-3">
              <AlertTriangle className="text-orange-600 shrink-0" />
              <p className="text-sm text-orange-800">
-               <strong>¡Cuidado!</strong> No intentes pagarle al conductor con efectivo. Ya no aceptan dinero y podrías recibir una multa.
+               <strong>¡Ojo!</strong> No aceptan efectivo. Multa: 5000 RSD.
              </p>
            </div>
 
            {/* Translator */}
            <div>
-             <h4 className="font-bold mb-3">Frases para el bus</h4>
+             <h4 className="font-bold mb-3">Frases</h4>
              <TranslatorCard 
-               spanishText="¿Este autobús va al centro?"
-               serbianText="Da li ovaj autobus ide do centra?"
-               pronunciation="Da li o-vay au-to-bus i-de do tsen-tra"
+               id="bus_center"
+               spanishText="¿Va al centro?"
+               serbianText="Da li ide do centra?"
+               pronunciation="Da li i-de do tsen-tra"
                category="general"
+               isFavorite={isFav('bus_center')}
+               onToggleFavorite={() => toggleFavorite({ id: 'bus_center', title: 'Va al centro?', type: 'phrase', action: 'open_transport' })}
              />
            </div>
         </div>
       </Modal>
 
-      {/* Papers / Documents Modal (NEW) */}
+      {/* Papers / Documents Modal */}
       <Modal
         isOpen={activeModal === 'open_papers'}
         onClose={() => setActiveModal(null)}
         title="Trámites y Documentos"
       >
         <div className="space-y-6">
+          <div className="flex justify-between items-center">
+             <h4 className="font-bold text-gray-900">Guía Rápida</h4>
+             <button onClick={() => toggleFavorite({ id: 'papers_guide', title: 'Guía de Papeles', type: 'guide', action: 'open_papers' })}>
+               <Star size={24} className={isFav('papers_guide') ? "text-yellow-500 fill-yellow-500" : "text-gray-300"} />
+             </button>
+           </div>
+
           {/* Procedure 1: Beli Karton */}
           <div className="border-b border-gray-100 pb-6">
             <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
               <span className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
-              Beli Karton (Registro Policial)
+              Beli Karton
             </h4>
-            <p className="text-sm text-gray-600 mb-3">
-              Es el registro obligatorio de tu dirección. Debes hacerlo en las primeras 24 horas.
-            </p>
             <div className="bg-gray-50 p-3 rounded-lg text-sm space-y-2">
-              <p>📍 <strong>Dónde:</strong> Comisaría de policía local (MUP).</p>
-              <p>🎒 <strong>Llevar:</strong> Pasaporte y al dueño del apartamento (con su ID y título de propiedad).</p>
-              <p>❌ <strong>Error común:</strong> Ir solo sin el dueño. No te atenderán.</p>
+              <p>📍 <strong>MUP (Policía)</strong></p>
+              <p>🎒 Pasaporte + Dueño del piso</p>
+              <p>⚠️ Ve con el dueño o no te atienden.</p>
             </div>
           </div>
 
           {/* Procedure 2: Residency */}
-          <div className="border-b border-gray-100 pb-6">
+          <div>
             <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
               <span className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
-              Residencia Temporal
+              Residencia
             </h4>
-            <p className="text-sm text-gray-600 mb-3">
-              Permiso para vivir más de 90 días. Se solicita en la Oficina de Extranjeros.
-            </p>
             <div className="bg-gray-50 p-3 rounded-lg text-sm space-y-2">
-              <p>📍 <strong>Dónde:</strong> Savska 35, Belgrado.</p>
-              <p>🎒 <strong>Llevar:</strong> Beli Karton, seguro médico, prueba de fondos, fotos.</p>
+              <p>📍 <strong>Savska 35</strong></p>
+              <p>🎒 Seguro + Fondos + Beli Karton</p>
             </div>
           </div>
-
-           {/* Warning */}
-           <div className="bg-red-50 p-4 rounded-xl border border-red-100 flex gap-3">
-             <Info className="text-red-600 shrink-0" />
-             <p className="text-sm text-red-800">
-               <strong>Nota Importante:</strong> Las leyes cambian rápido. Verifica siempre en el grupo de Telegram de la comunidad antes de ir.
-             </p>
-           </div>
         </div>
       </Modal>
 
