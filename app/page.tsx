@@ -7,6 +7,9 @@ import ChatWidget from '@/components/ChatWidget';
 import TranslatorCard from '@/components/TranslatorCard';
 import BureaucracyMap from '@/components/BureaucracyMap';
 import Modal from '@/components/Modal';
+import QuickActionBar from '@/components/QuickActionBar';
+import DailyTip from '@/components/DailyTip';
+import Favorites from '@/components/Favorites';
 import { 
   Bus, 
   Wifi, 
@@ -54,8 +57,16 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-gray-50 pb-20">
       <Hero onNavigate={handleNavigate} />
       
+      {/* Daily Content & Favorites */}
+      <section className="mt-6">
+        <div className="container mx-auto">
+          <Favorites onNavigate={handleNavigate} />
+          <DailyTip />
+        </div>
+      </section>
+      
       {/* Roadmap Section */}
-      <section className="mt-8 mb-6">
+      <section className="mb-6">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-4">
             <h2 className="font-condensed font-bold text-xl text-gray-800">Tu Camino</h2>
@@ -141,8 +152,47 @@ export default function Home() {
       </div>
 
       <ChatWidget />
+      
+      {/* Quick Action Bar (Mobile Only) */}
+      <QuickActionBar 
+        onEmergency={() => setActiveModal('open_emergency')}
+        onTranslator={() => {
+          // Scroll to translator section
+          document.querySelector('section:nth-of-type(3)')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+        onTransport={() => setActiveModal('open_transport')}
+      />
 
       {/* --- MODALS FOR INTERACTIONS --- */}
+
+      {/* Emergency Modal (Triggered by Quick Action) */}
+      <Modal
+        isOpen={activeModal === 'open_emergency'}
+        onClose={() => setActiveModal(null)}
+        title="Emergencia Rápida"
+        variant="danger"
+      >
+        <div className="space-y-4">
+          <a href="tel:194" className="flex items-center gap-4 p-4 bg-red-100 border border-red-200 rounded-xl hover:bg-red-200 transition-colors">
+            <div className="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center text-red-700">
+              <Phone size={24} />
+            </div>
+            <div>
+              <p className="font-bold text-xl text-red-900">194 - Ambulancia</p>
+              <p className="text-sm text-red-800">Emergencias médicas</p>
+            </div>
+          </a>
+          <a href="tel:192" className="flex items-center gap-4 p-4 bg-blue-100 border border-blue-200 rounded-xl hover:bg-blue-200 transition-colors">
+            <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-blue-700">
+              <ShieldCheck size={24} />
+            </div>
+            <div>
+              <p className="font-bold text-xl text-blue-900">192 - Policía</p>
+              <p className="text-sm text-blue-800">Seguridad y reportes</p>
+            </div>
+          </a>
+        </div>
+      </Modal>
 
       {/* Doctor / Medical Modal */}
       <Modal
