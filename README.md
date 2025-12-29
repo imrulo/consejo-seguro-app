@@ -31,16 +31,22 @@ To create a world where no immigrant feels lost or unsafe due to a lack of infor
   - **Transport Survival**: Step-by-step guide to SMS bus payments to avoid the 5000 RSD fine.
   - **Daily Check-in**: A gentle, private tool to track emotional well-being.
 
+---
+
 ## 🛠️ Tech Stack
 
-Built with performance and accessibility at the core:
+We use a modern, cutting-edge stack to ensure the application is fast, accessible, and maintainable for the long term.
 
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router) for server-side rendering and speed.
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) for a responsive, mobile-first design system.
-- **Language**: [TypeScript](https://www.typescriptlang.org/) for robust, type-safe code.
-- **Icons**: [Lucide React](https://lucide.dev/) for lightweight, consistent visual language.
-- **Deployment**: [Vercel](https://vercel.com/) with global edge network.
-- **Analytics**: Privacy-preserving Vercel Analytics (GDPR compliant).
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router) - Leveraging the latest server-side rendering and React Server Components for maximum performance on low-end devices.
+- **UI Library**: [React 19](https://react.dev/) - Utilizing the newest concurrency features for fluid user interactions.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Mobile-first utility classes for a consistent and responsive design system.
+- **Language**: [TypeScript 5](https://www.typescriptlang.org/) - Ensuring type safety and code reliability across the entire codebase.
+- **Icons**: [Lucide React](https://lucide.dev/) - Lightweight, accessible, and consistent visual language.
+- **Linting**: [ESLint 9](https://eslint.org/) - Enforcing code quality standards with the latest configuration.
+- **Deployment**: [Vercel](https://vercel.com/) - Deployed on the global edge network for instant access worldwide.
+- **Analytics**: Vercel Analytics - Privacy-preserving, GDPR-compliant usage tracking (no personal data).
+
+---
 
 ## 🏁 Getting Started
 
@@ -67,6 +73,8 @@ To run the project locally and contribute:
 4.  **Open in browser:**
     Navigate to [http://localhost:3000](http://localhost:3000).
 
+---
+
 ## 📂 Project Structure
 
 - `/app`: Application routes, layouts, and global logic (Next.js App Router).
@@ -74,14 +82,18 @@ To run the project locally and contribute:
 - `/hooks`: Custom React hooks (e.g., `useLocalAnalytics`).
 - `/public`: Static assets, manifest.json, and service worker configuration.
 
+---
+
 ## 🤝 Contributing & Support
 
-This is an open-source initiative driven by community support. Contributions—code, translations, or local tips are welcome!
+This is an open-source initiative driven by community support. Contributions—code, translations, or local tips—are welcome!
 
 If you believe in this mission and want to support the development:
 
 - **GitHub Sponsors**: [Sponsor imrulo](https://github.com/sponsors/imrulo)
 - **Crypto (ETH)**: `imrulo.eth` (0xc7427F23C55a980cD2Ceea25eDb3b372af70aF0E)
+
+---
 
 ## 📄 License
 
